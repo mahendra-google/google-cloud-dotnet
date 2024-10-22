@@ -93,4 +93,17 @@ public class RestoreObjectOptionsTest
         });
     }
 
+    [Fact]
+    public void ModifyRequest_CheckRestoreToken()
+    {
+        string RestoreToken = Guid.NewGuid().ToString();
+        var request = new RestoreRequest(null, "bucket", "object", 2L);
+        var options = new RestoreObjectOptions
+        {
+            RestoreToken = RestoreToken,
+        };
+        options.ModifyRequest(request);
+        Assert.Equal(request.RestoreToken,RestoreToken);    
+    }
+
 }

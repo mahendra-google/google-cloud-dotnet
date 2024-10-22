@@ -91,6 +91,15 @@ public sealed class RestoreObjectOptions
     /// </summary>
     public EncryptionKey EncryptionKey { get; set; }
 
+
+    /// <summary>
+    /// Restore token used to differentiate soft-deleted objects with the same name and generation. Only
+    /// applicable for hierarchical namespace buckets and if softDeleted is set to true. This parameter is
+    /// optional, and is only required in the rare case when there are multiple soft-deleted objects with the
+    /// same name and generation.
+    /// </summary>
+    public  string RestoreToken { get; set; }
+
     /// <summary>
     /// If set, this is the ID of the project which will be billed for the request.
     /// The caller must have suitable permissions for the project being billed.
@@ -142,6 +151,10 @@ public sealed class RestoreObjectOptions
         if (UserProject != null)
         {
             request.UserProject = UserProject;
+        }
+        if (RestoreToken != null)
+        {
+            request.RestoreToken = RestoreToken;
         }
     }
 }
