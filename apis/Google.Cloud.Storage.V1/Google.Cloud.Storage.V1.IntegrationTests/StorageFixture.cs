@@ -60,6 +60,11 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         /// for 24 hours.
         /// </summary>
         public string SoftDeleteBucket => BucketPrefix + "-soft-delete";
+        /// <summary>
+        /// Name of a hierarchical namespace bucket which already exists, has no canned data, but has soft delete protection
+        /// for 24 hours.
+        /// </summary>
+        public string HnsSoftDeleteBucket => BucketPrefix + "-hns-soft-delete";
 
         /// <summary>
         /// A small amount of content. Do not mutate the array.
@@ -167,6 +172,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             CreateBucket(LabelsTestBucket, multiVersion: false);
             CreateBucket(InitiallyEmptyBucket, multiVersion: false);
             CreateBucket(SoftDeleteBucket, multiVersion: false, softDelete: true);
+            CreateHnsBucket(HnsSoftDeleteBucket, multiVersion: false, softDelete: true );
 
             RequesterPaysClient = CreateRequesterPaysClient();
             if (RequesterPaysClient != null)
@@ -256,6 +262,27 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
                 {
                     Name = name,
                     Versioning = new Bucket.VersioningData { Enabled = multiVersion },
+                    // The minimum allowed for soft delete is 7 days.
+                    SoftDeletePolicy = softDelete ? new Bucket.SoftDeletePolicyData { RetentionDurationSeconds = (int) TimeSpan.FromDays(7).TotalSeconds } : null,
+                });
+            SleepAfterBucketCreateDelete();
+            RegisterBucketToDelete(name);
+            return bucket;
+        }
+
+        internal Bucket CreateHnsBucket(string name, bool multiVersion, bool softDelete = false)
+        {
+            var bucket = Client.CreateBucket(ProjectId,
+                new Bucket
+                {
+                    Name = name,
+                    Versioning = new Bucket.VersioningData { Enabled = multiVersion },
+                    IamConfiguration = new Bucket.IamConfigurationData
+                    {
+                        UniformBucketLevelAccess = new Bucket.IamConfigurationData.UniformBucketLevelAccessData { Enabled = true }
+                    },
+                    // Creation of Hns bucket.
+                    HierarchicalNamespace = new Bucket.HierarchicalNamespaceData { Enabled = true },
                     // The minimum allowed for soft delete is 7 days.
                     SoftDeletePolicy = softDelete ? new Bucket.SoftDeletePolicyData { RetentionDurationSeconds = (int) TimeSpan.FromDays(7).TotalSeconds } : null,
                 });
