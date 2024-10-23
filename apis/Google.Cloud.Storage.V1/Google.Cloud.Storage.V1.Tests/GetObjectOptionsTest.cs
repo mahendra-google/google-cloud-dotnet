@@ -97,5 +97,18 @@ namespace Google.Cloud.Storage.V1.Tests
             });
         }
 
+        [Fact]
+        public void ModifyRequest_CheckRestoreToken()
+        {
+            string restoreToken = Guid.NewGuid().ToString();
+            var request = new GetRequest(null, "bucket", "object");
+            var options = new GetObjectOptions
+            {
+                RestoreToken = restoreToken,
+            };
+            options.ModifyRequest(request);
+            Assert.Equal(request.RestoreToken, restoreToken);
+        }
+
     }
 }

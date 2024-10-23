@@ -65,6 +65,14 @@ namespace Google.Cloud.Storage.V1
         public long? IfMetagenerationNotMatch { get; set; }
 
         /// <summary>
+        /// Restore token used to differentiate soft-deleted objects with the same name and generation. Only
+        /// applicable for hierarchical namespace buckets and if softDeleted is set to true. This parameter is
+        /// optional, and is only required in the rare case when there are multiple soft-deleted objects with the
+        /// same name and generation.
+        /// </summary>
+        public string RestoreToken { get; set; }
+
+        /// <summary>
         /// The encryption key to use for this operation. If this property is null, the <see cref="StorageClient.EncryptionKey"/>
         /// will be used instead. Use <see cref="EncryptionKey.None"/> to remove encryption headers from this request.
         /// </summary>
@@ -125,6 +133,10 @@ namespace Google.Cloud.Storage.V1
             if (UserProject != null)
             {
                 request.UserProject = UserProject;
+            }
+            if (RestoreToken != null)
+            {
+                request.RestoreToken = RestoreToken;
             }
         }
     }
