@@ -87,5 +87,48 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal((ulong) _fixture.SmallContent.Length, softDeleted.Size);
             Assert.NotNull(softDeleted.SoftDeleteTimeDateTimeOffset);
         }
+
+        [Fact]
+        public async Task CheckRestoreTokenForHnsSoftDeleted()
+        {
+            // We upload and delete an object on the hns soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.HnsSoftDeleteBucket, IdGenerator.FromGuid(prefix: "hns-get-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            await _fixture.Client.DeleteObjectAsync(uploaded);
+
+            // And now we get only soft deleted in hns bucket
+            var hnsSoftDeleted = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name, new GetObjectOptions { SoftDeletedOnly = true, Generation = uploaded.Generation });
+            Assert.NotNull(hnsSoftDeleted.RestoreToken);
+        }
+        [Fact]
+        public async Task CheckRestoreTokenForNonHnsSoftDeleted()
+        {
+            // We upload and delete an object on the soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.SoftDeleteBucket, IdGenerator.FromGuid(prefix: "get-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            await _fixture.Client.DeleteObjectAsync(uploaded);
+
+            // And now we get only soft deleted in soft delete bucket
+            var softDeleted = await _fixture.Client.GetObjectAsync(_fixture.SoftDeleteBucket, uploaded.Name, new GetObjectOptions { SoftDeletedOnly = true, Generation = uploaded.Generation });
+            Assert.Null(softDeleted.RestoreToken);
+        }
+
+        [Fact]
+        private async Task CheckRestoreTokenForHnsNotSoftDeleted()
+        {
+            // We upload one object on the hns soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.HnsSoftDeleteBucket, IdGenerator.FromGuid(prefix: "hns-get-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            // And now we get object in hns soft delete bucket
+            var nonSoftDeleted = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket,uploaded.Name);
+            Assert.Null(nonSoftDeleted.RestoreToken);
+        }
+
+        [Fact]
+        private async Task CheckRestoreTokenForNonHnsNotSoftDeleted()
+        {
+            // We upload one object on the soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.SoftDeleteBucket, IdGenerator.FromGuid(prefix: "get-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            // And now we get object in soft delete bucket
+            var nonSoftDeleted = await _fixture.Client.GetObjectAsync(_fixture.SoftDeleteBucket,uploaded.Name);
+            Assert.Null(nonSoftDeleted.RestoreToken);
+        }
     }
 }

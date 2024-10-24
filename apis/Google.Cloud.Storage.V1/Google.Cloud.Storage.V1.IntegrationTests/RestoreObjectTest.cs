@@ -16,6 +16,7 @@ using Google.Cloud.ClientTesting;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
+using static Google.Protobuf.Compiler.CodeGeneratorResponse.Types;
 
 namespace Google.Cloud.Storage.V1.IntegrationTests
 {
@@ -44,6 +45,46 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(uploaded.Name, restored.Name);
             Assert.Equal((ulong) _fixture.SmallContent.Length, restored.Size);
             Assert.Null(restored.SoftDeleteTimeDateTimeOffset);
+        }
+
+
+        [Fact]
+        public async Task RestoresObjectUsingRestoreToken()
+        {
+            // We upload and delete an object on the hns soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.HnsSoftDeleteBucket, IdGenerator.FromGuid(prefix: "hns-restore-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            await _fixture.Client.DeleteObjectAsync(uploaded);
+
+            // And now we get only soft deleted in hns bucket
+            var hnsSoftDeleted = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name, new GetObjectOptions { SoftDeletedOnly = true, Generation = uploaded.Generation });
+            var restoreOptions= new RestoreObjectOptions { RestoreToken = hnsSoftDeleted.RestoreToken };
+            // And now we can restore it using restore token along with combination of other mandatory parameters.
+            await _fixture.Client.RestoreObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name, uploaded.Generation.Value, options : restoreOptions);
+
+            var restored = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name);
+            Assert.Equal(_fixture.HnsSoftDeleteBucket, restored.Bucket);
+            Assert.Equal(uploaded.Name, restored.Name);
+            Assert.Equal((ulong) _fixture.SmallContent.Length, restored.Size);
+            Assert.NotNull(hnsSoftDeleted.RestoreToken);
+        }
+
+        [Fact]
+        public async Task RestoresObjectWithoutUsingRestoreToken()
+        {
+            // We upload and delete an object on the hns soft delete bucket.
+            var uploaded = await _fixture.Client.UploadObjectAsync(_fixture.HnsSoftDeleteBucket, IdGenerator.FromGuid(prefix: "hns-restore-soft-delete"), "text/plain", new MemoryStream(_fixture.SmallContent));
+            await _fixture.Client.DeleteObjectAsync(uploaded);
+
+            // And now we get only soft deleted in hns bucket
+            var hnsSoftDeleted = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name, new GetObjectOptions { SoftDeletedOnly = true, Generation = uploaded.Generation });
+            // And now we can restore it without using restore token.
+            await _fixture.Client.RestoreObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name, uploaded.Generation.Value);
+
+            var restored = await _fixture.Client.GetObjectAsync(_fixture.HnsSoftDeleteBucket, uploaded.Name);
+            Assert.Equal(_fixture.HnsSoftDeleteBucket, restored.Bucket);
+            Assert.Equal(uploaded.Name, restored.Name);
+            Assert.Equal((ulong) _fixture.SmallContent.Length, restored.Size);
+            Assert.Equal(hnsSoftDeleted.Generation.Value , uploaded.Generation.Value);
         }
     }
 }
