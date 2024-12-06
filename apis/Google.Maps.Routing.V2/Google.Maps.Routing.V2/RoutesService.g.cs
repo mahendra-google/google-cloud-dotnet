@@ -40,7 +40,7 @@ namespace Google.Maps.Routing.V2 {
             "L3VuaXRzLnByb3RvGiVnb29nbGUvbWFwcy9yb3V0aW5nL3YyL3dheXBvaW50",
             "LnByb3RvGh5nb29nbGUvcHJvdG9idWYvZHVyYXRpb24ucHJvdG8aH2dvb2ds",
             "ZS9wcm90b2J1Zi90aW1lc3RhbXAucHJvdG8aF2dvb2dsZS9ycGMvc3RhdHVz",
-            "LnByb3RvGiBnb29nbGUvdHlwZS9sb2NhbGl6ZWRfdGV4dC5wcm90byKRCwoU",
+            "LnByb3RvGiBnb29nbGUvdHlwZS9sb2NhbGl6ZWRfdGV4dC5wcm90byLnCwoU",
             "Q29tcHV0ZVJvdXRlc1JlcXVlc3QSNQoGb3JpZ2luGAEgASgLMiAuZ29vZ2xl",
             "Lm1hcHMucm91dGluZy52Mi5XYXlwb2ludEID4EECEjoKC2Rlc3RpbmF0aW9u",
             "GAIgASgLMiAuZ29vZ2xlLm1hcHMucm91dGluZy52Mi5XYXlwb2ludEID4EEC",
@@ -67,73 +67,75 @@ namespace Google.Maps.Routing.V2 {
             "b21wdXRhdGlvbkID4EEBEkAKDXRyYWZmaWNfbW9kZWwYEiABKA4yJC5nb29n",
             "bGUubWFwcy5yb3V0aW5nLnYyLlRyYWZmaWNNb2RlbEID4EEBEkwKE3RyYW5z",
             "aXRfcHJlZmVyZW5jZXMYFCABKAsyKi5nb29nbGUubWFwcy5yb3V0aW5nLnYy",
-            "LlRyYW5zaXRQcmVmZXJlbmNlc0ID4EEBIkUKDlJlZmVyZW5jZVJvdXRlEh8K",
+            "LlRyYW5zaXRQcmVmZXJlbmNlc0ID4EEBIlsKDlJlZmVyZW5jZVJvdXRlEh8K",
             "G1JFRkVSRU5DRV9ST1VURV9VTlNQRUNJRklFRBAAEhIKDkZVRUxfRUZGSUNJ",
-            "RU5UEAEimwEKEEV4dHJhQ29tcHV0YXRpb24SIQodRVhUUkFfQ09NUFVUQVRJ",
-            "T05fVU5TUEVDSUZJRUQQABIJCgVUT0xMUxABEhQKEEZVRUxfQ09OU1VNUFRJ",
-            "T04QAhIXChNUUkFGRklDX09OX1BPTFlMSU5FEAMSKgomSFRNTF9GT1JNQVRU",
-            "RURfTkFWSUdBVElPTl9JTlNUUlVDVElPTlMQBCLIAQoVQ29tcHV0ZVJvdXRl",
-            "c1Jlc3BvbnNlEi0KBnJvdXRlcxgBIAMoCzIdLmdvb2dsZS5tYXBzLnJvdXRp",
-            "bmcudjIuUm91dGUSOwoNZmFsbGJhY2tfaW5mbxgCIAEoCzIkLmdvb2dsZS5t",
-            "YXBzLnJvdXRpbmcudjIuRmFsbGJhY2tJbmZvEkMKEWdlb2NvZGluZ19yZXN1",
-            "bHRzGAMgASgLMiguZ29vZ2xlLm1hcHMucm91dGluZy52Mi5HZW9jb2RpbmdS",
-            "ZXN1bHRzIsYGChlDb21wdXRlUm91dGVNYXRyaXhSZXF1ZXN0Ej8KB29yaWdp",
-            "bnMYASADKAsyKS5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJvdXRlTWF0cml4",
-            "T3JpZ2luQgPgQQISSQoMZGVzdGluYXRpb25zGAIgAygLMi4uZ29vZ2xlLm1h",
-            "cHMucm91dGluZy52Mi5Sb3V0ZU1hdHJpeERlc3RpbmF0aW9uQgPgQQISQQoL",
-            "dHJhdmVsX21vZGUYAyABKA4yJy5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJv",
-            "dXRlVHJhdmVsTW9kZUID4EEBEkoKEnJvdXRpbmdfcHJlZmVyZW5jZRgEIAEo",
-            "DjIpLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuUm91dGluZ1ByZWZlcmVuY2VC",
-            "A+BBARI3Cg5kZXBhcnR1cmVfdGltZRgFIAEoCzIaLmdvb2dsZS5wcm90b2J1",
-            "Zi5UaW1lc3RhbXBCA+BBARI1CgxhcnJpdmFsX3RpbWUYCyABKAsyGi5nb29n",
-            "bGUucHJvdG9idWYuVGltZXN0YW1wQgPgQQESGgoNbGFuZ3VhZ2VfY29kZRgG",
-            "IAEoCUID4EEBEhgKC3JlZ2lvbl9jb2RlGAkgASgJQgPgQQESMQoFdW5pdHMY",
-            "ByABKA4yHS5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlVuaXRzQgPgQQESYwoS",
-            "ZXh0cmFfY29tcHV0YXRpb25zGAggAygOMkIuZ29vZ2xlLm1hcHMucm91dGlu",
-            "Zy52Mi5Db21wdXRlUm91dGVNYXRyaXhSZXF1ZXN0LkV4dHJhQ29tcHV0YXRp",
-            "b25CA+BBARJACg10cmFmZmljX21vZGVsGAogASgOMiQuZ29vZ2xlLm1hcHMu",
-            "cm91dGluZy52Mi5UcmFmZmljTW9kZWxCA+BBARJMChN0cmFuc2l0X3ByZWZl",
-            "cmVuY2VzGAwgASgLMiouZ29vZ2xlLm1hcHMucm91dGluZy52Mi5UcmFuc2l0",
-            "UHJlZmVyZW5jZXNCA+BBASJAChBFeHRyYUNvbXB1dGF0aW9uEiEKHUVYVFJB",
-            "X0NPTVBVVEFUSU9OX1VOU1BFQ0lGSUVEEAASCQoFVE9MTFMQASKSAQoRUm91",
-            "dGVNYXRyaXhPcmlnaW4SNwoId2F5cG9pbnQYASABKAsyIC5nb29nbGUubWFw",
-            "cy5yb3V0aW5nLnYyLldheXBvaW50QgPgQQISRAoPcm91dGVfbW9kaWZpZXJz",
-            "GAIgASgLMiYuZ29vZ2xlLm1hcHMucm91dGluZy52Mi5Sb3V0ZU1vZGlmaWVy",
-            "c0ID4EEBIlEKFlJvdXRlTWF0cml4RGVzdGluYXRpb24SNwoId2F5cG9pbnQY",
-            "ASABKAsyIC5nb29nbGUubWFwcy5yb3V0aW5nLnYyLldheXBvaW50QgPgQQIi",
-            "jAYKElJvdXRlTWF0cml4RWxlbWVudBIZCgxvcmlnaW5faW5kZXgYASABKAVI",
-            "AIgBARIeChFkZXN0aW5hdGlvbl9pbmRleBgCIAEoBUgBiAEBEiIKBnN0YXR1",
-            "cxgDIAEoCzISLmdvb2dsZS5ycGMuU3RhdHVzEkYKCWNvbmRpdGlvbhgJIAEo",
-            "DjIzLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuUm91dGVNYXRyaXhFbGVtZW50",
-            "Q29uZGl0aW9uEhcKD2Rpc3RhbmNlX21ldGVycxgEIAEoBRIrCghkdXJhdGlv",
-            "bhgFIAEoCzIZLmdvb2dsZS5wcm90b2J1Zi5EdXJhdGlvbhIyCg9zdGF0aWNf",
-            "ZHVyYXRpb24YBiABKAsyGS5nb29nbGUucHJvdG9idWYuRHVyYXRpb24SRAoP",
-            "dHJhdmVsX2Fkdmlzb3J5GAcgASgLMisuZ29vZ2xlLm1hcHMucm91dGluZy52",
-            "Mi5Sb3V0ZVRyYXZlbEFkdmlzb3J5EjsKDWZhbGxiYWNrX2luZm8YCCABKAsy",
-            "JC5nb29nbGUubWFwcy5yb3V0aW5nLnYyLkZhbGxiYWNrSW5mbxJUChBsb2Nh",
-            "bGl6ZWRfdmFsdWVzGAogASgLMjouZ29vZ2xlLm1hcHMucm91dGluZy52Mi5S",
-            "b3V0ZU1hdHJpeEVsZW1lbnQuTG9jYWxpemVkVmFsdWVzGtQBCg9Mb2NhbGl6",
-            "ZWRWYWx1ZXMSLAoIZGlzdGFuY2UYASABKAsyGi5nb29nbGUudHlwZS5Mb2Nh",
-            "bGl6ZWRUZXh0EiwKCGR1cmF0aW9uGAIgASgLMhouZ29vZ2xlLnR5cGUuTG9j",
-            "YWxpemVkVGV4dBIzCg9zdGF0aWNfZHVyYXRpb24YAyABKAsyGi5nb29nbGUu",
-            "dHlwZS5Mb2NhbGl6ZWRUZXh0EjAKDHRyYW5zaXRfZmFyZRgEIAEoCzIaLmdv",
-            "b2dsZS50eXBlLkxvY2FsaXplZFRleHRCDwoNX29yaWdpbl9pbmRleEIUChJf",
-            "ZGVzdGluYXRpb25faW5kZXgqdAobUm91dGVNYXRyaXhFbGVtZW50Q29uZGl0",
-            "aW9uEi4KKlJPVVRFX01BVFJJWF9FTEVNRU5UX0NPTkRJVElPTl9VTlNQRUNJ",
-            "RklFRBAAEhAKDFJPVVRFX0VYSVNUUxABEhMKD1JPVVRFX05PVF9GT1VORBAC",
-            "MuQCCgZSb3V0ZXMSlQEKDUNvbXB1dGVSb3V0ZXMSLC5nb29nbGUubWFwcy5y",
-            "b3V0aW5nLnYyLkNvbXB1dGVSb3V0ZXNSZXF1ZXN0Gi0uZ29vZ2xlLm1hcHMu",
-            "cm91dGluZy52Mi5Db21wdXRlUm91dGVzUmVzcG9uc2UiJ4LT5JMCISIcL2Rp",
-            "cmVjdGlvbnMvdjI6Y29tcHV0ZVJvdXRlczoBKhKnAQoSQ29tcHV0ZVJvdXRl",
-            "TWF0cml4EjEuZ29vZ2xlLm1hcHMucm91dGluZy52Mi5Db21wdXRlUm91dGVN",
-            "YXRyaXhSZXF1ZXN0GiouZ29vZ2xlLm1hcHMucm91dGluZy52Mi5Sb3V0ZU1h",
-            "dHJpeEVsZW1lbnQiMILT5JMCKiIlL2Rpc3RhbmNlTWF0cml4L3YyOmNvbXB1",
-            "dGVSb3V0ZU1hdHJpeDoBKjABGhjKQRVyb3V0ZXMuZ29vZ2xlYXBpcy5jb21C",
-            "xwEKGmNvbS5nb29nbGUubWFwcy5yb3V0aW5nLnYyQhJSb3V0ZXNTZXJ2aWNl",
-            "UHJvdG9QAVo6Y2xvdWQuZ29vZ2xlLmNvbS9nby9tYXBzL3JvdXRpbmcvYXBp",
-            "djIvcm91dGluZ3BiO3JvdXRpbmdwYvgBAaICBUdNUlYyqgIWR29vZ2xlLk1h",
-            "cHMuUm91dGluZy5WMsoCFkdvb2dsZVxNYXBzXFJvdXRpbmdcVjLqAhlHb29n",
-            "bGU6Ok1hcHM6OlJvdXRpbmc6OlYyYgZwcm90bzM="));
+            "RU5UEAESFAoQU0hPUlRFUl9ESVNUQU5DRRACItsBChBFeHRyYUNvbXB1dGF0",
+            "aW9uEiEKHUVYVFJBX0NPTVBVVEFUSU9OX1VOU1BFQ0lGSUVEEAASCQoFVE9M",
+            "TFMQARIUChBGVUVMX0NPTlNVTVBUSU9OEAISFwoTVFJBRkZJQ19PTl9QT0xZ",
+            "TElORRADEioKJkhUTUxfRk9STUFUVEVEX05BVklHQVRJT05fSU5TVFJVQ1RJ",
+            "T05TEAQSHAoYRkxZT1ZFUl9JTkZPX09OX1BPTFlMSU5FEAcSIAocTkFSUk9X",
+            "X1JPQURfSU5GT19PTl9QT0xZTElORRAIIsgBChVDb21wdXRlUm91dGVzUmVz",
+            "cG9uc2USLQoGcm91dGVzGAEgAygLMh0uZ29vZ2xlLm1hcHMucm91dGluZy52",
+            "Mi5Sb3V0ZRI7Cg1mYWxsYmFja19pbmZvGAIgASgLMiQuZ29vZ2xlLm1hcHMu",
+            "cm91dGluZy52Mi5GYWxsYmFja0luZm8SQwoRZ2VvY29kaW5nX3Jlc3VsdHMY",
+            "AyABKAsyKC5nb29nbGUubWFwcy5yb3V0aW5nLnYyLkdlb2NvZGluZ1Jlc3Vs",
+            "dHMixgYKGUNvbXB1dGVSb3V0ZU1hdHJpeFJlcXVlc3QSPwoHb3JpZ2lucxgB",
+            "IAMoCzIpLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuUm91dGVNYXRyaXhPcmln",
+            "aW5CA+BBAhJJCgxkZXN0aW5hdGlvbnMYAiADKAsyLi5nb29nbGUubWFwcy5y",
+            "b3V0aW5nLnYyLlJvdXRlTWF0cml4RGVzdGluYXRpb25CA+BBAhJBCgt0cmF2",
+            "ZWxfbW9kZRgDIAEoDjInLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuUm91dGVU",
+            "cmF2ZWxNb2RlQgPgQQESSgoScm91dGluZ19wcmVmZXJlbmNlGAQgASgOMiku",
+            "Z29vZ2xlLm1hcHMucm91dGluZy52Mi5Sb3V0aW5nUHJlZmVyZW5jZUID4EEB",
+            "EjcKDmRlcGFydHVyZV90aW1lGAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRp",
+            "bWVzdGFtcEID4EEBEjUKDGFycml2YWxfdGltZRgLIAEoCzIaLmdvb2dsZS5w",
+            "cm90b2J1Zi5UaW1lc3RhbXBCA+BBARIaCg1sYW5ndWFnZV9jb2RlGAYgASgJ",
+            "QgPgQQESGAoLcmVnaW9uX2NvZGUYCSABKAlCA+BBARIxCgV1bml0cxgHIAEo",
+            "DjIdLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuVW5pdHNCA+BBARJjChJleHRy",
+            "YV9jb21wdXRhdGlvbnMYCCADKA4yQi5nb29nbGUubWFwcy5yb3V0aW5nLnYy",
+            "LkNvbXB1dGVSb3V0ZU1hdHJpeFJlcXVlc3QuRXh0cmFDb21wdXRhdGlvbkID",
+            "4EEBEkAKDXRyYWZmaWNfbW9kZWwYCiABKA4yJC5nb29nbGUubWFwcy5yb3V0",
+            "aW5nLnYyLlRyYWZmaWNNb2RlbEID4EEBEkwKE3RyYW5zaXRfcHJlZmVyZW5j",
+            "ZXMYDCABKAsyKi5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlRyYW5zaXRQcmVm",
+            "ZXJlbmNlc0ID4EEBIkAKEEV4dHJhQ29tcHV0YXRpb24SIQodRVhUUkFfQ09N",
+            "UFVUQVRJT05fVU5TUEVDSUZJRUQQABIJCgVUT0xMUxABIpIBChFSb3V0ZU1h",
+            "dHJpeE9yaWdpbhI3Cgh3YXlwb2ludBgBIAEoCzIgLmdvb2dsZS5tYXBzLnJv",
+            "dXRpbmcudjIuV2F5cG9pbnRCA+BBAhJECg9yb3V0ZV9tb2RpZmllcnMYAiAB",
+            "KAsyJi5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJvdXRlTW9kaWZpZXJzQgPg",
+            "QQEiUQoWUm91dGVNYXRyaXhEZXN0aW5hdGlvbhI3Cgh3YXlwb2ludBgBIAEo",
+            "CzIgLmdvb2dsZS5tYXBzLnJvdXRpbmcudjIuV2F5cG9pbnRCA+BBAiKMBgoS",
+            "Um91dGVNYXRyaXhFbGVtZW50EhkKDG9yaWdpbl9pbmRleBgBIAEoBUgAiAEB",
+            "Eh4KEWRlc3RpbmF0aW9uX2luZGV4GAIgASgFSAGIAQESIgoGc3RhdHVzGAMg",
+            "ASgLMhIuZ29vZ2xlLnJwYy5TdGF0dXMSRgoJY29uZGl0aW9uGAkgASgOMjMu",
+            "Z29vZ2xlLm1hcHMucm91dGluZy52Mi5Sb3V0ZU1hdHJpeEVsZW1lbnRDb25k",
+            "aXRpb24SFwoPZGlzdGFuY2VfbWV0ZXJzGAQgASgFEisKCGR1cmF0aW9uGAUg",
+            "ASgLMhkuZ29vZ2xlLnByb3RvYnVmLkR1cmF0aW9uEjIKD3N0YXRpY19kdXJh",
+            "dGlvbhgGIAEoCzIZLmdvb2dsZS5wcm90b2J1Zi5EdXJhdGlvbhJECg90cmF2",
+            "ZWxfYWR2aXNvcnkYByABKAsyKy5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJv",
+            "dXRlVHJhdmVsQWR2aXNvcnkSOwoNZmFsbGJhY2tfaW5mbxgIIAEoCzIkLmdv",
+            "b2dsZS5tYXBzLnJvdXRpbmcudjIuRmFsbGJhY2tJbmZvElQKEGxvY2FsaXpl",
+            "ZF92YWx1ZXMYCiABKAsyOi5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJvdXRl",
+            "TWF0cml4RWxlbWVudC5Mb2NhbGl6ZWRWYWx1ZXMa1AEKD0xvY2FsaXplZFZh",
+            "bHVlcxIsCghkaXN0YW5jZRgBIAEoCzIaLmdvb2dsZS50eXBlLkxvY2FsaXpl",
+            "ZFRleHQSLAoIZHVyYXRpb24YAiABKAsyGi5nb29nbGUudHlwZS5Mb2NhbGl6",
+            "ZWRUZXh0EjMKD3N0YXRpY19kdXJhdGlvbhgDIAEoCzIaLmdvb2dsZS50eXBl",
+            "LkxvY2FsaXplZFRleHQSMAoMdHJhbnNpdF9mYXJlGAQgASgLMhouZ29vZ2xl",
+            "LnR5cGUuTG9jYWxpemVkVGV4dEIPCg1fb3JpZ2luX2luZGV4QhQKEl9kZXN0",
+            "aW5hdGlvbl9pbmRleCp0ChtSb3V0ZU1hdHJpeEVsZW1lbnRDb25kaXRpb24S",
+            "LgoqUk9VVEVfTUFUUklYX0VMRU1FTlRfQ09ORElUSU9OX1VOU1BFQ0lGSUVE",
+            "EAASEAoMUk9VVEVfRVhJU1RTEAESEwoPUk9VVEVfTk9UX0ZPVU5EEAIy5AIK",
+            "BlJvdXRlcxKVAQoNQ29tcHV0ZVJvdXRlcxIsLmdvb2dsZS5tYXBzLnJvdXRp",
+            "bmcudjIuQ29tcHV0ZVJvdXRlc1JlcXVlc3QaLS5nb29nbGUubWFwcy5yb3V0",
+            "aW5nLnYyLkNvbXB1dGVSb3V0ZXNSZXNwb25zZSIngtPkkwIhIhwvZGlyZWN0",
+            "aW9ucy92Mjpjb21wdXRlUm91dGVzOgEqEqcBChJDb21wdXRlUm91dGVNYXRy",
+            "aXgSMS5nb29nbGUubWFwcy5yb3V0aW5nLnYyLkNvbXB1dGVSb3V0ZU1hdHJp",
+            "eFJlcXVlc3QaKi5nb29nbGUubWFwcy5yb3V0aW5nLnYyLlJvdXRlTWF0cml4",
+            "RWxlbWVudCIwgtPkkwIqIiUvZGlzdGFuY2VNYXRyaXgvdjI6Y29tcHV0ZVJv",
+            "dXRlTWF0cml4OgEqMAEaGMpBFXJvdXRlcy5nb29nbGVhcGlzLmNvbULEAQoa",
+            "Y29tLmdvb2dsZS5tYXBzLnJvdXRpbmcudjJCElJvdXRlc1NlcnZpY2VQcm90",
+            "b1ABWjpjbG91ZC5nb29nbGUuY29tL2dvL21hcHMvcm91dGluZy9hcGl2Mi9y",
+            "b3V0aW5ncGI7cm91dGluZ3BiogIFR01SVjKqAhZHb29nbGUuTWFwcy5Sb3V0",
+            "aW5nLlYyygIWR29vZ2xlXE1hcHNcUm91dGluZ1xWMuoCGUdvb2dsZTo6TWFw",
+            "czo6Um91dGluZzo6VjJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, global::Google.Api.ClientReflection.Descriptor, global::Google.Api.FieldBehaviorReflection.Descriptor, global::Google.Maps.Routing.V2.FallbackInfoReflection.Descriptor, global::Google.Maps.Routing.V2.GeocodingResultsReflection.Descriptor, global::Google.Maps.Routing.V2.PolylineReflection.Descriptor, global::Google.Maps.Routing.V2.RouteReflection.Descriptor, global::Google.Maps.Routing.V2.RouteModifiersReflection.Descriptor, global::Google.Maps.Routing.V2.RouteTravelModeReflection.Descriptor, global::Google.Maps.Routing.V2.RoutingPreferenceReflection.Descriptor, global::Google.Maps.Routing.V2.TrafficModelReflection.Descriptor, global::Google.Maps.Routing.V2.TransitPreferencesReflection.Descriptor, global::Google.Maps.Routing.V2.UnitsReflection.Descriptor, global::Google.Maps.Routing.V2.WaypointReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.DurationReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Google.Rpc.StatusReflection.Descriptor, global::Google.Type.LocalizedTextReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Maps.Routing.V2.RouteMatrixElementCondition), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -513,7 +515,10 @@ namespace Google.Maps.Routing.V2 {
     /// request in addition to the default route. A reference route is a route with
     /// a different route calculation objective than the default route. For example
     /// a `FUEL_EFFICIENT` reference route calculation takes into account various
-    /// parameters that would generate an optimal fuel efficient route.
+    /// parameters that would generate an optimal fuel efficient route. When using
+    /// this feature, look for
+    /// [`route_labels`][google.maps.routing.v2.Route.route_labels] on the
+    /// resulting routes.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1187,10 +1192,26 @@ namespace Google.Maps.Routing.V2 {
         /// </summary>
         [pbr::OriginalName("REFERENCE_ROUTE_UNSPECIFIED")] Unspecified = 0,
         /// <summary>
-        /// Fuel efficient route. Routes labeled with this value are determined to be
-        /// optimized for parameters such as fuel consumption.
+        /// Fuel efficient route.
         /// </summary>
         [pbr::OriginalName("FUEL_EFFICIENT")] FuelEfficient = 1,
+        /// <summary>
+        /// Route with shorter travel distance. This is an experimental feature.
+        ///
+        /// For `DRIVE` requests, this feature prioritizes shorter distance over
+        /// driving comfort. For example, it may prefer local roads instead of
+        /// highways, take dirt roads, cut through parking lots, etc. This feature
+        /// does not return any maneuvers that Google Maps knows to be illegal.
+        ///
+        /// For `BICYCLE` and `TWO_WHEELER` requests, this feature returns routes
+        /// similar to those returned when you don't specify
+        /// `requested_reference_routes`.
+        ///
+        /// This feature is not compatible with any other travel modes, via
+        /// intermediate waypoints, or `optimize_waypoint_order`; such requests will
+        /// fail. However, you can use it with any `routing_preference`.
+        /// </summary>
+        [pbr::OriginalName("SHORTER_DISTANCE")] ShorterDistance = 2,
       }
 
       /// <summary>
@@ -1220,6 +1241,22 @@ namespace Google.Maps.Routing.V2 {
         /// Do not programmatically parse it.
         /// </summary>
         [pbr::OriginalName("HTML_FORMATTED_NAVIGATION_INSTRUCTIONS")] HtmlFormattedNavigationInstructions = 4,
+        /// <summary>
+        /// Flyover information for the route(s). The
+        /// `routes.polyline_details.flyover_info` fieldmask must be specified to
+        /// return this information. This data will only currently be populated for
+        /// certain metros in India. This feature is experimental, and the
+        /// SKU/charge is subject to change.
+        /// </summary>
+        [pbr::OriginalName("FLYOVER_INFO_ON_POLYLINE")] FlyoverInfoOnPolyline = 7,
+        /// <summary>
+        /// Narrow road information for the route(s). The
+        /// `routes.polyline_details.narrow_road_info` fieldmask must be specified
+        /// to return this information. This data will only currently be populated
+        /// for certain metros in India. This feature is experimental, and the
+        /// SKU/charge is subject to change.
+        /// </summary>
+        [pbr::OriginalName("NARROW_ROAD_INFO_ON_POLYLINE")] NarrowRoadInfoOnPolyline = 8,
       }
 
     }

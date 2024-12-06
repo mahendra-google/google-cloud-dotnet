@@ -381,16 +381,18 @@ namespace Google.Cloud.Batch.V1Alpha {
         = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForString(18, ""), 66);
     private readonly pbc::MapField<string, string> labels_ = new pbc::MapField<string, string>();
     /// <summary>
-    /// Labels for the Job. Labels could be user provided or system generated.
-    /// For example,
-    /// "labels": {
-    ///    "department": "finance",
-    ///    "environment": "test"
-    ///  }
-    /// You can assign up to 64 labels.  [Google Compute Engine label
-    /// restrictions](https://cloud.google.com/compute/docs/labeling-resources#restrictions)
-    /// apply.
-    /// Label names that start with "goog-" or "google-" are reserved.
+    /// Custom labels to apply to the job and any Cloud Logging
+    /// [LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry)
+    /// that it generates.
+    ///
+    /// Use labels to group and describe the resources they are applied to. Batch
+    /// automatically applies predefined labels and supports multiple `labels`
+    /// fields for each job, which each let you apply custom labels to various
+    /// resources. Label names that start with "goog-" or "google-" are
+    /// reserved for predefined labels. For more information about labels with
+    /// Batch, see
+    /// [Organize resources using
+    /// labels](https://cloud.google.com/batch/docs/organize-resources-using-labels).
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -972,8 +974,10 @@ namespace Google.Cloud.Batch.V1Alpha {
   }
 
   /// <summary>
-  /// LogsPolicy describes how outputs from a Job's Tasks (stdout/stderr) will be
-  /// preserved.
+  /// LogsPolicy describes if and how a job's logs are preserved. Logs include
+  /// information that is automatically written by the Batch service agent and any
+  /// information that you configured the job's runnables to write to the `stdout`
+  /// or `stderr` streams.
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class LogsPolicy : pb::IMessage<LogsPolicy>
@@ -1026,7 +1030,7 @@ namespace Google.Cloud.Batch.V1Alpha {
     public const int DestinationFieldNumber = 1;
     private global::Google.Cloud.Batch.V1Alpha.LogsPolicy.Types.Destination destination_ = global::Google.Cloud.Batch.V1Alpha.LogsPolicy.Types.Destination.Unspecified;
     /// <summary>
-    /// Where logs should be saved.
+    /// If and where logs should be saved.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1041,9 +1045,14 @@ namespace Google.Cloud.Batch.V1Alpha {
     public const int LogsPathFieldNumber = 2;
     private string logsPath_ = "";
     /// <summary>
-    /// The path to which logs are saved when the destination = PATH. This can be a
-    /// local file path on the VM, or under the mount point of a Persistent Disk or
-    /// Filestore, or a Cloud Storage path.
+    /// When `destination` is set to `PATH`, you must set this field to the path
+    /// where you want logs to be saved. This path can point to a local directory
+    /// on the VM or (if congifured) a directory under the mount path of any
+    /// Cloud Storage bucket, network file system (NFS), or writable persistent
+    /// disk that is mounted to the job. For example, if the job has a bucket with
+    /// `mountPath` set to `/mnt/disks/my-bucket`, you can write logs to the
+    /// root directory of the `remotePath` of that bucket by setting this field to
+    /// `/mnt/disks/my-bucket/`.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1058,8 +1067,8 @@ namespace Google.Cloud.Batch.V1Alpha {
     public const int CloudLoggingOptionFieldNumber = 3;
     private global::Google.Cloud.Batch.V1Alpha.LogsPolicy.Types.CloudLoggingOption cloudLoggingOption_;
     /// <summary>
-    /// Optional. Additional settings for Cloud Logging. It will only take effect
-    /// when the destination of `LogsPolicy` is set to `CLOUD_LOGGING`.
+    /// Optional. When `destination` is set to `CLOUD_LOGGING`, you can optionally
+    /// set this field to configure additional settings for Cloud Logging.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1268,15 +1277,16 @@ namespace Google.Cloud.Batch.V1Alpha {
       /// </summary>
       public enum Destination {
         /// <summary>
-        /// Logs are not preserved.
+        /// (Default) Logs are not preserved.
         /// </summary>
         [pbr::OriginalName("DESTINATION_UNSPECIFIED")] Unspecified = 0,
         /// <summary>
-        /// Logs are streamed to Cloud Logging.
+        /// Logs are streamed to Cloud Logging. Optionally, you can configure
+        /// additional settings in the `cloudLoggingOption` field.
         /// </summary>
         [pbr::OriginalName("CLOUD_LOGGING")] CloudLogging = 1,
         /// <summary>
-        /// Logs are saved to a file path.
+        /// Logs are saved to the file path specified in the `logsPath` field.
         /// </summary>
         [pbr::OriginalName("PATH")] Path = 2,
       }
@@ -1334,7 +1344,7 @@ namespace Google.Cloud.Batch.V1Alpha {
         public const int UseGenericTaskMonitoredResourceFieldNumber = 1;
         private bool useGenericTaskMonitoredResource_;
         /// <summary>
-        /// Optional. Set this flag to true to change the [monitored resource
+        /// Optional. Set this field to `true` to change the [monitored resource
         /// type](https://cloud.google.com/monitoring/api/resources) for
         /// Cloud Logging logs generated by this Batch job from
         /// the
@@ -3604,13 +3614,17 @@ namespace Google.Cloud.Batch.V1Alpha {
         = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForString(18, ""), 50);
     private readonly pbc::MapField<string, string> labels_ = new pbc::MapField<string, string>();
     /// <summary>
-    /// Labels applied to all VM instances and other resources
-    /// created by AllocationPolicy.
-    /// Labels could be user provided or system generated.
-    /// You can assign up to 64 labels. [Google Compute Engine label
-    /// restrictions](https://cloud.google.com/compute/docs/labeling-resources#restrictions)
-    /// apply.
-    /// Label names that start with "goog-" or "google-" are reserved.
+    /// Custom labels to apply to the job and all the Compute Engine resources
+    /// that both are created by this allocation policy and support labels.
+    ///
+    /// Use labels to group and describe the resources they are applied to. Batch
+    /// automatically applies predefined labels and supports multiple `labels`
+    /// fields for each job, which each let you apply custom labels to various
+    /// resources. Label names that start with "goog-" or "google-" are
+    /// reserved for predefined labels. For more information about labels with
+    /// Batch, see
+    /// [Organize resources using
+    /// labels](https://cloud.google.com/batch/docs/organize-resources-using-labels).
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5589,8 +5603,10 @@ namespace Google.Cloud.Batch.V1Alpha {
         public const int ReservationFieldNumber = 7;
         private string reservation_ = "";
         /// <summary>
-        /// Optional. If specified, VMs will consume only the specified reservation.
-        /// If not specified (default), VMs will consume any applicable reservation.
+        /// Optional. If not specified (default), VMs will consume any applicable
+        /// reservation. If "NO_RESERVATION" is specified, VMs will not consume any
+        /// reservation. Otherwise, if specified, VMs will consume only the specified
+        /// reservation.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5963,7 +5979,11 @@ namespace Google.Cloud.Batch.V1Alpha {
         /// <summary>
         /// Name of an instance template used to create VMs.
         /// Named the field as 'instance_template' instead of 'template' to avoid
-        /// c++ keyword conflict.
+        /// C++ keyword conflict.
+        ///
+        /// Batch only supports global instance templates from the same project as
+        /// the job.
+        /// You can specify the global instance template as a full or partial URL.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]

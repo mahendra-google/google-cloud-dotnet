@@ -84,7 +84,7 @@
     },
     {
       "id": "Google.Analytics.Data.V1Beta",
-      "version": "2.0.0-beta08",
+      "version": "2.0.0-beta09",
       "type": "grpc",
       "productName": "Google Analytics Data",
       "productUrl": "https://developers.google.com/analytics",
@@ -296,7 +296,8 @@
       "shortName": "alloydb",
       "serviceConfigFile": "alloydb_v1.yaml",
       "restNumericEnums": true,
-      "includeCommonResourcesProto": true
+      "includeCommonResourcesProto": true,
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.AlloyDb.V1Alpha",
@@ -320,7 +321,8 @@
       "shortName": "alloydb",
       "serviceConfigFile": "alloydb_v1alpha.yaml",
       "restNumericEnums": true,
-      "includeCommonResourcesProto": true
+      "includeCommonResourcesProto": true,
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.AlloyDb.V1Beta",
@@ -344,7 +346,8 @@
       "shortName": "alloydb",
       "serviceConfigFile": "alloydb_v1beta.yaml",
       "restNumericEnums": true,
-      "includeCommonResourcesProto": true
+      "includeCommonResourcesProto": true,
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.ApiGateway.V1",
@@ -389,7 +392,8 @@
       "shortName": "aiplatform",
       "serviceConfigFile": "aiplatform_v1beta1.yaml",
       "includeCommonResourcesProto": true,
-      "transport": "grpc+rest"
+      "transport": "grpc+rest",
+      "restNumericEnums": true
     },
     {
       "id": "Google.Cloud.AIPlatform.V1",
@@ -412,11 +416,12 @@
       "shortName": "aiplatform",
       "serviceConfigFile": "aiplatform_v1.yaml",
       "includeCommonResourcesProto": true,
-      "transport": "grpc+rest"
+      "transport": "grpc+rest",
+      "restNumericEnums": true
     },
     {
       "id": "Google.Cloud.ApiHub.V1",
-      "version": "1.0.0-beta02",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "API hub",
       "productUrl": "https://cloud.google.com/apigee/docs/apihub/what-is-api-hub",
@@ -550,7 +555,7 @@
     },
     {
       "id": "Google.Cloud.AppHub.V1",
-      "version": "1.0.0-beta03",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "App Hub",
       "productUrl": "https://cloud.google.com/app-hub/docs/overview",
@@ -560,9 +565,9 @@
         "management"
       ],
       "dependencies": {
-        "Google.Cloud.Iam.V1": "3.2.0",
-        "Google.Cloud.Location": "2.2.0",
-        "Google.LongRunning": "3.2.0"
+        "Google.Cloud.Iam.V1": "3.3.0",
+        "Google.Cloud.Location": "2.3.0",
+        "Google.LongRunning": "3.3.0"
       },
       "generator": "micro",
       "protoPath": "google/cloud/apphub/v1",
@@ -1077,7 +1082,8 @@
       "protoPath": "google/cloud/bigquery/migration/v2",
       "shortName": "bigquerymigration",
       "serviceConfigFile": "bigquerymigration_v2.yaml",
-      "includeCommonResourcesProto": true
+      "includeCommonResourcesProto": true,
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.BigQuery.Reservation.V1",
@@ -1504,7 +1510,8 @@
       "shortName": "cloudcommerceconsumerprocurement",
       "serviceConfigFile": "cloudcommerceconsumerprocurement_v1.yaml",
       "restNumericEnums": true,
-      "includeCommonResourcesProto": true
+      "includeCommonResourcesProto": true,
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.Common",
@@ -2679,7 +2686,7 @@
     },
     {
       "id": "Google.Cloud.GkeConnect.Gateway.V1",
-      "version": "1.0.0-beta02",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Connect Gateway",
       "productUrl": "https://cloud.google.com/kubernetes-engine/enterprise/multicluster-management/gateway",
@@ -2697,7 +2704,7 @@
       "includeCommonResourcesProto": true,
       "shortName": "connectgateway",
       "serviceConfigFile": "connectgateway_v1.yaml",
-      "transport": "grpc+rest",
+      "transport": "rest",
       "restNumericEnums": true
     },
     {
@@ -3495,7 +3502,7 @@
     },
     {
       "id": "Google.Cloud.NetworkServices.V1",
-      "version": "1.0.0-beta01",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Network Services",
       "productUrl": "https://cloud.google.com/products/networking",
@@ -3608,7 +3615,7 @@
     },
     {
       "id": "Google.Cloud.OracleDatabase.V1",
-      "version": "1.0.0-beta01",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Oracle Database@Google Cloud",
       "productUrl": "https://cloud.google.com/oracle/database/docs",
@@ -3806,7 +3813,7 @@
     },
     {
       "id": "Google.Cloud.Parallelstore.V1",
-      "version": "1.0.0-beta01",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Parallelstore",
       "productUrl": "https://cloud.google.com/parallelstore?hl=en",
@@ -3959,7 +3966,7 @@
     },
     {
       "id": "Google.Cloud.PrivilegedAccessManager.V1",
-      "version": "1.0.0-beta01",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Privileged Access Manager",
       "productUrl": "https://cloud.google.com/iam/docs/pam-overview",
@@ -4403,7 +4410,8 @@
       "serviceConfigFile": "securesourcemanager_v1.yaml",
       "restNumericEnums": true,
       "includeCommonResourcesProto": true,
-      "blockRelease": "See b/305053862"
+      "blockRelease": "See b/305053862",
+      "transport": "grpc+rest"
     },
     {
       "id": "Google.Cloud.Security.PrivateCA.V1",
@@ -4432,7 +4440,7 @@
     },
     {
       "id": "Google.Cloud.Security.PublicCA.V1",
-      "version": "1.0.0-beta01",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Public Certificate Authority",
       "productUrl": "https://cloud.google.com/certificate-manager/docs/public-ca",
@@ -4542,7 +4550,7 @@
     },
     {
       "id": "Google.Cloud.SecurityCenter.V2",
-      "version": "1.0.0-beta05",
+      "version": "1.0.0",
       "type": "grpc",
       "productName": "Security Command Center",
       "productUrl": "https://cloud.google.com/security-command-center/docs/reference/rest",
@@ -4810,7 +4818,6 @@
         "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
       },
       "testDependencies": {
-        "CoreCompat.EnterpriseLibrary.TransientFaultHandling": "6.0.1304-r3",
         "Google.Api.Gax.Grpc.Testing": "default",
         "Google.Api.Gax.Testing": "default",
         "Microsoft.Extensions.Configuration": "6.0.1",
@@ -4960,7 +4967,7 @@
       "description": "Recommended Google client library to access the Google Cloud Storage API. It wraps the Google.Apis.Storage.v1 client library, making common operations simpler in client code. Google Cloud Storage stores and retrieves potentially large, immutable data objects.",
       "dependencies": {
         "Google.Api.Gax.Rest": "default",
-        "Google.Apis.Storage.v1": "1.68.0.3431"
+        "Google.Apis.Storage.v1": "1.68.0.3604"
       },
       "testDependencies": {
         "Google.Api.Gax.Testing": "default",
