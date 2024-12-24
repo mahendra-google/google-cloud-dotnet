@@ -61,6 +61,7 @@ namespace Google.Cloud.Storage.V1
         /// Options to pass custom retry configuration for each API request.
         /// </summary>
         public RetryOptions RetryOptions { get; set; }
+
         /// <summary>
         /// (Optional) Set to true to list a soft-deleted buckets. It will return the bucket's metadata only if buckets exist and are in a soft-deleted state.
         /// </summary>
