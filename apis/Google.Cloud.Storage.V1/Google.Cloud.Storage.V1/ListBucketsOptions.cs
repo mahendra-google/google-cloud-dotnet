@@ -66,6 +66,7 @@ namespace Google.Cloud.Storage.V1
         /// (Optional) Set to true to list a soft-deleted buckets. It will return the bucket's metadata only if buckets exist and are in a soft-deleted state.
         /// </summary>
         public bool? SoftDeleted { get; set; }
+        
         /// <summary>
         /// Modifies the specified request for all non-null properties of this options object.
         /// </summary>
