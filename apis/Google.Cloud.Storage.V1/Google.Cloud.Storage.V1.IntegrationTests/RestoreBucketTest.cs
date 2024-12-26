@@ -1,3 +1,17 @@
+// Copyright 2024 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,25 +31,9 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public async Task RestoreSoftDeletedBucket()
         {
-
-            // We get bucket object using get bucket async method for soft delete bucket before deleting it. 
             var bucket = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketThree, new GetBucketOptions { SoftDeleted = false });
-            // We delete soft delete bucket.
-            try
-            {
-                await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketThree);
-            }
-            catch (Exception)
-            {
-                // If bucket is not empty, we delete on a best effort basis.
-                foreach (var storageObject in _fixture.Client.ListObjects(_fixture.SoftDeleteBucketThree, ""))
-                {
-                    await _fixture.Client.DeleteObjectAsync(_fixture.SoftDeleteBucketThree, storageObject.Name);
-                }
-                await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketThree);
-            }
+            await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketThree, new DeleteBucketOptions { DeleteObjects = true });
 
-            // And now we can restore bucket using generation id.
             var restored = await _fixture.Client.RestoreBucketAsync(_fixture.SoftDeleteBucketThree, bucket.Generation.Value);
             Assert.Equal(_fixture.SoftDeleteBucketThree, restored.Name);
             Assert.Equal(bucket.Generation, restored.Generation);

@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Google.Apis.Storage.v1.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Google.Apis.Storage.v1.Data;
 using Xunit;
 
 namespace Google.Cloud.Storage.V1.IntegrationTests
@@ -76,11 +76,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
-        // Fetches soft deleted buckets using the list bucket option with soft delete true.
         public async Task ListSoftDeletedBuckets()
         {
             var actualBuckets = await _fixture.Client.ListBucketsAsync(_fixture.ProjectId, new ListBucketsOptions { SoftDeleted = true }).ToListAsync();
-            
+
             foreach (var bucket in actualBuckets)
             {
                 // Check if list contains only soft deleted buckets created in storage fixture
@@ -111,6 +110,6 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(expectedNames.OrderBy(x => x), actualNames);
         }
 
-       
+
     }
 }
