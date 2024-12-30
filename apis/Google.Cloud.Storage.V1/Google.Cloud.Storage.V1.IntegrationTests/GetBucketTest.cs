@@ -37,6 +37,7 @@ public class GetBucketTest
         var softDeleted = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketOne, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
         Assert.NotNull(bucket.Generation);
         Assert.NotNull(softDeleted.Generation);
+        Assert.Equal(bucket.Generation, softDeleted.Generation);
     }
 
     [Fact]
