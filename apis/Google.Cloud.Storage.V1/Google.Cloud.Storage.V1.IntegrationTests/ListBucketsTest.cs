@@ -78,7 +78,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public async Task ListSoftDeletedBuckets()
         {
-            var actualBuckets = await _fixture.Client.ListBucketsAsync(_fixture.ProjectId, new ListBucketsOptions { SoftDeleted = true }).ToListAsync();
+            var actualBuckets = await _fixture.Client.ListBucketsAsync(_fixture.ProjectId, new ListBucketsOptions { SoftDeletedOnly = true }).ToListAsync();
 
             foreach (var bucket in actualBuckets)
             {
