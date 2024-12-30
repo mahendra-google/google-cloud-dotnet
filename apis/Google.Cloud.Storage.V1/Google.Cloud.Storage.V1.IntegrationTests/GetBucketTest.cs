@@ -30,11 +30,11 @@ public class GetBucketTest
     [Fact]
     public async Task GetBucketGeneration()
     {
+        var softDeleteBucket  = _fixture.CreateBucket(Guid.NewGuid().ToString() + "-soft-delete", false, true);
+        var bucket = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = false });
 
-        var bucket = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketOne, new GetBucketOptions { SoftDeleted = false });
-
-        await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketOne, new DeleteBucketOptions { DeleteObjects = true });
-        var softDeleted = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketOne, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
+        await _fixture.Client.DeleteBucketAsync(softDeleteBucket.Name, new DeleteBucketOptions { DeleteObjects = true });
+        var softDeleted = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
         Assert.NotNull(bucket.Generation);
         Assert.NotNull(softDeleted.Generation);
         Assert.Equal(bucket.Generation, softDeleted.Generation);
@@ -43,11 +43,11 @@ public class GetBucketTest
     [Fact]
     public async Task GetSoftDeletedBucket()
     {
+        var softDeleteBucket = _fixture.CreateBucket(Guid.NewGuid().ToString() + "-soft-delete", false, true);
+        var bucket = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = false });
+        await _fixture.Client.DeleteBucketAsync(softDeleteBucket.Name, new DeleteBucketOptions { DeleteObjects = true });
 
-        var bucket = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketTwo, new GetBucketOptions { SoftDeleted = false });
-        await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketTwo, new DeleteBucketOptions { DeleteObjects = true });
-
-        var softDeleted = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketTwo, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
+        var softDeleted = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
         Assert.NotNull(bucket.Generation);
         Assert.NotNull(softDeleted.Generation);
         Assert.NotNull(bucket.Name);

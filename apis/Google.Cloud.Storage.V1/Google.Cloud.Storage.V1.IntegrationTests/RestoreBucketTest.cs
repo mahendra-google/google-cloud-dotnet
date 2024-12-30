@@ -31,11 +31,12 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public async Task RestoreSoftDeletedBucket()
         {
-            var bucket = await _fixture.Client.GetBucketAsync(_fixture.SoftDeleteBucketThree, new GetBucketOptions { SoftDeleted = false });
-            await _fixture.Client.DeleteBucketAsync(_fixture.SoftDeleteBucketThree, new DeleteBucketOptions { DeleteObjects = true });
+            var softDeleteBucket = _fixture.CreateBucket(Guid.NewGuid().ToString() + "-soft-delete", false, true);
+            var bucket = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = false });
+            await _fixture.Client.DeleteBucketAsync(softDeleteBucket.Name, new DeleteBucketOptions { DeleteObjects = true });
 
-            var restored = await _fixture.Client.RestoreBucketAsync(_fixture.SoftDeleteBucketThree, bucket.Generation.Value);
-            Assert.Equal(_fixture.SoftDeleteBucketThree, restored.Name);
+            var restored = await _fixture.Client.RestoreBucketAsync(softDeleteBucket.Name, bucket.Generation.Value);
+            Assert.Equal(bucket.Name, restored.Name);
             Assert.Equal(bucket.Generation, restored.Generation);
         }
     }
