@@ -24,27 +24,21 @@ namespace Google.Cloud.Storage.V1;
 public sealed class RestoreBucketOptions
 {
     /// <summary>
-    /// The projection to retrieve.
+    /// The projection of the restored bucket to return. Note the whole bucket will be restored,
+    /// except for the bucket's access controls. This only affects
+    /// what information is returned when restoration is successful.
     /// </summary>
     public Projection? Projection { get; set; }
-
     /// <summary>
-    /// If set, this specifies the fields to fetch in the result to obtain partial responses,
-    /// usually to improve performance.
-    /// For example, to fetch just the name and location of each bucket, set this property to
-    /// "items(name,location),nextPageToken". The "nextPageToken" field is required in order to
-    /// fetch multiple pages; the library does not add this automatically.
-    /// See https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial for more details
-    /// on specifying fields for partial responses.
+    /// The encryption key to use for this operation. If this property is null, the <see cref="StorageClient.EncryptionKey"/>
+    /// will be used instead. Use <see cref="EncryptionKey.None"/> to remove encryption headers from this request.
     /// </summary>
-    public string Fields { get; set; }
-
+    public EncryptionKey EncryptionKey { get; set; }
     /// <summary>
     /// If set, this is the ID of the project which will be billed for the request.
     /// The caller must have suitable permissions for the project being billed.
     /// </summary>
     public string UserProject { get; set; }
-
     /// <summary>
     /// Options to pass custom retry configuration for each API request.
     /// </summary>
@@ -56,14 +50,9 @@ public sealed class RestoreBucketOptions
         {
             request.Projection = GaxPreconditions.CheckEnumValue((ProjectionEnum) Projection, nameof(Projection));
         }
-        if (Fields != null)
-        {
-            request.Fields = Fields;
-        }
         if (UserProject != null)
         {
             request.UserProject = UserProject;
         }
-
     }
 }
