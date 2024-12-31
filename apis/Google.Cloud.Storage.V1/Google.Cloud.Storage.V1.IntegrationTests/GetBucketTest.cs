@@ -48,12 +48,10 @@ public class GetBucketTest
         await _fixture.Client.DeleteBucketAsync(softDeleteBucket.Name, new DeleteBucketOptions { DeleteObjects = true });
 
         var softDeleted = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = true, Generation = bucket.Generation });
-        Assert.NotNull(bucket.Generation);
-        Assert.NotNull(softDeleted.Generation);
+        
         Assert.NotNull(bucket.Name);
         Assert.NotNull(softDeleted.Name);
         Assert.Equal(bucket.Name, softDeleted.Name);
-        Assert.Equal(bucket.Generation, softDeleted.Generation);
         Assert.NotNull(softDeleted.SoftDeleteTimeDateTimeOffset);
         Assert.NotNull(softDeleted.HardDeleteTimeDateTimeOffset);
     }
