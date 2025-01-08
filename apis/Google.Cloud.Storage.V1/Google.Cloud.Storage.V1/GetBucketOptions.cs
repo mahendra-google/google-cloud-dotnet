@@ -58,8 +58,8 @@ namespace Google.Cloud.Storage.V1
         public long? Generation { get; set; }
 
         /// <summary>
-        /// Set to true to retrieve a soft-deleted bucket. It will return the bucket metadata only if the bucket exists and is in a soft-deleted state.
-        /// The bucket generation must be set if soft_deleted is set to true.
+        /// If true, the soft-deleted version of the bucket will be retrieved.
+        /// If true, <see ref="Generation"  /> must be set.
         /// </summary>
         public bool? SoftDeleted { get; set; }
 
