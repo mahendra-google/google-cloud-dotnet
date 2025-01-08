@@ -28,7 +28,7 @@ public class GetBucketTest
     }
 
     [Fact]
-    public async Task GetBucketGeneration()
+    public async Task SoftDeleted()
     {
         var softDeleteBucket  = _fixture.CreateBucket(Guid.NewGuid().ToString() + "-soft-delete", false, true);
         var bucket = await _fixture.Client.GetBucketAsync(softDeleteBucket.Name, new GetBucketOptions { SoftDeleted = false });
