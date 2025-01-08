@@ -30,7 +30,7 @@ public class RestoreBucketOptionsTest
     }
 
     [Fact]
-    public void ModifyRequest_MatchOptions()
+    public void ModifyRequest_AllOptions()
     {
         var request = new RestoreRequest(null, "bucket", 2L);
         var options = new RestoreBucketOptions
