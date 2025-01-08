@@ -53,7 +53,7 @@ namespace Google.Cloud.Storage.V1
         public RetryOptions RetryOptions { get; set; }
 
         /// <summary>
-        /// The bucket generation must be set (to retrieve a soft-deleted bucket) if soft_deleted is set to true.
+        /// The bucket generation to be retrieved. It must be set if <see ref="SoftDelete" /> is true.
         /// </summary>
         public long? Generation { get; set; }
 
