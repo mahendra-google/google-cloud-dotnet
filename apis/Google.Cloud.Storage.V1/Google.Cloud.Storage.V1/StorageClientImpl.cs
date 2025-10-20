@@ -122,7 +122,7 @@ namespace Google.Cloud.Storage.V1
 
         /// <summary>
         /// Validates object download path to the base directory only.
-        /// This method ensures that the object is downloaded securely and prevent directory absolute and relative traversal attack.
+        /// This method ensures that the object is downloaded securely and prevent directory traversal attack using absolute or relative path.
         /// </summary>
         internal void ValidateObjectDownloadPath(Stream stream)
         {
