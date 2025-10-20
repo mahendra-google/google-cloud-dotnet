@@ -122,9 +122,9 @@ namespace Google.Cloud.Storage.V1
 
         /// <summary>
         /// Validates object download path to the base directory only.
-        /// This method ensures the object is downloaded securely and prevent directory traversal attack.
+        /// This method ensures that the object is downloaded securely and prevent directory absolute and relative traversal attack.
         /// </summary>
-        private void ValidateObjectDownloadPath(Stream stream)
+        internal void ValidateObjectDownloadPath(Stream stream)
         {
             GaxPreconditions.CheckNotNull(stream, nameof(stream));
             string baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
@@ -133,7 +133,7 @@ namespace Google.Cloud.Storage.V1
                 string fullPath = Path.GetFullPath(fileStream.Name);
                 if (!fullPath.StartsWith(baseDir, StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new ArgumentException("Path traversal is not allowed. File path is outside the designated directory");
+                    throw new ArgumentException("Path traversal is not allowed. File path provided is outside the base directory");
                 }
             }
         }

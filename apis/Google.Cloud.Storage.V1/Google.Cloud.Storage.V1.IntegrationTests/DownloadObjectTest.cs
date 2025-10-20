@@ -138,6 +138,20 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
+        public void DownloadObjectWithRelativePathTraversal()
+        {
+            using var outputFile = File.OpenWrite("../DownloadTest.txt");
+            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+        }
+
+        [Fact]
+        public void DownloadObjectWithAbsolutePathTraversal()
+        {
+            using var outputFile = File.OpenWrite("/DownloadTest.txt");
+            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+        }
+
+        [Fact]
         public void DownloadObjectWrongGeneration()
         {
             var existing = GetLatestVersionOfMultiversionObject();
