@@ -147,8 +147,16 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public void DownloadObjectWithAbsolutePathTraversal()
         {
-            using var outputFile = File.OpenWrite("/DownloadTest.txt");
-            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                using var outputFile = File.OpenWrite("D:\\DownloadTest.txt");
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                using var outputFileTwo = File.OpenWrite("/usr/local/DownloadTest.txt");
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFileTwo));
+            }
         }
 
         [Fact]
