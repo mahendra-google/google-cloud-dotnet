@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -149,13 +150,21 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                using var outputFile = File.OpenWrite("D:\\DownloadTest.txt");
-                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+                string winDirPath = @"D:\";
+                if (Directory.Exists(winDirPath))
+                {
+                    using var outputFile = File.OpenWrite($"{winDirPath}DownloadTest.txt");
+                    Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+                }
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                using var outputFileTwo = File.OpenWrite("/usr/local/DownloadTest.txt");
-                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFileTwo));
+                string unixDirPath = "/home/test/";
+                if (Directory.Exists(unixDirPath))
+                {
+                    using var outputFile = File.OpenWrite($"{unixDirPath}DownloadTest.txt");
+                    Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+                }
             }
         }
 
