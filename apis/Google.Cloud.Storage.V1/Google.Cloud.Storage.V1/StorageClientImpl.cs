@@ -19,6 +19,7 @@ using Google.Apis.Requests;
 using Google.Apis.Storage.v1;
 using Google.Apis.Storage.v1.Data;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Object = Google.Apis.Storage.v1.Data.Object;
@@ -117,6 +118,24 @@ namespace Google.Cloud.Storage.V1
                 throw new ArgumentException($"Invalid bucket name '{bucket}' - see https://cloud.google.com/storage/docs/bucket-naming", nameof(bucket));
             }
             return bucket;
+        }
+
+        /// <summary>
+        /// Validates object download path to the base directory only.
+        /// This method ensures the object is downloaded securely and prevent directory traversal attack.
+        /// </summary>
+        private void ValidateObjectDownloadPath(Stream stream)
+        {
+            GaxPreconditions.CheckNotNull(stream, nameof(stream));
+            string baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+            if (stream is FileStream fileStream)
+            {
+                string fullPath = Path.GetFullPath(fileStream.Name);
+                if (!fullPath.StartsWith(baseDir, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("Path traversal is not allowed. File path is outside the designated directory");
+                }
+            }
         }
 
         /// <summary>
