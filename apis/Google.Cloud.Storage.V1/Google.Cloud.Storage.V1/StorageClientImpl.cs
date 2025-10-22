@@ -128,6 +128,12 @@ namespace Google.Cloud.Storage.V1
         {
             GaxPreconditions.CheckNotNull(stream, nameof(stream));
             string baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+
+            // Normalize path with a trailing separator to prevent path traversal attack.
+            if (!baseDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                baseDir += Path.DirectorySeparatorChar;
+            }
             if (stream is FileStream fileStream)
             {
                 string fullPath = Path.GetFullPath(fileStream.Name);
