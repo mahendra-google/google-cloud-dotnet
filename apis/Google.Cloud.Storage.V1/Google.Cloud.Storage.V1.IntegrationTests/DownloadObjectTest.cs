@@ -141,31 +141,19 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public void DownloadObjectWithRelativePathTraversal()
         {
-            using var outputFile = File.OpenWrite("../DownloadTest.txt");
+            var testFile = IdGenerator.FromGuid(prefix: "test");
+            using var outputFile = File.OpenWrite($"../{testFile}");
             Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
         }
 
         [Fact]
         public void DownloadObjectWithAbsolutePathTraversal()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                string winDirPath = @"D:\";
-                if (Directory.Exists(winDirPath))
-                {
-                    using var outputFile = File.OpenWrite($"{winDirPath}DownloadTest.txt");
-                    Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
-                }
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                string unixDirPath = "/home/test/";
-                if (Directory.Exists(unixDirPath))
-                {
-                    using var outputFile = File.OpenWrite($"{unixDirPath}DownloadTest.txt");
-                    Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
-                }
-            }
+            var testFile = IdGenerator.FromGuid(prefix: "test");
+            // Path.GetTempPath() is very likely to be outside the application's base directory.
+            string testFilePath = Path.Combine(Path.GetTempPath(), testFile);
+            using var outputFile = File.OpenWrite(testFilePath);
+            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
         }
 
         [Fact]
