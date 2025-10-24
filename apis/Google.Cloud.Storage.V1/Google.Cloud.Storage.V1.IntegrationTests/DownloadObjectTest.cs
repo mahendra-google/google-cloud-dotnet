@@ -142,8 +142,19 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         public void DownloadObjectWithRelativePathTraversal()
         {
             var testFile = IdGenerator.FromGuid(prefix: "test");
-            using var outputFile = File.OpenWrite($"../{testFile}");
-            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            string testFilePath = Path.Combine("../", testFile);
+            try
+            {
+                using var outputFile = File.OpenWrite(testFilePath);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            }
+            finally
+            {
+                if (File.Exists(testFilePath))
+                {
+                    File.Delete(testFilePath);
+                }
+            }
         }
 
         [Fact]
@@ -152,8 +163,18 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var testFile = IdGenerator.FromGuid(prefix: "test");
             // Path.GetTempPath() is very likely to be outside the application's base directory.
             string testFilePath = Path.Combine(Path.GetTempPath(), testFile);
-            using var outputFile = File.OpenWrite(testFilePath);
-            Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            try
+            {
+                using var outputFile = File.OpenWrite(testFilePath);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+            }
+            finally
+            {
+                if (File.Exists(testFilePath))
+                {
+                    File.Delete(testFilePath);
+                }
+            }
         }
 
         [Fact]
