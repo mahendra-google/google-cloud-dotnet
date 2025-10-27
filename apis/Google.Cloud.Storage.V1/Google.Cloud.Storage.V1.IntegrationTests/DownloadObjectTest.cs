@@ -145,8 +145,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             string testFilePath = Path.Combine("../", testFile);
             try
             {
-                using var outputFile = File.OpenWrite(testFilePath);
-                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+                using var stream = File.OpenWrite(testFilePath);
+                // Create a new FileStream using only the handle.
+                using var fileStream = new FileStream(stream.SafeFileHandle, FileAccess.Write);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, fileStream));
             }
             finally
             {
@@ -165,8 +167,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             string testFilePath = Path.Combine(Path.GetTempPath(), testFile);
             try
             {
-                using var outputFile = File.OpenWrite(testFilePath);
-                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, outputFile));
+                using var stream = File.OpenWrite(testFilePath);
+                // Create a new FileStream using only the handle.
+                using var fileStream = new FileStream(stream.SafeFileHandle, FileAccess.Write);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, fileStream));
             }
             finally
             {

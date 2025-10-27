@@ -18,6 +18,7 @@ using Google.Apis.Download;
 using Google.Apis.Requests;
 using Google.Apis.Storage.v1;
 using Google.Apis.Storage.v1.Data;
+using Google.Cloud.ClientTesting;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -121,9 +122,13 @@ namespace Google.Cloud.Storage.V1
         }
 
         /// <summary>
-        /// Validates object download path to the base directory only.
-        /// This method ensures that the object is downloaded securely and prevent directory traversal attack using absolute or relative path.
+        /// Validates the object download path to prevent traversal outside the base directory.
         /// </summary>
+        /// <remarks>
+        /// This is a security measure to prevent directory traversal attacks.
+        /// It checks for malicious components (e.g., '..', or absolute paths) to ensure 
+        /// the final resolved path is safely contained within the base directory.
+        /// </remarks>
         internal void ValidateObjectDownloadPath(Stream stream)
         {
             GaxPreconditions.CheckNotNull(stream, nameof(stream));
@@ -136,7 +141,7 @@ namespace Google.Cloud.Storage.V1
             }
             if (stream is FileStream fileStream)
             {
-                string fullPath = Path.GetFullPath(fileStream.Name);
+                string fullPath = fileStream.GetActualPath();
                 if (!fullPath.StartsWith(baseDir, StringComparison.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException("Path traversal is not allowed. File path provided is outside the base directory");
@@ -228,5 +233,6 @@ namespace Google.Cloud.Storage.V1
 
         private void MarkAsRetriable<TResponse>(StorageBaseServiceRequest<TResponse> request, RetryOptions options) =>
             RetryHandler.MarkAsRetriable(request, options, _scheduler);
+
     }
 }

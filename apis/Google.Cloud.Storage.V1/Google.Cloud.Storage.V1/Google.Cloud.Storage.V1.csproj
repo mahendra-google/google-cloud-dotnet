@@ -13,6 +13,9 @@
     <PackageReference Include="Google.Apis.Storage.v1" VersionOverride="[1.69.0.3707, 2.0.0.0)" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\tools\Google.Cloud.ClientTesting\Google.Cloud.ClientTesting.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="StorageClient.*.cs">
       <DependentUpon>StorageClient.cs</DependentUpon>
     </Compile>
