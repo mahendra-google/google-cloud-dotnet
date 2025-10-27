@@ -233,6 +233,5 @@ namespace Google.Cloud.Storage.V1
 
         private void MarkAsRetriable<TResponse>(StorageBaseServiceRequest<TResponse> request, RetryOptions options) =>
             RetryHandler.MarkAsRetriable(request, options, _scheduler);
-
     }
 }
