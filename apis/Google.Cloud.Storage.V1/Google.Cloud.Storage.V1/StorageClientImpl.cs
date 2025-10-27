@@ -147,6 +147,8 @@ namespace Google.Cloud.Storage.V1
                     throw new ArgumentException("Path traversal is not allowed. File path provided is outside the base directory");
                 }
             }
+            // For other stream types (e.g., MemoryStream, NetworkStream), path traversal is not applicable,
+            // as they do not represent local file system paths. No further validation is needed here.
         }
 
         /// <summary>
