@@ -35,6 +35,7 @@ namespace Google.Cloud.Storage.V1
             DownloadObjectOptions options = null,
             IProgress<IDownloadProgress> progress = null)
         {
+            ValidateObjectDownloadPath(destination);
             var builder = CreateRequestBuilder(bucket, objectName);
             var metadata = new Object { Bucket = bucket, Name = objectName };
             return DownloadObjectImpl(metadata, builder, destination, options, progress);
@@ -49,6 +50,7 @@ namespace Google.Cloud.Storage.V1
             CancellationToken cancellationToken = default,
             IProgress<IDownloadProgress> progress = null)
         {
+            ValidateObjectDownloadPath(destination);
             var builder = CreateRequestBuilder(bucket, objectName);
             var metadata = new Object { Bucket = bucket, Name = objectName };
             return DownloadObjectAsyncImpl(metadata, builder, destination, options, cancellationToken, progress);
@@ -61,6 +63,7 @@ namespace Google.Cloud.Storage.V1
             DownloadObjectOptions options = null,
             IProgress<IDownloadProgress> progress = null)
         {
+            ValidateObjectDownloadPath(destination);
             var builder = CreateRequestBuilder(source);
             var metadata = new Object { Bucket = source.Bucket, Name = source.Name };
             return DownloadObjectImpl(metadata, builder, destination, options, progress);
@@ -74,6 +77,7 @@ namespace Google.Cloud.Storage.V1
             CancellationToken cancellationToken = default,
             IProgress<IDownloadProgress> progress = null)
         {
+            ValidateObjectDownloadPath(destination);
             var builder = CreateRequestBuilder(source);
             var metadata = new Object { Bucket = source.Bucket, Name = source.Name };
             return DownloadObjectAsyncImpl(metadata, builder, destination, options, cancellationToken, progress);

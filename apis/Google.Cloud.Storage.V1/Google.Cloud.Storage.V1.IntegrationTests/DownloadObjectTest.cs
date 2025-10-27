@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -135,6 +136,49 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         public void DownloadObjectFromInvalidBucket()
         {
             Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject("!!!", _fixture.LargeObject, new MemoryStream()));
+        }
+
+        [Fact]
+        public void DownloadObjectWithRelativePathTraversal()
+        {
+            var testFile = IdGenerator.FromGuid(prefix: "test");
+            string testFilePath = Path.Combine("../", testFile);
+            try
+            {
+                using var stream = File.OpenWrite(testFilePath);
+                // Create a new FileStream using only the handle.
+                using var fileStream = new FileStream(stream.SafeFileHandle, FileAccess.Write);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, fileStream));
+            }
+            finally
+            {
+                if (File.Exists(testFilePath))
+                {
+                    File.Delete(testFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void DownloadObjectWithAbsolutePathTraversal()
+        {
+            var testFile = IdGenerator.FromGuid(prefix: "test");
+            // Path.GetTempPath() is very likely to be outside the application's base directory.
+            string testFilePath = Path.Combine(Path.GetTempPath(), testFile);
+            try
+            {
+                using var stream = File.OpenWrite(testFilePath);
+                // Create a new FileStream using only the handle.
+                using var fileStream = new FileStream(stream.SafeFileHandle, FileAccess.Write);
+                Assert.Throws<ArgumentException>(() => _fixture.Client.DownloadObject(_fixture.ReadBucket, _fixture.SmallObject, fileStream));
+            }
+            finally
+            {
+                if (File.Exists(testFilePath))
+                {
+                    File.Delete(testFilePath);
+                }
+            }
         }
 
         [Fact]
