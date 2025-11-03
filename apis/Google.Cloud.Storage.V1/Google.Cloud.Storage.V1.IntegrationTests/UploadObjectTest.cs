@@ -438,10 +438,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
-        public void CalculateUploadSpeedWithoutValidationType()
+        public void CalculatePerformanceMetricsWithoutCrc32C()
         {
             Console.WriteLine("Starting CRC32C Performance Benchmark for GCS...");
-            Console.WriteLine("Running 5 iterations for each block size.");
+            Console.WriteLine("Running 1 iterations for each block size.");
             //Console.WriteLine("Using hardware-accelerated System.IO.Hashing.Crc32c.");
             Console.WriteLine();
 
@@ -472,7 +472,6 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             // Create a reusable buffer
            
             var client = StorageClient.Create();
-            var name = IdGenerator.FromGuid();
             var bucket = _fixture.MultiVersionBucket;
             var options = new UploadObjectOptions { UploadValidationMode = UploadValidationMode.None };
             foreach (int sizeInBytes in blockSizes)
@@ -490,16 +489,17 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
 
                 for (int i = 0; i < iterations; i++)
                 {
+                    var name = IdGenerator.FromGuid();
                     // Fill buffer with random data for each iteration
                     // This prevents caching/optimization on identical data
                     RandomNumberGenerator.Fill(dataBufferInBytes);
 
                     stopwatch.Restart();
                     //client.UploadObject(bucket, name, null, dataBuffer, options);
-                    using (var input = File.OpenRead(Path.Join(Path.GetTempPath(), "Download.txt")))
+                    using (var input = File.OpenRead(Path.Join(Path.GetTempPath(), "DownloadSpeed.txt")))
                     {
 
-                        client.UploadObject(bucket, name, "application/binary", input, options);
+                        client.UploadObject(bucket, name, "application/text", input, options);
 
                     }
                     stopwatch.Stop();
@@ -525,7 +525,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
-        public void CalculateUploadSpeedWithValidationType()
+        public void CalculatePerformanceMetricsWithCrc32c()
         {
             Console.WriteLine("Starting CRC32C Performance Benchmark for GCS...");
             Console.WriteLine("Running 1 iterations for each block size.");
@@ -552,9 +552,8 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             RandomNumberGenerator.Fill(warmUpData);
 
             var client = StorageClient.Create();
-            var name = IdGenerator.FromGuid();
             var bucket = _fixture.MultiVersionBucket;
-            //var options = new UploadObjectOptions { UploadValidationMode = UploadValidationMode.DeleteAndThrow };
+            var options = new UploadObjectOptions { UploadValidationMode = UploadValidationMode.DeleteAndThrow };
             foreach (int sizeInBytes in blockSizes)
             {
                 double totalSeconds = 0;
@@ -573,16 +572,16 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
                     // Fill buffer with random data for each iteration
                     // This prevents caching/optimization on identical data
                     RandomNumberGenerator.Fill(dataBufferInBytes);
-
+                    var name = IdGenerator.FromGuid();
                     stopwatch.Restart();
 
                     // --- This is the core operation being timed ---
                     // Upload succeeds despite the data being broken.
                     //client.UploadObject(bucket, name, null, dataBuffer);
-                    using (var input = File.OpenRead(Path.Join(Path.GetTempPath(), "Download.txt")))
+                    using (var input = File.OpenRead(Path.Join(Path.GetTempPath(), "DownloadSpeed.txt")))
                     {
 
-                        client.UploadObject(bucket, name, "application/binary", input);
+                        client.UploadObject(bucket, name, "application/text", input, options);
 
                     }
                     //Crc32c.Hash(dataBuffer);
