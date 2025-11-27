@@ -11,6 +11,103 @@
   },
   "snippets": [
     {
+      "regionTag": "aiplatform_v1_generated_DataFoundryService_GenerateSyntheticData_sync",
+      "title": "GenerateSyntheticDataRequestObject",
+      "description": "Snippet for GenerateSyntheticData",
+      "file": "DataFoundryServiceClient.GenerateSyntheticDataRequestObjectSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "GenerateSyntheticData",
+        "fullName": "Google.Cloud.AIPlatform.V1.DataFoundryServiceClient.GenerateSyntheticData",
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.GenerateSyntheticDataRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.GenerateSyntheticDataResponse",
+        "client": {
+          "shortName": "DataFoundryServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.DataFoundryServiceClient"
+        },
+        "method": {
+          "shortName": "GenerateSyntheticData",
+          "fullName": "google.cloud.aiplatform.v1.DataFoundryService.GenerateSyntheticData",
+          "service": {
+            "shortName": "DataFoundryService",
+            "fullName": "google.cloud.aiplatform.v1.DataFoundryService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 55,
+          "type": "FULL"
+        },
+        {
+          "start": 35,
+          "end": 53,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_DataFoundryService_GenerateSyntheticData_async",
+      "title": "GenerateSyntheticDataRequestObjectAsync",
+      "description": "Snippet for GenerateSyntheticDataAsync",
+      "file": "DataFoundryServiceClient.GenerateSyntheticDataRequestObjectAsyncSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "GenerateSyntheticDataAsync",
+        "fullName": "Google.Cloud.AIPlatform.V1.DataFoundryServiceClient.GenerateSyntheticDataAsync",
+        "async": true,
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.GenerateSyntheticDataRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "System.Threading.Tasks.Task<Google.Cloud.AIPlatform.V1.GenerateSyntheticDataResponse>",
+        "client": {
+          "shortName": "DataFoundryServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.DataFoundryServiceClient"
+        },
+        "method": {
+          "shortName": "GenerateSyntheticData",
+          "fullName": "google.cloud.aiplatform.v1.DataFoundryService.GenerateSyntheticData",
+          "service": {
+            "shortName": "DataFoundryService",
+            "fullName": "google.cloud.aiplatform.v1.DataFoundryService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 56,
+          "type": "FULL"
+        },
+        {
+          "start": 36,
+          "end": 54,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
       "regionTag": "aiplatform_v1_generated_DatasetService_CreateDataset_sync",
       "title": "CreateDatasetRequestObject",
       "description": "Snippet for CreateDataset",
@@ -13936,6 +14033,151 @@
         {
           "start": 35,
           "end": 45,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_FeatureOnlineStoreService_FeatureViewDirectWrite_sync",
+      "title": "FeatureViewDirectWrite",
+      "description": "Snippet for FeatureViewDirectWrite",
+      "file": "FeatureOnlineStoreServiceClient.FeatureViewDirectWriteSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "FeatureViewDirectWrite",
+        "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient.FeatureViewDirectWrite",
+        "parameters": [
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.BidirectionalStreamingSettings",
+            "name": "streamingSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient+FeatureViewDirectWriteStream",
+        "client": {
+          "shortName": "FeatureOnlineStoreServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient"
+        },
+        "method": {
+          "shortName": "FeatureViewDirectWrite",
+          "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService.FeatureViewDirectWrite",
+          "service": {
+            "shortName": "FeatureOnlineStoreService",
+            "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 81,
+          "type": "FULL"
+        },
+        {
+          "start": 36,
+          "end": 79,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_FeatureOnlineStoreService_GenerateFetchAccessToken_sync",
+      "title": "GenerateFetchAccessTokenRequestObject",
+      "description": "Snippet for GenerateFetchAccessToken",
+      "file": "FeatureOnlineStoreServiceClient.GenerateFetchAccessTokenRequestObjectSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "GenerateFetchAccessToken",
+        "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient.GenerateFetchAccessToken",
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.GenerateFetchAccessTokenRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.GenerateFetchAccessTokenResponse",
+        "client": {
+          "shortName": "FeatureOnlineStoreServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient"
+        },
+        "method": {
+          "shortName": "GenerateFetchAccessToken",
+          "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService.GenerateFetchAccessToken",
+          "service": {
+            "shortName": "FeatureOnlineStoreService",
+            "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 44,
+          "type": "FULL"
+        },
+        {
+          "start": 34,
+          "end": 42,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_FeatureOnlineStoreService_GenerateFetchAccessToken_async",
+      "title": "GenerateFetchAccessTokenRequestObjectAsync",
+      "description": "Snippet for GenerateFetchAccessTokenAsync",
+      "file": "FeatureOnlineStoreServiceClient.GenerateFetchAccessTokenRequestObjectAsyncSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "GenerateFetchAccessTokenAsync",
+        "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient.GenerateFetchAccessTokenAsync",
+        "async": true,
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.GenerateFetchAccessTokenRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "System.Threading.Tasks.Task<Google.Cloud.AIPlatform.V1.GenerateFetchAccessTokenResponse>",
+        "client": {
+          "shortName": "FeatureOnlineStoreServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.FeatureOnlineStoreServiceClient"
+        },
+        "method": {
+          "shortName": "GenerateFetchAccessToken",
+          "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService.GenerateFetchAccessToken",
+          "service": {
+            "shortName": "FeatureOnlineStoreService",
+            "fullName": "google.cloud.aiplatform.v1.FeatureOnlineStoreService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 45,
+          "type": "FULL"
+        },
+        {
+          "start": 35,
+          "end": 43,
           "type": "SHORT"
         }
       ]
@@ -69730,12 +69972,12 @@
       "segments": [
         {
           "start": 22,
-          "end": 49,
+          "end": 50,
           "type": "FULL"
         },
         {
           "start": 37,
-          "end": 47,
+          "end": 48,
           "type": "SHORT"
         }
       ]
@@ -69779,12 +70021,12 @@
       "segments": [
         {
           "start": 22,
-          "end": 50,
+          "end": 51,
           "type": "FULL"
         },
         {
           "start": 38,
-          "end": 48,
+          "end": 49,
           "type": "SHORT"
         }
       ]
@@ -71271,12 +71513,12 @@
       "segments": [
         {
           "start": 20,
-          "end": 55,
+          "end": 56,
           "type": "FULL"
         },
         {
           "start": 34,
-          "end": 53,
+          "end": 54,
           "type": "SHORT"
         }
       ]
@@ -71320,12 +71562,12 @@
       "segments": [
         {
           "start": 20,
-          "end": 56,
+          "end": 57,
           "type": "FULL"
         },
         {
           "start": 35,
-          "end": 54,
+          "end": 55,
           "type": "SHORT"
         }
       ]
@@ -71471,12 +71713,12 @@
       "segments": [
         {
           "start": 20,
-          "end": 67,
+          "end": 68,
           "type": "FULL"
         },
         {
           "start": 36,
-          "end": 65,
+          "end": 66,
           "type": "SHORT"
         }
       ]
@@ -71528,6 +71770,309 @@
         {
           "start": 37,
           "end": 53,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_sync",
+      "title": "EmbedContentRequestObject",
+      "description": "Snippet for EmbedContent",
+      "file": "PredictionServiceClient.EmbedContentRequestObjectSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContent",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContent",
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.EmbedContentRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.EmbedContentResponse",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 49,
+          "type": "FULL"
+        },
+        {
+          "start": 34,
+          "end": 47,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_async",
+      "title": "EmbedContentRequestObjectAsync",
+      "description": "Snippet for EmbedContentAsync",
+      "file": "PredictionServiceClient.EmbedContentRequestObjectAsyncSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContentAsync",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContentAsync",
+        "async": true,
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.EmbedContentRequest",
+            "name": "request"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "System.Threading.Tasks.Task<Google.Cloud.AIPlatform.V1.EmbedContentResponse>",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 50,
+          "type": "FULL"
+        },
+        {
+          "start": 35,
+          "end": 48,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_sync_flattened",
+      "title": "EmbedContent",
+      "description": "Snippet for EmbedContent",
+      "file": "PredictionServiceClient.EmbedContentSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContent",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContent",
+        "parameters": [
+          {
+            "type": "System.String",
+            "name": "model"
+          },
+          {
+            "type": "Google.Cloud.AIPlatform.V1.Content",
+            "name": "content"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.EmbedContentResponse",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 42,
+          "type": "FULL"
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_async_flattened",
+      "title": "EmbedContentAsync",
+      "description": "Snippet for EmbedContentAsync",
+      "file": "PredictionServiceClient.EmbedContentAsyncSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContentAsync",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContentAsync",
+        "async": true,
+        "parameters": [
+          {
+            "type": "System.String",
+            "name": "model"
+          },
+          {
+            "type": "Google.Cloud.AIPlatform.V1.Content",
+            "name": "content"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "System.Threading.Tasks.Task<Google.Cloud.AIPlatform.V1.EmbedContentResponse>",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 43,
+          "type": "FULL"
+        },
+        {
+          "start": 35,
+          "end": 41,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_sync_flattened_resourceNames",
+      "title": "EmbedContentResourceNames",
+      "description": "Snippet for EmbedContent",
+      "file": "PredictionServiceClient.EmbedContentResourceNamesSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContent",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContent",
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.EndpointName",
+            "name": "model"
+          },
+          {
+            "type": "Google.Cloud.AIPlatform.V1.Content",
+            "name": "content"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "Google.Cloud.AIPlatform.V1.EmbedContentResponse",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 42,
+          "type": "FULL"
+        },
+        {
+          "start": 34,
+          "end": 40,
+          "type": "SHORT"
+        }
+      ]
+    },
+    {
+      "regionTag": "aiplatform_v1_generated_PredictionService_EmbedContent_async_flattened_resourceNames",
+      "title": "EmbedContentResourceNamesAsync",
+      "description": "Snippet for EmbedContentAsync",
+      "file": "PredictionServiceClient.EmbedContentResourceNamesAsyncSnippet.g.cs",
+      "language": "C_SHARP",
+      "clientMethod": {
+        "shortName": "EmbedContentAsync",
+        "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient.EmbedContentAsync",
+        "async": true,
+        "parameters": [
+          {
+            "type": "Google.Cloud.AIPlatform.V1.EndpointName",
+            "name": "model"
+          },
+          {
+            "type": "Google.Cloud.AIPlatform.V1.Content",
+            "name": "content"
+          },
+          {
+            "type": "Google.Api.Gax.Grpc.CallSettings",
+            "name": "callSettings"
+          }
+        ],
+        "resultType": "System.Threading.Tasks.Task<Google.Cloud.AIPlatform.V1.EmbedContentResponse>",
+        "client": {
+          "shortName": "PredictionServiceClient",
+          "fullName": "Google.Cloud.AIPlatform.V1.PredictionServiceClient"
+        },
+        "method": {
+          "shortName": "EmbedContent",
+          "fullName": "google.cloud.aiplatform.v1.PredictionService.EmbedContent",
+          "service": {
+            "shortName": "PredictionService",
+            "fullName": "google.cloud.aiplatform.v1.PredictionService"
+          }
+        }
+      },
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 43,
+          "type": "FULL"
+        },
+        {
+          "start": 35,
+          "end": 41,
           "type": "SHORT"
         }
       ]

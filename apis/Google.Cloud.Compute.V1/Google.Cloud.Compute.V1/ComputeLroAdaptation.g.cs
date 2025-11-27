@@ -819,6 +819,15 @@ namespace Google.Cloud.Compute.V1
         }
     }
 
+    public partial class AddNetworkInterfaceInstanceRequest
+    {
+        internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
+        {
+            pollRequest.Zone = Zone;
+            pollRequest.Project = Project;
+        }
+    }
+
     public partial class AddResourcePoliciesInstanceRequest
     {
         internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
@@ -856,6 +865,15 @@ namespace Google.Cloud.Compute.V1
     }
 
     public partial class DeleteAccessConfigInstanceRequest
+    {
+        internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
+        {
+            pollRequest.Zone = Zone;
+            pollRequest.Project = Project;
+        }
+    }
+
+    public partial class DeleteNetworkInterfaceInstanceRequest
     {
         internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
         {
@@ -1457,6 +1475,11 @@ namespace Google.Cloud.Compute.V1
         internal void PopulatePollRequestFields(GetGlobalOperationRequest pollRequest) => pollRequest.Project = Project;
     }
 
+    public partial class RequestRemovePeeringNetworkRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOperationRequest pollRequest) => pollRequest.Project = Project;
+    }
+
     public partial class SwitchToCustomModeNetworkRequest
     {
         internal void PopulatePollRequestFields(GetGlobalOperationRequest pollRequest) => pollRequest.Project = Project;
@@ -1557,6 +1580,74 @@ namespace Google.Cloud.Compute.V1
         }
     }
 
+    public partial class AddAssociationOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class AddRuleOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class CopyRulesOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class DeleteOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class InsertOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest) =>
+            pollRequest.ParentId = ParentId;
+    }
+
+    public partial class MoveOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest) =>
+            pollRequest.ParentId = ParentId;
+    }
+
+    public partial class PatchOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class PatchRuleOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class RemoveAssociationOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
+    public partial class RemoveRuleOrganizationSecurityPolicyRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOrganizationOperationRequest pollRequest)
+        {
+        }
+    }
+
     public partial class DeletePacketMirroringRequest
     {
         internal void PopulatePollRequestFields(GetRegionOperationRequest pollRequest)
@@ -1582,6 +1673,11 @@ namespace Google.Cloud.Compute.V1
             pollRequest.Region = Region;
             pollRequest.Project = Project;
         }
+    }
+
+    public partial class UpdatePreviewFeatureRequest
+    {
+        internal void PopulatePollRequestFields(GetGlobalOperationRequest pollRequest) => pollRequest.Project = Project;
     }
 
     public partial class DisableXpnHostProjectRequest
@@ -2569,6 +2665,24 @@ namespace Google.Cloud.Compute.V1
     }
 
     public partial class PerformMaintenanceReservationBlockRequest
+    {
+        internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
+        {
+            pollRequest.Zone = Zone;
+            pollRequest.Project = Project;
+        }
+    }
+
+    public partial class PerformMaintenanceReservationSubBlockRequest
+    {
+        internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
+        {
+            pollRequest.Zone = Zone;
+            pollRequest.Project = Project;
+        }
+    }
+
+    public partial class ReportFaultyReservationSubBlockRequest
     {
         internal void PopulatePollRequestFields(GetZoneOperationRequest pollRequest)
         {

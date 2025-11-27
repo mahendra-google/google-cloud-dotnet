@@ -1,5 +1,23 @@
 # Version history
 
+## Version 3.30.0, released 2025-11-05
+
+### New features
+
+- Update dependencies
+
+## Version 3.29.0, released 2025-08-08
+
+### New features
+
+- Add tags field to Instance proto (stable branch)
+
+## Version 3.28.0, released 2025-07-22
+
+### New features
+
+- Add type support for Proto and Enum
+
 ## Version 3.27.0, released 2025-06-25
 
 ### New features

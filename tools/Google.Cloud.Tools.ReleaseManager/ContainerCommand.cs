@@ -22,6 +22,8 @@ namespace Google.Cloud.Tools.ReleaseManager;
 
 public sealed class ContainerCommand : ICommand
 {
+    internal const string ToolsLibraryPrefix = "Google.Cloud.Tools.";
+
     internal const string GenerateRaw = "generate-raw";
     internal const string GenerateLibrary = "generate-library";
     internal const string Clean = "clean";
@@ -74,6 +76,10 @@ public sealed class ContainerCommand : ICommand
             if (options.UtilityDocsName is not null)
             {
                 return UtilityDocCommands.Execute(args[0], options);
+            }
+            if (options.LibraryId?.StartsWith(ToolsLibraryPrefix, StringComparison.Ordinal) == true)
+            {
+                return ToolCommands.Execute(args[0], options);
             }
 
             return subcommand.Execute(options);

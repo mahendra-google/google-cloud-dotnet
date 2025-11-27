@@ -21,8 +21,10 @@ repoFiles:
 fileExpectations:
   absent:
   - repo/apis/Google.Test.V1/Google.Test.V1/GeneratedSource.g.cs
+  - repo/apis/Google.Test.V1/Google.Test.V1/Google.Test.V1.csproj
   - repo/renovate.json
   - repo/README.json
   present:
   - repo/apis/Google.Test.V1/Google.Test.V1/Handwritten.cs
   - repo/apis/Google.Test.V2/Google.Test.V2/GeneratedSource.g.cs
+  - repo/apis/Google.Test.V2/Google.Test.V2/Google.Test.V2.csproj

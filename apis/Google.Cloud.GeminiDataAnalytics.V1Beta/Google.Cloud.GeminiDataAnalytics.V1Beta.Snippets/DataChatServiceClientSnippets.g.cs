@@ -156,6 +156,93 @@ namespace GoogleCSharpSnippets
             // End snippet
         }
 
+        /// <summary>Snippet for DeleteConversation</summary>
+        public void DeleteConversationRequestObject()
+        {
+            // Snippet: DeleteConversation(DeleteConversationRequest, CallSettings)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = DataChatServiceClient.Create();
+            // Initialize request argument(s)
+            DeleteConversationRequest request = new DeleteConversationRequest
+            {
+                ConversationName = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]"),
+            };
+            // Make the request
+            dataChatServiceClient.DeleteConversation(request);
+            // End snippet
+        }
+
+        /// <summary>Snippet for DeleteConversationAsync</summary>
+        public async Task DeleteConversationRequestObjectAsync()
+        {
+            // Snippet: DeleteConversationAsync(DeleteConversationRequest, CallSettings)
+            // Additional: DeleteConversationAsync(DeleteConversationRequest, CancellationToken)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = await DataChatServiceClient.CreateAsync();
+            // Initialize request argument(s)
+            DeleteConversationRequest request = new DeleteConversationRequest
+            {
+                ConversationName = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]"),
+            };
+            // Make the request
+            await dataChatServiceClient.DeleteConversationAsync(request);
+            // End snippet
+        }
+
+        /// <summary>Snippet for DeleteConversation</summary>
+        public void DeleteConversation()
+        {
+            // Snippet: DeleteConversation(string, CallSettings)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = DataChatServiceClient.Create();
+            // Initialize request argument(s)
+            string name = "projects/[PROJECT]/locations/[LOCATION]/conversations/[CONVERSATION]";
+            // Make the request
+            dataChatServiceClient.DeleteConversation(name);
+            // End snippet
+        }
+
+        /// <summary>Snippet for DeleteConversationAsync</summary>
+        public async Task DeleteConversationAsync()
+        {
+            // Snippet: DeleteConversationAsync(string, CallSettings)
+            // Additional: DeleteConversationAsync(string, CancellationToken)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = await DataChatServiceClient.CreateAsync();
+            // Initialize request argument(s)
+            string name = "projects/[PROJECT]/locations/[LOCATION]/conversations/[CONVERSATION]";
+            // Make the request
+            await dataChatServiceClient.DeleteConversationAsync(name);
+            // End snippet
+        }
+
+        /// <summary>Snippet for DeleteConversation</summary>
+        public void DeleteConversationResourceNames()
+        {
+            // Snippet: DeleteConversation(ConversationName, CallSettings)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = DataChatServiceClient.Create();
+            // Initialize request argument(s)
+            ConversationName name = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]");
+            // Make the request
+            dataChatServiceClient.DeleteConversation(name);
+            // End snippet
+        }
+
+        /// <summary>Snippet for DeleteConversationAsync</summary>
+        public async Task DeleteConversationResourceNamesAsync()
+        {
+            // Snippet: DeleteConversationAsync(ConversationName, CallSettings)
+            // Additional: DeleteConversationAsync(ConversationName, CancellationToken)
+            // Create client
+            DataChatServiceClient dataChatServiceClient = await DataChatServiceClient.CreateAsync();
+            // Initialize request argument(s)
+            ConversationName name = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]");
+            // Make the request
+            await dataChatServiceClient.DeleteConversationAsync(name);
+            // End snippet
+        }
+
         /// <summary>Snippet for GetConversation</summary>
         public void GetConversationRequestObject()
         {
@@ -530,7 +617,7 @@ namespace GoogleCSharpSnippets
             // Initialize request argument(s)
             ListMessagesRequest request = new ListMessagesRequest
             {
-                ParentAsLocationName = LocationName.FromProjectLocation("[PROJECT]", "[LOCATION]"),
+                ParentAsConversationName = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]"),
                 Filter = "",
             };
             // Make the request
@@ -579,7 +666,7 @@ namespace GoogleCSharpSnippets
             // Initialize request argument(s)
             ListMessagesRequest request = new ListMessagesRequest
             {
-                ParentAsLocationName = LocationName.FromProjectLocation("[PROJECT]", "[LOCATION]"),
+                ParentAsConversationName = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]"),
                 Filter = "",
             };
             // Make the request
@@ -626,7 +713,7 @@ namespace GoogleCSharpSnippets
             // Create client
             DataChatServiceClient dataChatServiceClient = DataChatServiceClient.Create();
             // Initialize request argument(s)
-            string parent = "projects/[PROJECT]/locations/[LOCATION]";
+            string parent = "projects/[PROJECT]/locations/[LOCATION]/conversations/[CONVERSATION]";
             // Make the request
             PagedEnumerable<ListMessagesResponse, StorageMessage> response = dataChatServiceClient.ListMessages(parent);
 
@@ -671,7 +758,7 @@ namespace GoogleCSharpSnippets
             // Create client
             DataChatServiceClient dataChatServiceClient = await DataChatServiceClient.CreateAsync();
             // Initialize request argument(s)
-            string parent = "projects/[PROJECT]/locations/[LOCATION]";
+            string parent = "projects/[PROJECT]/locations/[LOCATION]/conversations/[CONVERSATION]";
             // Make the request
             PagedAsyncEnumerable<ListMessagesResponse, StorageMessage> response = dataChatServiceClient.ListMessagesAsync(parent);
 
@@ -712,11 +799,11 @@ namespace GoogleCSharpSnippets
         /// <summary>Snippet for ListMessages</summary>
         public void ListMessagesResourceNames()
         {
-            // Snippet: ListMessages(LocationName, string, int?, CallSettings)
+            // Snippet: ListMessages(ConversationName, string, int?, CallSettings)
             // Create client
             DataChatServiceClient dataChatServiceClient = DataChatServiceClient.Create();
             // Initialize request argument(s)
-            LocationName parent = LocationName.FromProjectLocation("[PROJECT]", "[LOCATION]");
+            ConversationName parent = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]");
             // Make the request
             PagedEnumerable<ListMessagesResponse, StorageMessage> response = dataChatServiceClient.ListMessages(parent);
 
@@ -757,11 +844,11 @@ namespace GoogleCSharpSnippets
         /// <summary>Snippet for ListMessagesAsync</summary>
         public async Task ListMessagesResourceNamesAsync()
         {
-            // Snippet: ListMessagesAsync(LocationName, string, int?, CallSettings)
+            // Snippet: ListMessagesAsync(ConversationName, string, int?, CallSettings)
             // Create client
             DataChatServiceClient dataChatServiceClient = await DataChatServiceClient.CreateAsync();
             // Initialize request argument(s)
-            LocationName parent = LocationName.FromProjectLocation("[PROJECT]", "[LOCATION]");
+            ConversationName parent = ConversationName.FromProjectLocationConversation("[PROJECT]", "[LOCATION]", "[CONVERSATION]");
             // Make the request
             PagedAsyncEnumerable<ListMessagesResponse, StorageMessage> response = dataChatServiceClient.ListMessagesAsync(parent);
 

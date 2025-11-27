@@ -1,5 +1,23 @@
 # Version history
 
+## Version 1.5.0, released 2025-11-05
+
+### New features
+
+- Update dependencies
+
+## Version 1.4.0, released 2025-11-05
+
+### New features
+
+- Add support for LbEdgeExtension resource in NetworkServices API
+
+## Version 1.3.0, released 2025-07-09
+
+### New features
+
+- Add isolation support to prevent cross-region overflow by adding a new field "isolation_config" to message "ServiceLbPolicy"
+
 ## Version 1.2.0, released 2025-06-25
 
 ### New features

@@ -52,9 +52,10 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
             "c2lvbkID4EECEjQKC3VwZGF0ZV9tYXNrGAIgASgLMhouZ29vZ2xlLnByb3Rv",
             "YnVmLkZpZWxkTWFza0ID4EEBIk8KFERlbGV0ZVNlc3Npb25SZXF1ZXN0EjcK",
             "BG5hbWUYASABKAlCKeBBAvpBIwohYWlwbGF0Zm9ybS5nb29nbGVhcGlzLmNv",
-            "bS9TZXNzaW9uIn8KEUxpc3RFdmVudHNSZXF1ZXN0EjkKBnBhcmVudBgBIAEo",
-            "CUIp4EEC+kEjCiFhaXBsYXRmb3JtLmdvb2dsZWFwaXMuY29tL1Nlc3Npb24S",
-            "FgoJcGFnZV9zaXplGAIgASgFQgPgQQESFwoKcGFnZV90b2tlbhgDIAEoCUID",
+            "bS9TZXNzaW9uIqsBChFMaXN0RXZlbnRzUmVxdWVzdBI5CgZwYXJlbnQYASAB",
+            "KAlCKeBBAvpBIwohYWlwbGF0Zm9ybS5nb29nbGVhcGlzLmNvbS9TZXNzaW9u",
+            "EhYKCXBhZ2Vfc2l6ZRgCIAEoBUID4EEBEhcKCnBhZ2VfdG9rZW4YAyABKAlC",
+            "A+BBARITCgZmaWx0ZXIYBCABKAlCA+BBARIVCghvcmRlcl9ieRgFIAEoCUID",
             "4EEBInQKEkxpc3RFdmVudHNSZXNwb25zZRJFCg5zZXNzaW9uX2V2ZW50cxgB",
             "IAMoCzItLmdvb2dsZS5jbG91ZC5haXBsYXRmb3JtLnYxYmV0YTEuU2Vzc2lv",
             "bkV2ZW50EhcKD25leHRfcGFnZV90b2tlbhgCIAEoCSKQAQoSQXBwZW5kRXZl",
@@ -124,7 +125,7 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.ListSessionsResponse), global::Google.Cloud.AIPlatform.V1Beta1.ListSessionsResponse.Parser, new[]{ "Sessions", "NextPageToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.UpdateSessionRequest), global::Google.Cloud.AIPlatform.V1Beta1.UpdateSessionRequest.Parser, new[]{ "Session", "UpdateMask" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.DeleteSessionRequest), global::Google.Cloud.AIPlatform.V1Beta1.DeleteSessionRequest.Parser, new[]{ "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.ListEventsRequest), global::Google.Cloud.AIPlatform.V1Beta1.ListEventsRequest.Parser, new[]{ "Parent", "PageSize", "PageToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.ListEventsRequest), global::Google.Cloud.AIPlatform.V1Beta1.ListEventsRequest.Parser, new[]{ "Parent", "PageSize", "PageToken", "Filter", "OrderBy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.ListEventsResponse), global::Google.Cloud.AIPlatform.V1Beta1.ListEventsResponse.Parser, new[]{ "SessionEvents", "NextPageToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.AppendEventRequest), global::Google.Cloud.AIPlatform.V1Beta1.AppendEventRequest.Parser, new[]{ "Name", "Event" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Cloud.AIPlatform.V1Beta1.AppendEventResponse), global::Google.Cloud.AIPlatform.V1Beta1.AppendEventResponse.Parser, null, null, null, null, null)
@@ -901,8 +902,9 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
     /// Optional. The standard list filter.
     /// Supported fields:
     ///    * `display_name`
+    ///    * `user_id`
     ///
-    /// Example: `display_name=abc`.
+    /// Example: `display_name="abc"`, `user_id="123"`.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1890,6 +1892,8 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       parent_ = other.parent_;
       pageSize_ = other.pageSize_;
       pageToken_ = other.pageToken_;
+      filter_ = other.filter_;
+      orderBy_ = other.orderBy_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1952,6 +1956,45 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       }
     }
 
+    /// <summary>Field number for the "filter" field.</summary>
+    public const int FilterFieldNumber = 4;
+    private string filter_ = "";
+    /// <summary>
+    /// Optional. The standard list filter.
+    /// Supported fields:
+    ///    * `timestamp` range (i.e. `timestamp>="2025-01-31T11:30:00-04:00"` where
+    ///    the timestamp is in RFC 3339 format)
+    ///
+    /// More detail in [AIP-160](https://google.aip.dev/160).
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Filter {
+      get { return filter_; }
+      set {
+        filter_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "order_by" field.</summary>
+    public const int OrderByFieldNumber = 5;
+    private string orderBy_ = "";
+    /// <summary>
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending. Supported fields:
+    ///   * `timestamp`
+    ///
+    /// Example: `timestamp desc`.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string OrderBy {
+      get { return orderBy_; }
+      set {
+        orderBy_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1970,6 +2013,8 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       if (Parent != other.Parent) return false;
       if (PageSize != other.PageSize) return false;
       if (PageToken != other.PageToken) return false;
+      if (Filter != other.Filter) return false;
+      if (OrderBy != other.OrderBy) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1980,6 +2025,8 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       if (Parent.Length != 0) hash ^= Parent.GetHashCode();
       if (PageSize != 0) hash ^= PageSize.GetHashCode();
       if (PageToken.Length != 0) hash ^= PageToken.GetHashCode();
+      if (Filter.Length != 0) hash ^= Filter.GetHashCode();
+      if (OrderBy.Length != 0) hash ^= OrderBy.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2010,6 +2057,14 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
         output.WriteRawTag(26);
         output.WriteString(PageToken);
       }
+      if (Filter.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Filter);
+      }
+      if (OrderBy.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(OrderBy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2032,6 +2087,14 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
         output.WriteRawTag(26);
         output.WriteString(PageToken);
       }
+      if (Filter.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Filter);
+      }
+      if (OrderBy.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(OrderBy);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2050,6 +2113,12 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       }
       if (PageToken.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(PageToken);
+      }
+      if (Filter.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Filter);
+      }
+      if (OrderBy.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(OrderBy);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2071,6 +2140,12 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
       }
       if (other.PageToken.Length != 0) {
         PageToken = other.PageToken;
+      }
+      if (other.Filter.Length != 0) {
+        Filter = other.Filter;
+      }
+      if (other.OrderBy.Length != 0) {
+        OrderBy = other.OrderBy;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2099,6 +2174,14 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
             PageToken = input.ReadString();
             break;
           }
+          case 34: {
+            Filter = input.ReadString();
+            break;
+          }
+          case 42: {
+            OrderBy = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -2124,6 +2207,14 @@ namespace Google.Cloud.AIPlatform.V1Beta1 {
           }
           case 26: {
             PageToken = input.ReadString();
+            break;
+          }
+          case 34: {
+            Filter = input.ReadString();
+            break;
+          }
+          case 42: {
+            OrderBy = input.ReadString();
             break;
           }
         }

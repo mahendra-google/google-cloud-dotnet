@@ -76,6 +76,7 @@ internal sealed class NonSourceGenerator
         { ApiType.Other, $"{DefaultNetstandardTarget};net462" }
     };
 
+    private const string ConsoleTargetFramework = "net8.0";
     private const string DefaultTestTargetFrameworks = "net8.0;net462";
 
     private static readonly Dictionary<ApiType, string[]> PackageTypeToImplicitDependencies = new Dictionary<ApiType, string[]>
@@ -113,7 +114,7 @@ internal sealed class NonSourceGenerator
         { "xunit.runner.visualstudio", DefaultVersionValue },
         { "Xunit.SkippableFact", DefaultVersionValue },
         { "NSubstitute", DefaultVersionValue },
-        { "System.Linq.Async", DefaultVersionValue },
+        { "System.Linq.AsyncEnumerable", DefaultVersionValue },
     };
 
     // Hard-coded versions for dependencies for production packages that can be updated arbitrarily, as their assets are all private.
@@ -196,6 +197,8 @@ internal sealed class NonSourceGenerator
         {
             if (!projectName.StartsWith(api.Id, StringComparison.Ordinal))
             {
+                // An explicit project, e.g. "SampleApp" in Google.Cloud.Logging.Console.
+                GenerateConsoleProject(projectName);
                 continue;
             }
             string suffix = projectName[api.Id.Length..];
@@ -209,6 +212,10 @@ internal sealed class NonSourceGenerator
                 case ".Snippets":
                 case ".GeneratedSnippets":
                     GenerateTestProject(projectName);
+                    break;
+                // Anything not covered above is expected to be a console app.
+                default:
+                    GenerateConsoleProject(projectName);
                     break;
             }
         }
@@ -254,6 +261,19 @@ internal sealed class NonSourceGenerator
             WriteProjectFile(api.Id, propertyGroup, dependenciesElement);
         }
 
+        void GenerateConsoleProject(string projectName)
+        {
+            var propertyGroup = new XElement("PropertyGroup",
+                // Build-related properties
+                new XElement("OutputType", "Exe"),
+                new XElement("TargetFramework", ConsoleTargetFramework),
+                new XElement("IsPackable", false)
+            );
+            // Each console app depends on the main project
+            XElement dependenciesElement = new XElement("ItemGroup", CreateDependencyElement(projectName, api.Id, ProjectVersionValue, null, false));
+            WriteProjectFile(projectName, propertyGroup, dependenciesElement);
+        }
+
         void GenerateTestProject(string projectName)
         {
             var dependencies = new SortedList<string, string>(CommonTestDependencies, StringComparer.Ordinal);
@@ -275,11 +295,12 @@ internal sealed class NonSourceGenerator
                     // Note: this would normally be TestTargetFrameworks, but that appears to be broken in .NET 6. I don't know why.
                     new XElement("TargetFrameworks", new XAttribute("Condition", " '$(OS)' != 'Windows_NT' "), AnyDesktopFramework.Replace(testTargetFrameworks, "")),
                     new XElement("IsPackable", false),
+                    // $(NoWarn) allows Directory.Build.props in the API's root directory to add more entries.
                     // 1701, 1702 and 1705 are disabled by default.
                     // xUnit2004 prevents Assert.Equal(true, value) etc, preferring Assert.True and Assert.False, but
                     //   Assert.Equal is clearer (IMO) for comparing values rather than conditions.
                     // xUnit2013 prevents simple checks for the number of items in a collection
-                    new XElement("NoWarn", "1701;1702;1705;xUnit2004;xUnit2013")
+                    new XElement("NoWarn", "$(NoWarn);1701;1702;1705;xUnit2004;xUnit2013")
                 );
             var dependenciesElement = CreateDependenciesElement(projectName, dependencies, api.StructuredVersion, testProject: true);
             // Test service... it keeps on getting added by Visual Studio, so let's just include it everywhere.
@@ -304,7 +325,18 @@ internal sealed class NonSourceGenerator
             if (File.Exists(augmentationFile))
             {
                 var augmentationDoc = XDocument.Load(augmentationFile);
-                doc.Add(augmentationDoc.Root.Elements());
+                // Emergency escape hatch for a couple of project files which would be really painful to handle
+                // otherwise: if we have a ReplaceAll attribute in the root of the document, we ignore whatever we
+                // would have generated, and just copy the elements instead.
+                if (augmentationDoc.Root.Attribute("ReplaceAll") is XAttribute replaceAllAttr)
+                {
+                    replaceAllAttr.Remove();
+                    doc = augmentationDoc.Root;
+                }
+                else
+                {
+                    doc.Add(augmentationDoc.Root.Elements());
+                }
             }
 
             // Don't use File.CreateText as that omits the byte order mark.
@@ -671,11 +703,10 @@ internal sealed class NonSourceGenerator
         DeleteRelative(".repo-metadata.json");
         DeleteRelative(".repo-metadata.json");
 
-        DeleteProject(apiLayout.ProductionDirectory);
-        DeleteProject(apiLayout.UnitTestsDirectory);
-        DeleteProject(apiLayout.IntegrationTestsDirectory);
-        DeleteProject(apiLayout.GeneratedSnippetsDirectory);
-        DeleteProject(apiLayout.SnippetsDirectory);
+        foreach (var project in api.DeriveProjects())
+        {
+            DeleteProject(Path.Combine(apiLayout.SourceDirectory, project));
+        }
 
         void DeleteProject(string directory)
         {

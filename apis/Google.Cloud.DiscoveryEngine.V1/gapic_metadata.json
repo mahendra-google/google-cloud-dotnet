@@ -5,6 +5,21 @@
   "protoPackage": "google.cloud.discoveryengine.v1",
   "libraryPackage": "Google.Cloud.DiscoveryEngine.V1",
   "services": {
+    "AssistantService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "AssistantServiceClient",
+          "rpcs": {
+            "StreamAssist": {
+              "methods": [
+                "StreamAssist",
+                "StreamAssistAsync"
+              ]
+            }
+          }
+        }
+      }
+    },
     "CmekConfigService": {
       "clients": {
         "grpc": {
@@ -557,6 +572,45 @@
               "methods": [
                 "UpdateServingConfig",
                 "UpdateServingConfigAsync"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "SessionService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "SessionServiceClient",
+          "rpcs": {
+            "CreateSession": {
+              "methods": [
+                "CreateSession",
+                "CreateSessionAsync"
+              ]
+            },
+            "DeleteSession": {
+              "methods": [
+                "DeleteSession",
+                "DeleteSessionAsync"
+              ]
+            },
+            "GetSession": {
+              "methods": [
+                "GetSession",
+                "GetSessionAsync"
+              ]
+            },
+            "ListSessions": {
+              "methods": [
+                "ListSessions",
+                "ListSessionsAsync"
+              ]
+            },
+            "UpdateSession": {
+              "methods": [
+                "UpdateSession",
+                "UpdateSessionAsync"
               ]
             }
           }

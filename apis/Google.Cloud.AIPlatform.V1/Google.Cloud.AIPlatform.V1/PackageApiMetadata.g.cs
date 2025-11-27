@@ -98,6 +98,7 @@ namespace Google.Cloud.AIPlatform.V1
             yield return ContentReflection.Descriptor;
             yield return ContextReflection.Descriptor;
             yield return CustomJobReflection.Descriptor;
+            yield return DataFoundryServiceReflection.Descriptor;
             yield return DataItemReflection.Descriptor;
             yield return DataLabelingJobReflection.Descriptor;
             yield return DatasetReflection.Descriptor;
@@ -107,6 +108,7 @@ namespace Google.Cloud.AIPlatform.V1
             yield return DeployedModelRefReflection.Descriptor;
             yield return DeploymentResourcePoolReflection.Descriptor;
             yield return DeploymentResourcePoolServiceReflection.Descriptor;
+            yield return DeploymentStageReflection.Descriptor;
             yield return EncryptionSpecReflection.Descriptor;
             yield return EndpointReflection.Descriptor;
             yield return EndpointServiceReflection.Descriptor;
@@ -200,6 +202,7 @@ namespace Google.Cloud.AIPlatform.V1
             yield return TuningJobReflection.Descriptor;
             yield return TypesReflection.Descriptor;
             yield return UnmanagedContainerModelReflection.Descriptor;
+            yield return UsageMetadataReflection.Descriptor;
             yield return UserActionReferenceReflection.Descriptor;
             yield return ValueReflection.Descriptor;
             yield return VertexRagDataReflection.Descriptor;

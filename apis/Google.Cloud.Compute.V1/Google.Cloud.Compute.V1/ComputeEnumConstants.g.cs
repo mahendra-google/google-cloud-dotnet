@@ -508,6 +508,49 @@ namespace Google.Cloud.Compute.V1
 
         /// <summary>
         /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo"/> message.
+        /// </summary>
+        public static class AllocationResourceStatusHealthInfo
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo.Types.HealthStatus"/>
+            /// enum.
+            /// </summary>
+            public static class HealthStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo.Types.HealthStatus.UndefinedHealthStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedHealthStatus = "UNDEFINED_HEALTH_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo.Types.HealthStatus.Degraded"/>
+                /// .
+                /// </summary>
+                public const string Degraded = "DEGRADED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo.Types.HealthStatus.Healthy"/>
+                /// .
+                /// </summary>
+                public const string Healthy = "HEALTHY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.AllocationResourceStatusHealthInfo.Types.HealthStatus.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "HEALTH_STATUS_UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
         /// <see cref="global::Google.Cloud.Compute.V1.AllocationSpecificSKUAllocationAllocatedInstancePropertiesReservedDisk"/>
         ///  message.
         /// </summary>
@@ -1512,6 +1555,13 @@ namespace Google.Cloud.Compute.V1
 
                 /// <summary>
                 /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.BackendService.Types.LocalityLbPolicy.WeightedGcpRendezvous"/>
+                /// .
+                /// </summary>
+                public const string WeightedGcpRendezvous = "WEIGHTED_GCP_RENDEZVOUS";
+
+                /// <summary>
+                /// Wire representation of
                 /// <see cref="global::Google.Cloud.Compute.V1.BackendService.Types.LocalityLbPolicy.WeightedMaglev"/>.
                 /// </summary>
                 public const string WeightedMaglev = "WEIGHTED_MAGLEV";
@@ -1891,6 +1941,13 @@ namespace Google.Cloud.Compute.V1
                 /// .
                 /// </summary>
                 public const string RoundRobin = "ROUND_ROBIN";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.BackendServiceLocalityLoadBalancingPolicyConfigPolicy.Types.Name.WeightedGcpRendezvous"/>
+                /// .
+                /// </summary>
+                public const string WeightedGcpRendezvous = "WEIGHTED_GCP_RENDEZVOUS";
 
                 /// <summary>
                 /// Wire representation of
@@ -3615,6 +3672,77 @@ namespace Google.Cloud.Compute.V1
         }
 
         /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest"/> message.
+        /// </summary>
+        public static class GetReservationBlockRequest
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest.Types.View"/> enum.
+            /// </summary>
+            public static class View
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest.Types.View.UndefinedView"/>.
+                /// </summary>
+                public const string UndefinedView = "UNDEFINED_VIEW";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest.Types.View.Basic"/>.
+                /// </summary>
+                public const string Basic = "BASIC";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest.Types.View.BlockViewUnspecified"/>
+                /// .
+                /// </summary>
+                public const string BlockViewUnspecified = "BLOCK_VIEW_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetReservationBlockRequest.Types.View.Full"/>.
+                /// </summary>
+                public const string Full = "FULL";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.GetSubnetworkRequest"/>
+        /// message.
+        /// </summary>
+        public static class GetSubnetworkRequest
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.GetSubnetworkRequest.Types.Views"/> enum.
+            /// </summary>
+            public static class Views
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetSubnetworkRequest.Types.Views.UndefinedViews"/>.
+                /// </summary>
+                public const string UndefinedViews = "UNDEFINED_VIEWS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetSubnetworkRequest.Types.Views.Default"/>.
+                /// </summary>
+                public const string Default = "DEFAULT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.GetSubnetworkRequest.Types.Views.WithUtilization"/>.
+                /// </summary>
+                public const string WithUtilization = "WITH_UTILIZATION";
+            }
+        }
+
+        /// <summary>
         /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.GroupMaintenanceInfo"/>
         /// message.
         /// </summary>
@@ -4424,6 +4552,11 @@ namespace Google.Cloud.Compute.V1
                 public const string Deprovisioning = "DEPROVISIONING";
 
                 /// <summary>
+                /// Wire representation of <see cref="global::Google.Cloud.Compute.V1.Instance.Types.Status.Pending"/>.
+                /// </summary>
+                public const string Pending = "PENDING";
+
+                /// <summary>
                 /// Wire representation of
                 /// <see cref="global::Google.Cloud.Compute.V1.Instance.Types.Status.Provisioning"/>.
                 /// </summary>
@@ -5060,6 +5193,12 @@ namespace Google.Cloud.Compute.V1
 
                 /// <summary>
                 /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InstanceWithNamedPorts.Types.Status.Pending"/>.
+                /// </summary>
+                public const string Pending = "PENDING";
+
+                /// <summary>
+                /// Wire representation of
                 /// <see cref="global::Google.Cloud.Compute.V1.InstanceWithNamedPorts.Types.Status.Provisioning"/>.
                 /// </summary>
                 public const string Provisioning = "PROVISIONING";
@@ -5498,6 +5637,94 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.Interconnect.Types.State.Unprovisioned"/>.
                 /// </summary>
                 public const string Unprovisioned = "UNPROVISIONED";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.Interconnect.Types.Subzone"/> enum.
+            /// </summary>
+            public static class Subzone
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Interconnect.Types.Subzone.UndefinedSubzone"/>.
+                /// </summary>
+                public const string UndefinedSubzone = "UNDEFINED_SUBZONE";
+
+                /// <summary>
+                /// Wire representation of <see cref="global::Google.Cloud.Compute.V1.Interconnect.Types.Subzone.A"/>.
+                /// </summary>
+                public const string A = "SUBZONE_A";
+
+                /// <summary>
+                /// Wire representation of <see cref="global::Google.Cloud.Compute.V1.Interconnect.Types.Subzone.B"/>.
+                /// </summary>
+                public const string B = "SUBZONE_B";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage"/>
+        /// message.
+        /// </summary>
+        public static class InterconnectApplicationAwareInterconnectBandwidthPercentage
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass"/>
+            ///  enum.
+            /// </summary>
+            public static class TrafficClass
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.UndefinedTrafficClass"/>
+                /// .
+                /// </summary>
+                public const string UndefinedTrafficClass = "UNDEFINED_TRAFFIC_CLASS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc1"/>
+                /// .
+                /// </summary>
+                public const string Tc1 = "TC1";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc2"/>
+                /// .
+                /// </summary>
+                public const string Tc2 = "TC2";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc3"/>
+                /// .
+                /// </summary>
+                public const string Tc3 = "TC3";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc4"/>
+                /// .
+                /// </summary>
+                public const string Tc4 = "TC4";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc5"/>
+                /// .
+                /// </summary>
+                public const string Tc5 = "TC5";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.InterconnectApplicationAwareInterconnectBandwidthPercentage.Types.TrafficClass.Tc6"/>
+                /// .
+                /// </summary>
+                public const string Tc6 = "TC6";
             }
         }
 
@@ -7481,6 +7708,38 @@ namespace Google.Cloud.Compute.V1
         }
 
         /// <summary>
+        /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.ListSubnetworksRequest"/>
+        /// message.
+        /// </summary>
+        public static class ListSubnetworksRequest
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ListSubnetworksRequest.Types.Views"/> enum.
+            /// </summary>
+            public static class Views
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ListSubnetworksRequest.Types.Views.UndefinedViews"/>.
+                /// </summary>
+                public const string UndefinedViews = "UNDEFINED_VIEWS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ListSubnetworksRequest.Types.Views.Default"/>.
+                /// </summary>
+                public const string Default = "DEFAULT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ListSubnetworksRequest.Types.Views.WithUtilization"/>.
+                /// </summary>
+                public const string WithUtilization = "WITH_UTILIZATION";
+            }
+        }
+
+        /// <summary>
         /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.LocationPolicy"/> message.
         /// </summary>
         public static class LocationPolicy
@@ -7746,6 +8005,12 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.ManagedInstance.Types.InstanceStatus.Deprovisioning"/>.
                 /// </summary>
                 public const string Deprovisioning = "DEPROVISIONING";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ManagedInstance.Types.InstanceStatus.Pending"/>.
+                /// </summary>
+                public const string Pending = "PENDING";
 
                 /// <summary>
                 /// Wire representation of
@@ -8448,6 +8713,209 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.State.Inactive"/>.
                 /// </summary>
                 public const string Inactive = "INACTIVE";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.UpdateStrategy"/> enum.
+            /// </summary>
+            public static class UpdateStrategy
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.UpdateStrategy.UndefinedUpdateStrategy"/>
+                /// .
+                /// </summary>
+                public const string UndefinedUpdateStrategy = "UNDEFINED_UPDATE_STRATEGY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.UpdateStrategy.Consensus"/>.
+                /// </summary>
+                public const string Consensus = "CONSENSUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.UpdateStrategy.Independent"/>.
+                /// </summary>
+                public const string Independent = "INDEPENDENT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeering.Types.UpdateStrategy.Unspecified"/>.
+                /// </summary>
+                public const string Unspecified = "UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus"/> message.
+        /// </summary>
+        public static class NetworkPeeringConnectionStatus
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus.Types.UpdateStrategy"/> enum.
+            /// </summary>
+            public static class UpdateStrategy
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus.Types.UpdateStrategy.UndefinedUpdateStrategy"/>
+                /// .
+                /// </summary>
+                public const string UndefinedUpdateStrategy = "UNDEFINED_UPDATE_STRATEGY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus.Types.UpdateStrategy.Consensus"/>
+                /// .
+                /// </summary>
+                public const string Consensus = "CONSENSUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus.Types.UpdateStrategy.Independent"/>
+                /// .
+                /// </summary>
+                public const string Independent = "INDEPENDENT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatus.Types.UpdateStrategy.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState"/> message.
+        /// </summary>
+        public static class NetworkPeeringConnectionStatusConsensusState
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus"/>
+            ///  enum.
+            /// </summary>
+            public static class DeleteStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus.UndefinedDeleteStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedDeleteStatus = "UNDEFINED_DELETE_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus.DeleteAcknowledged"/>
+                /// .
+                /// </summary>
+                public const string DeleteAcknowledged = "DELETE_ACKNOWLEDGED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "DELETE_STATUS_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus.LocalDeleteRequested"/>
+                /// .
+                /// </summary>
+                public const string LocalDeleteRequested = "LOCAL_DELETE_REQUESTED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.DeleteStatus.PeerDeleteRequested"/>
+                /// .
+                /// </summary>
+                public const string PeerDeleteRequested = "PEER_DELETE_REQUESTED";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus"/>
+            ///  enum.
+            /// </summary>
+            public static class UpdateStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus.UndefinedUpdateStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedUpdateStatus = "UNDEFINED_UPDATE_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus.InSync"/>
+                /// .
+                /// </summary>
+                public const string InSync = "IN_SYNC";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus.PendingLocalAcknowledment"/>
+                /// .
+                /// </summary>
+                public const string PendingLocalAcknowledment = "PENDING_LOCAL_ACKNOWLEDMENT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus.PendingPeerAcknowledgement"/>
+                /// .
+                /// </summary>
+                public const string PendingPeerAcknowledgement = "PENDING_PEER_ACKNOWLEDGEMENT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusConsensusState.Types.UpdateStatus.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "UPDATE_STATUS_UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusTrafficConfiguration"/> message.
+        /// </summary>
+        public static class NetworkPeeringConnectionStatusTrafficConfiguration
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusTrafficConfiguration.Types.StackType"/>
+            ///  enum.
+            /// </summary>
+            public static class StackType
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusTrafficConfiguration.Types.StackType.UndefinedStackType"/>
+                /// .
+                /// </summary>
+                public const string UndefinedStackType = "UNDEFINED_STACK_TYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusTrafficConfiguration.Types.StackType.Ipv4Ipv6"/>
+                /// .
+                /// </summary>
+                public const string Ipv4Ipv6 = "IPV4_IPV6";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkPeeringConnectionStatusTrafficConfiguration.Types.StackType.Ipv4Only"/>
+                /// .
+                /// </summary>
+                public const string Ipv4Only = "IPV4_ONLY";
             }
         }
 
@@ -9445,6 +9913,118 @@ namespace Google.Cloud.Compute.V1
         }
 
         /// <summary>
+        /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType"/>
+        /// message.
+        /// </summary>
+        public static class NetworkProfileProfileType
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.NetworkType"/> enum.
+            /// </summary>
+            public static class NetworkType
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.NetworkType.UndefinedNetworkType"/>
+                /// .
+                /// </summary>
+                public const string UndefinedNetworkType = "UNDEFINED_NETWORK_TYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.NetworkType.Rdma"/>.
+                /// </summary>
+                public const string Rdma = "RDMA";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.NetworkType.Ull"/>.
+                /// </summary>
+                public const string Ull = "ULL";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.NetworkType.Vpc"/>.
+                /// </summary>
+                public const string Vpc = "VPC";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.RdmaSubtype"/> enum.
+            /// </summary>
+            public static class RdmaSubtype
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.RdmaSubtype.UndefinedRdmaSubtype"/>
+                /// .
+                /// </summary>
+                public const string UndefinedRdmaSubtype = "UNDEFINED_RDMA_SUBTYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.RdmaSubtype.Falcon"/>.
+                /// </summary>
+                public const string Falcon = "FALCON";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.RdmaSubtype.Roce"/>.
+                /// </summary>
+                public const string Roce = "ROCE";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.UllSubtype"/> enum.
+            /// </summary>
+            public static class UllSubtype
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.UllSubtype.UndefinedUllSubtype"/>
+                /// .
+                /// </summary>
+                public const string UndefinedUllSubtype = "UNDEFINED_ULL_SUBTYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.UllSubtype.Operator"/>.
+                /// </summary>
+                public const string Operator = "OPERATOR";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.UllSubtype.Participant"/>
+                /// .
+                /// </summary>
+                public const string Participant = "PARTICIPANT";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.VpcSubtype"/> enum.
+            /// </summary>
+            public static class VpcSubtype
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.VpcSubtype.UndefinedVpcSubtype"/>
+                /// .
+                /// </summary>
+                public const string UndefinedVpcSubtype = "UNDEFINED_VPC_SUBTYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.NetworkProfileProfileType.Types.VpcSubtype.Regional"/>.
+                /// </summary>
+                public const string Regional = "REGIONAL";
+            }
+        }
+
+        /// <summary>
         /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.NetworkRoutingConfig"/>
         /// message.
         /// </summary>
@@ -10235,6 +10815,135 @@ namespace Google.Cloud.Compute.V1
                 /// .
                 /// </summary>
                 public const string OnPermanentInstanceDeletion = "ON_PERMANENT_INSTANCE_DELETION";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.PreviewFeature"/> message.
+        /// </summary>
+        public static class PreviewFeature
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeature.Types.ActivationStatus"/> enum.
+            /// </summary>
+            public static class ActivationStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeature.Types.ActivationStatus.UndefinedActivationStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedActivationStatus = "UNDEFINED_ACTIVATION_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeature.Types.ActivationStatus.ActivationStateUnspecified"/>
+                /// .
+                /// </summary>
+                public const string ActivationStateUnspecified = "ACTIVATION_STATE_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeature.Types.ActivationStatus.Disabled"/>.
+                /// </summary>
+                public const string Disabled = "DISABLED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeature.Types.ActivationStatus.Enabled"/>.
+                /// </summary>
+                public const string Enabled = "ENABLED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput"/> message.
+        /// </summary>
+        public static class PreviewFeatureRolloutOperationRolloutInput
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput.Types.PredefinedRolloutPlan"/>
+            ///  enum.
+            /// </summary>
+            public static class PredefinedRolloutPlan
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput.Types.PredefinedRolloutPlan.UndefinedPredefinedRolloutPlan"/>
+                /// .
+                /// </summary>
+                public const string UndefinedPredefinedRolloutPlan = "UNDEFINED_PREDEFINED_ROLLOUT_PLAN";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput.Types.PredefinedRolloutPlan.RolloutPlanFastRollout"/>
+                /// .
+                /// </summary>
+                public const string RolloutPlanFastRollout = "ROLLOUT_PLAN_FAST_ROLLOUT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput.Types.PredefinedRolloutPlan.RolloutPlanTwoDayRollout"/>
+                /// .
+                /// </summary>
+                public const string RolloutPlanTwoDayRollout = "ROLLOUT_PLAN_TWO_DAY_ROLLOUT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureRolloutOperationRolloutInput.Types.PredefinedRolloutPlan.RolloutPlanUnspecified"/>
+                /// .
+                /// </summary>
+                public const string RolloutPlanUnspecified = "ROLLOUT_PLAN_UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus"/> message.
+        /// </summary>
+        public static class PreviewFeatureStatusReleaseStatus
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage"/> enum.
+            /// </summary>
+            public static class Stage
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage.UndefinedStage"/>
+                /// .
+                /// </summary>
+                public const string UndefinedStage = "UNDEFINED_STAGE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage.Deprecated"/>
+                /// .
+                /// </summary>
+                public const string Deprecated = "DEPRECATED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage.Ga"/>.
+                /// </summary>
+                public const string Ga = "GA";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage.Preview"/>.
+                /// </summary>
+                public const string Preview = "PREVIEW";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.PreviewFeatureStatusReleaseStatus.Types.Stage.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "STAGE_UNSPECIFIED";
             }
         }
 
@@ -12242,6 +12951,39 @@ namespace Google.Cloud.Compute.V1
 
             /// <summary>
             /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.SchedulingType"/> enum.
+            /// </summary>
+            public static class SchedulingType
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.SchedulingType.UndefinedSchedulingType"/>
+                /// .
+                /// </summary>
+                public const string UndefinedSchedulingType = "UNDEFINED_SCHEDULING_TYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.SchedulingType.Grouped"/>.
+                /// </summary>
+                public const string Grouped = "GROUPED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.SchedulingType.GroupMaintenanceTypeUnspecified"/>
+                /// .
+                /// </summary>
+                public const string GroupMaintenanceTypeUnspecified = "GROUP_MAINTENANCE_TYPE_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.SchedulingType.Independent"/>.
+                /// </summary>
+                public const string Independent = "INDEPENDENT";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
             /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.Status"/> enum.
             /// </summary>
             public static class Status
@@ -12280,6 +13022,49 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.Reservation.Types.Status.Updating"/>.
                 /// </summary>
                 public const string Updating = "UPDATING";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl"/> message.
+        /// </summary>
+        public static class ReservationAdvancedDeploymentControl
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl.Types.ReservationOperationalMode"/>
+            ///  enum.
+            /// </summary>
+            public static class ReservationOperationalMode
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl.Types.ReservationOperationalMode.UndefinedReservationOperationalMode"/>
+                /// .
+                /// </summary>
+                public const string UndefinedReservationOperationalMode = "UNDEFINED_RESERVATION_OPERATIONAL_MODE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl.Types.ReservationOperationalMode.AllCapacity"/>
+                /// .
+                /// </summary>
+                public const string AllCapacity = "ALL_CAPACITY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl.Types.ReservationOperationalMode.HighlyAvailableCapacity"/>
+                /// .
+                /// </summary>
+                public const string HighlyAvailableCapacity = "HIGHLY_AVAILABLE_CAPACITY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationAdvancedDeploymentControl.Types.ReservationOperationalMode.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "RESERVATION_OPERATIONAL_MODE_UNSPECIFIED";
             }
         }
 
@@ -12376,6 +13161,47 @@ namespace Google.Cloud.Compute.V1
         }
 
         /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo"/> message.
+        /// </summary>
+        public static class ReservationBlockHealthInfo
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo.Types.HealthStatus"/> enum.
+            /// </summary>
+            public static class HealthStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo.Types.HealthStatus.UndefinedHealthStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedHealthStatus = "UNDEFINED_HEALTH_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo.Types.HealthStatus.Degraded"/>
+                /// .
+                /// </summary>
+                public const string Degraded = "DEGRADED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo.Types.HealthStatus.Healthy"/>.
+                /// </summary>
+                public const string Healthy = "HEALTHY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationBlockHealthInfo.Types.HealthStatus.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "HEALTH_STATUS_UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
         /// Container class for enums within the <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlock"/>
         /// message.
         /// </summary>
@@ -12416,6 +13242,170 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlock.Types.Status.Ready"/>.
                 /// </summary>
                 public const string Ready = "READY";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo"/> message.
+        /// </summary>
+        public static class ReservationSubBlockHealthInfo
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo.Types.HealthStatus"/> enum.
+            /// </summary>
+            public static class HealthStatus
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo.Types.HealthStatus.UndefinedHealthStatus"/>
+                /// .
+                /// </summary>
+                public const string UndefinedHealthStatus = "UNDEFINED_HEALTH_STATUS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo.Types.HealthStatus.Degraded"/>
+                /// .
+                /// </summary>
+                public const string Degraded = "DEGRADED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo.Types.HealthStatus.Healthy"/>
+                /// .
+                /// </summary>
+                public const string Healthy = "HEALTHY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlockHealthInfo.Types.HealthStatus.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "HEALTH_STATUS_UNSPECIFIED";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest"/> message.
+        /// </summary>
+        public static class ReservationSubBlocksReportFaultyRequest
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.DisruptionSchedule"/>
+            ///  enum.
+            /// </summary>
+            public static class DisruptionSchedule
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.DisruptionSchedule.UndefinedDisruptionSchedule"/>
+                /// .
+                /// </summary>
+                public const string UndefinedDisruptionSchedule = "UNDEFINED_DISRUPTION_SCHEDULE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.DisruptionSchedule.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "DISRUPTION_SCHEDULE_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.DisruptionSchedule.Immediate"/>
+                /// .
+                /// </summary>
+                public const string Immediate = "IMMEDIATE";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.FailureComponent"/>
+            ///  enum.
+            /// </summary>
+            public static class FailureComponent
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.FailureComponent.UndefinedFailureComponent"/>
+                /// .
+                /// </summary>
+                public const string UndefinedFailureComponent = "UNDEFINED_FAILURE_COMPONENT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.FailureComponent.Unspecified"/>
+                /// .
+                /// </summary>
+                public const string Unspecified = "FAILURE_COMPONENT_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.FailureComponent.MultipleFaultyHosts"/>
+                /// .
+                /// </summary>
+                public const string MultipleFaultyHosts = "MULTIPLE_FAULTY_HOSTS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequest.Types.FailureComponent.NvlinkSwitch"/>
+                /// .
+                /// </summary>
+                public const string NvlinkSwitch = "NVLINK_SWITCH";
+            }
+        }
+
+        /// <summary>
+        /// Container class for enums within the
+        /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason"/> message.
+        /// </summary>
+        public static class ReservationSubBlocksReportFaultyRequestFaultReason
+        {
+            /// <summary>
+            /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior"/>
+            ///  enum.
+            /// </summary>
+            public static class Behavior
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior.UndefinedBehavior"/>
+                /// .
+                /// </summary>
+                public const string UndefinedBehavior = "UNDEFINED_BEHAVIOR";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior.FaultBehaviorUnspecified"/>
+                /// .
+                /// </summary>
+                public const string FaultBehaviorUnspecified = "FAULT_BEHAVIOR_UNSPECIFIED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior.GpuError"/>
+                /// .
+                /// </summary>
+                public const string GpuError = "GPU_ERROR";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior.Performance"/>
+                /// .
+                /// </summary>
+                public const string Performance = "PERFORMANCE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.ReservationSubBlocksReportFaultyRequestFaultReason.Types.Behavior.SwitchFailure"/>
+                /// .
+                /// </summary>
+                public const string SwitchFailure = "SWITCH_FAILURE";
             }
         }
 
@@ -13973,6 +14963,12 @@ namespace Google.Cloud.Compute.V1
                 /// .
                 /// </summary>
                 public const string UndefinedProvisioningModel = "UNDEFINED_PROVISIONING_MODEL";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.Scheduling.Types.ProvisioningModel.FlexStart"/>.
+                /// </summary>
+                public const string FlexStart = "FLEX_START";
 
                 /// <summary>
                 /// Wire representation of
@@ -16302,6 +17298,132 @@ namespace Google.Cloud.Compute.V1
         {
             /// <summary>
             /// Constants for wire representations of the
+            /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons"/> enum.
+            /// </summary>
+            public static class MaintenanceReasons
+            {
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.UndefinedMaintenanceReasons"/>
+                /// .
+                /// </summary>
+                public const string UndefinedMaintenanceReasons = "UNDEFINED_MAINTENANCE_REASONS";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureDisk"/>
+                /// .
+                /// </summary>
+                public const string FailureDisk = "FAILURE_DISK";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureGpu"/>
+                /// .
+                /// </summary>
+                public const string FailureGpu = "FAILURE_GPU";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureGpuMultipleFaultyHostsCustomerReported"/>
+                /// .
+                /// </summary>
+                public const string FailureGpuMultipleFaultyHostsCustomerReported = "FAILURE_GPU_MULTIPLE_FAULTY_HOSTS_CUSTOMER_REPORTED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureGpuNvlinkSwitchCustomerReported"/>
+                /// .
+                /// </summary>
+                public const string FailureGpuNvlinkSwitchCustomerReported = "FAILURE_GPU_NVLINK_SWITCH_CUSTOMER_REPORTED";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureGpuTemperature"/>
+                /// .
+                /// </summary>
+                public const string FailureGpuTemperature = "FAILURE_GPU_TEMPERATURE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureGpuXid"/>
+                /// .
+                /// </summary>
+                public const string FailureGpuXid = "FAILURE_GPU_XID";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureInfra"/>
+                /// .
+                /// </summary>
+                public const string FailureInfra = "FAILURE_INFRA";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureInterface"/>
+                /// .
+                /// </summary>
+                public const string FailureInterface = "FAILURE_INTERFACE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureMemory"/>
+                /// .
+                /// </summary>
+                public const string FailureMemory = "FAILURE_MEMORY";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureNetwork"/>
+                /// .
+                /// </summary>
+                public const string FailureNetwork = "FAILURE_NETWORK";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureNvlink"/>
+                /// .
+                /// </summary>
+                public const string FailureNvlink = "FAILURE_NVLINK";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.FailureRedundantHardwareFault"/>
+                /// .
+                /// </summary>
+                public const string FailureRedundantHardwareFault = "FAILURE_REDUNDANT_HARDWARE_FAULT";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.InfrastructureRelocation"/>
+                /// .
+                /// </summary>
+                public const string InfrastructureRelocation = "INFRASTRUCTURE_RELOCATION";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.MaintenanceReasonUnknown"/>
+                /// .
+                /// </summary>
+                public const string MaintenanceReasonUnknown = "MAINTENANCE_REASON_UNKNOWN";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.PlannedNetworkUpdate"/>
+                /// .
+                /// </summary>
+                public const string PlannedNetworkUpdate = "PLANNED_NETWORK_UPDATE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceReasons.PlannedUpdate"/>
+                /// .
+                /// </summary>
+                public const string PlannedUpdate = "PLANNED_UPDATE";
+            }
+
+            /// <summary>
+            /// Constants for wire representations of the
             /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.MaintenanceStatus"/> enum.
             /// </summary>
             public static class MaintenanceStatus
@@ -16343,6 +17465,12 @@ namespace Google.Cloud.Compute.V1
                 /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.Type.UndefinedType"/>.
                 /// </summary>
                 public const string UndefinedType = "UNDEFINED_TYPE";
+
+                /// <summary>
+                /// Wire representation of
+                /// <see cref="global::Google.Cloud.Compute.V1.UpcomingMaintenance.Types.Type.Multiple"/>.
+                /// </summary>
+                public const string Multiple = "MULTIPLE";
 
                 /// <summary>
                 /// Wire representation of

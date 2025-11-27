@@ -78,6 +78,12 @@
                 "SetLabels",
                 "SetLabelsAsync"
               ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
+              ]
             }
           }
         }
@@ -248,6 +254,12 @@
               "methods": [
                 "Get",
                 "GetAsync"
+              ]
+            },
+            "GetEffectiveSecurityPolicies": {
+              "methods": [
+                "GetEffectiveSecurityPolicies",
+                "GetEffectiveSecurityPoliciesAsync"
               ]
             },
             "GetHealth": {
@@ -773,6 +785,12 @@
               "methods": [
                 "SetLabels",
                 "SetLabelsAsync"
+              ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
               ]
             }
           }
@@ -1377,6 +1395,12 @@
                 "SetNamedPorts",
                 "SetNamedPortsAsync"
               ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
+              ]
             }
           }
         }
@@ -1471,6 +1495,12 @@
                 "AddAccessConfigAsync"
               ]
             },
+            "AddNetworkInterface": {
+              "methods": [
+                "AddNetworkInterface",
+                "AddNetworkInterfaceAsync"
+              ]
+            },
             "AddResourcePolicies": {
               "methods": [
                 "AddResourcePolicies",
@@ -1505,6 +1535,12 @@
               "methods": [
                 "DeleteAccessConfig",
                 "DeleteAccessConfigAsync"
+              ]
+            },
+            "DeleteNetworkInterface": {
+              "methods": [
+                "DeleteNetworkInterface",
+                "DeleteNetworkInterfaceAsync"
               ]
             },
             "DetachDisk": {
@@ -2650,6 +2686,12 @@
                 "RemovePeeringAsync"
               ]
             },
+            "RequestRemovePeering": {
+              "methods": [
+                "RequestRemovePeering",
+                "RequestRemovePeeringAsync"
+              ]
+            },
             "SwitchToCustomMode": {
               "methods": [
                 "SwitchToCustomMode",
@@ -2849,6 +2891,111 @@
         }
       }
     },
+    "OrganizationSecurityPolicies": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "OrganizationSecurityPoliciesClient",
+          "rpcs": {
+            "AddAssociation": {
+              "methods": [
+                "AddAssociation",
+                "AddAssociationAsync"
+              ]
+            },
+            "AddRule": {
+              "methods": [
+                "AddRule",
+                "AddRuleAsync"
+              ]
+            },
+            "CopyRules": {
+              "methods": [
+                "CopyRules",
+                "CopyRulesAsync"
+              ]
+            },
+            "Delete": {
+              "methods": [
+                "Delete",
+                "DeleteAsync"
+              ]
+            },
+            "Get": {
+              "methods": [
+                "Get",
+                "GetAsync"
+              ]
+            },
+            "GetAssociation": {
+              "methods": [
+                "GetAssociation",
+                "GetAssociationAsync"
+              ]
+            },
+            "GetRule": {
+              "methods": [
+                "GetRule",
+                "GetRuleAsync"
+              ]
+            },
+            "Insert": {
+              "methods": [
+                "Insert",
+                "InsertAsync"
+              ]
+            },
+            "List": {
+              "methods": [
+                "List",
+                "ListAsync"
+              ]
+            },
+            "ListAssociations": {
+              "methods": [
+                "ListAssociations",
+                "ListAssociationsAsync"
+              ]
+            },
+            "ListPreconfiguredExpressionSets": {
+              "methods": [
+                "ListPreconfiguredExpressionSets",
+                "ListPreconfiguredExpressionSetsAsync"
+              ]
+            },
+            "Move": {
+              "methods": [
+                "Move",
+                "MoveAsync"
+              ]
+            },
+            "Patch": {
+              "methods": [
+                "Patch",
+                "PatchAsync"
+              ]
+            },
+            "PatchRule": {
+              "methods": [
+                "PatchRule",
+                "PatchRuleAsync"
+              ]
+            },
+            "RemoveAssociation": {
+              "methods": [
+                "RemoveAssociation",
+                "RemoveAssociationAsync"
+              ]
+            },
+            "RemoveRule": {
+              "methods": [
+                "RemoveRule",
+                "RemoveRuleAsync"
+              ]
+            }
+          }
+        }
+      }
+    },
     "PacketMirrorings": {
       "clients": {
         "grpc": {
@@ -2894,6 +3041,33 @@
               "methods": [
                 "TestIamPermissions",
                 "TestIamPermissionsAsync"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "PreviewFeatures": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "PreviewFeaturesClient",
+          "rpcs": {
+            "Get": {
+              "methods": [
+                "Get",
+                "GetAsync"
+              ]
+            },
+            "List": {
+              "methods": [
+                "List",
+                "ListAsync"
+              ]
+            },
+            "Update": {
+              "methods": [
+                "Update",
+                "UpdateAsync"
               ]
             }
           }
@@ -3657,6 +3831,12 @@
                 "SetNamedPorts",
                 "SetNamedPortsAsync"
               ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
+              ]
             }
           }
         }
@@ -4394,6 +4574,18 @@
               "methods": [
                 "List",
                 "ListAsync"
+              ]
+            },
+            "PerformMaintenance": {
+              "methods": [
+                "PerformMaintenance",
+                "PerformMaintenanceAsync"
+              ]
+            },
+            "ReportFaulty": {
+              "methods": [
+                "ReportFaulty",
+                "ReportFaultyAsync"
               ]
             }
           }
@@ -5376,6 +5568,12 @@
                 "SetSecurityPolicy",
                 "SetSecurityPolicyAsync"
               ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
+              ]
             }
           }
         }
@@ -5456,6 +5654,12 @@
               "methods": [
                 "SetSecurityPolicy",
                 "SetSecurityPolicyAsync"
+              ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "TestIamPermissions",
+                "TestIamPermissionsAsync"
               ]
             }
           }

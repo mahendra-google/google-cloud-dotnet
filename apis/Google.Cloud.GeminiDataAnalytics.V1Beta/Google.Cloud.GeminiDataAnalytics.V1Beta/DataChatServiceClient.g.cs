@@ -29,6 +29,7 @@ using sco = System.Collections.ObjectModel;
 using st = System.Threading;
 using stt = System.Threading.Tasks;
 using sys = System;
+using wkt = Google.Protobuf.WellKnownTypes;
 
 namespace Google.Cloud.GeminiDataAnalytics.V1Beta
 {
@@ -49,6 +50,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             gax::GaxPreconditions.CheckNotNull(existing, nameof(existing));
             ChatSettings = existing.ChatSettings;
             CreateConversationSettings = existing.CreateConversationSettings;
+            DeleteConversationSettings = existing.DeleteConversationSettings;
             GetConversationSettings = existing.GetConversationSettings;
             ListConversationsSettings = existing.ListConversationsSettings;
             ListMessagesSettings = existing.ListMessagesSettings;
@@ -62,8 +64,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to <c>DataChatServiceClient.Chat</c>
         ///  and <c>DataChatServiceClient.ChatAsync</c>.
         /// </summary>
-        /// <remarks>Timeout: 60 seconds.</remarks>
-        public gaxgrpc::CallSettings ChatSettings { get; set; } = gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(60000)));
+        /// <remarks>Timeout: 600 seconds.</remarks>
+        public gaxgrpc::CallSettings ChatSettings { get; set; } = gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000)));
 
         /// <summary>
         /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to
@@ -78,10 +80,28 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// <item>
         /// <description>Retriable status codes: <see cref="grpccore::StatusCode.Unavailable"/>.</description>
         /// </item>
-        /// <item><description>Timeout: 60 seconds.</description></item>
+        /// <item><description>Timeout: 600 seconds.</description></item>
         /// </list>
         /// </remarks>
-        public gaxgrpc::CallSettings CreateConversationSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(60000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
+        public gaxgrpc::CallSettings CreateConversationSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
+
+        /// <summary>
+        /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to
+        /// <c>DataChatServiceClient.DeleteConversation</c> and <c>DataChatServiceClient.DeleteConversationAsync</c>.
+        /// </summary>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item><description>Initial retry delay: 1000 milliseconds.</description></item>
+        /// <item><description>Retry delay multiplier: 1.3</description></item>
+        /// <item><description>Retry maximum delay: 10000 milliseconds.</description></item>
+        /// <item><description>Maximum attempts: 5</description></item>
+        /// <item>
+        /// <description>Retriable status codes: <see cref="grpccore::StatusCode.Unavailable"/>.</description>
+        /// </item>
+        /// <item><description>Timeout: 600 seconds.</description></item>
+        /// </list>
+        /// </remarks>
+        public gaxgrpc::CallSettings DeleteConversationSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
 
         /// <summary>
         /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to
@@ -96,10 +116,10 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// <item>
         /// <description>Retriable status codes: <see cref="grpccore::StatusCode.Unavailable"/>.</description>
         /// </item>
-        /// <item><description>Timeout: 60 seconds.</description></item>
+        /// <item><description>Timeout: 600 seconds.</description></item>
         /// </list>
         /// </remarks>
-        public gaxgrpc::CallSettings GetConversationSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(60000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
+        public gaxgrpc::CallSettings GetConversationSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
 
         /// <summary>
         /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to
@@ -114,10 +134,10 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// <item>
         /// <description>Retriable status codes: <see cref="grpccore::StatusCode.Unavailable"/>.</description>
         /// </item>
-        /// <item><description>Timeout: 60 seconds.</description></item>
+        /// <item><description>Timeout: 600 seconds.</description></item>
         /// </list>
         /// </remarks>
-        public gaxgrpc::CallSettings ListConversationsSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(60000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
+        public gaxgrpc::CallSettings ListConversationsSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
 
         /// <summary>
         /// <see cref="gaxgrpc::CallSettings"/> for synchronous and asynchronous calls to
@@ -132,10 +152,10 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// <item>
         /// <description>Retriable status codes: <see cref="grpccore::StatusCode.Unavailable"/>.</description>
         /// </item>
-        /// <item><description>Timeout: 60 seconds.</description></item>
+        /// <item><description>Timeout: 600 seconds.</description></item>
         /// </list>
         /// </remarks>
-        public gaxgrpc::CallSettings ListMessagesSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(60000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
+        public gaxgrpc::CallSettings ListMessagesSettings { get; set; } = gaxgrpc::CallSettingsExtensions.WithRetry(gaxgrpc::CallSettings.FromExpiration(gax::Expiration.FromTimeout(sys::TimeSpan.FromMilliseconds(600000))), gaxgrpc::RetrySettings.FromExponentialBackoff(maxAttempts: 5, initialBackoff: sys::TimeSpan.FromMilliseconds(1000), maxBackoff: sys::TimeSpan.FromMilliseconds(10000), backoffMultiplier: 1.3, retryFilter: gaxgrpc::RetrySettings.FilterForStatusCodes(grpccore::StatusCode.Unavailable)));
 
         /// <summary>
         /// The settings to use for the <see cref="gcl::LocationsClient"/> associated with the client.
@@ -202,7 +222,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
     /// <summary>DataChatService client wrapper, for convenient use.</summary>
     /// <remarks>
     /// Service to ask a natural language question on top of BigQuery
-    /// and LookerStudio datasources to get back streamed responses of various kinds
+    /// and Looker Studio datasources to get back streamed responses of various kinds
     /// to help provide a rich conversational answer.
     /// </remarks>
     public abstract partial class DataChatServiceClient
@@ -294,7 +314,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         }
 
         /// <summary>
-        /// Answers a data question by generating a stream of [Message]s.
+        /// Answers a data question by generating a stream of
+        /// [Message][google.cloud.geminidataanalytics.v1alpha.Message] objects.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
@@ -345,6 +366,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>The RPC response.</returns>
@@ -369,6 +393,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>A Task containing the RPC response.</returns>
@@ -393,6 +420,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
         /// <returns>A Task containing the RPC response.</returns>
@@ -412,6 +442,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>The RPC response.</returns>
@@ -436,6 +469,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>A Task containing the RPC response.</returns>
@@ -460,6 +496,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="conversationId">
         /// Optional. The conversation id of the conversation to create.
+        /// Must be unique within the parent.
+        /// The allowed format is: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
+        /// If not provided, the server will auto-generate a value for the id.
         /// </param>
         /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
         /// <returns>A Task containing the RPC response.</returns>
@@ -467,7 +506,124 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             CreateConversationAsync(parent, conversation, conversationId, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="request">The request object containing all of the parameters for the API call.</param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>The RPC response.</returns>
+        public virtual void DeleteConversation(DeleteConversationRequest request, gaxgrpc::CallSettings callSettings = null) =>
+            throw new sys::NotImplementedException();
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="request">The request object containing all of the parameters for the API call.</param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(DeleteConversationRequest request, gaxgrpc::CallSettings callSettings = null) =>
+            throw new sys::NotImplementedException();
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="request">The request object containing all of the parameters for the API call.</param>
+        /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(DeleteConversationRequest request, st::CancellationToken cancellationToken) =>
+            DeleteConversationAsync(request, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>The RPC response.</returns>
+        public virtual void DeleteConversation(string name, gaxgrpc::CallSettings callSettings = null) =>
+            DeleteConversation(new DeleteConversationRequest
+            {
+                Name = gax::GaxPreconditions.CheckNotNullOrEmpty(name, nameof(name)),
+            }, callSettings);
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(string name, gaxgrpc::CallSettings callSettings = null) =>
+            DeleteConversationAsync(new DeleteConversationRequest
+            {
+                Name = gax::GaxPreconditions.CheckNotNullOrEmpty(name, nameof(name)),
+            }, callSettings);
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(string name, st::CancellationToken cancellationToken) =>
+            DeleteConversationAsync(name, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>The RPC response.</returns>
+        public virtual void DeleteConversation(ConversationName name, gaxgrpc::CallSettings callSettings = null) =>
+            DeleteConversation(new DeleteConversationRequest
+            {
+                ConversationName = gax::GaxPreconditions.CheckNotNull(name, nameof(name)),
+            }, callSettings);
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(ConversationName name, gaxgrpc::CallSettings callSettings = null) =>
+            DeleteConversationAsync(new DeleteConversationRequest
+            {
+                ConversationName = gax::GaxPreconditions.CheckNotNull(name, nameof(name)),
+            }, callSettings);
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="name">
+        /// Required. Name of the resource.
+        /// Format:
+        /// `projects/{project}/locations/{location}/conversations/{conversation}`
+        /// </param>
+        /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public virtual stt::Task DeleteConversationAsync(ConversationName name, st::CancellationToken cancellationToken) =>
+            DeleteConversationAsync(name, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
+
+        /// <summary>
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
@@ -476,7 +632,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             throw new sys::NotImplementedException();
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
@@ -485,7 +641,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             throw new sys::NotImplementedException();
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="cancellationToken">A <see cref="st::CancellationToken"/> to use for this RPC.</param>
@@ -494,7 +650,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             GetConversationAsync(request, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -510,7 +666,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             }, callSettings);
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -526,7 +682,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             }, callSettings);
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -539,7 +695,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             GetConversationAsync(name, gaxgrpc::CallSettings.FromCancellationToken(cancellationToken));
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -555,7 +711,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             }, callSettings);
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -571,7 +727,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             }, callSettings);
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="name">
         /// Required. Name of the resource.
@@ -843,11 +999,11 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>A pageable sequence of <see cref="StorageMessage"/> resources.</returns>
-        public virtual gax::PagedEnumerable<ListMessagesResponse, StorageMessage> ListMessages(gagr::LocationName parent, string pageToken = null, int? pageSize = null, gaxgrpc::CallSettings callSettings = null)
+        public virtual gax::PagedEnumerable<ListMessagesResponse, StorageMessage> ListMessages(ConversationName parent, string pageToken = null, int? pageSize = null, gaxgrpc::CallSettings callSettings = null)
         {
             ListMessagesRequest request = new ListMessagesRequest
             {
-                ParentAsLocationName = gax::GaxPreconditions.CheckNotNull(parent, nameof(parent)),
+                ParentAsConversationName = gax::GaxPreconditions.CheckNotNull(parent, nameof(parent)),
             };
             if (pageToken != null)
             {
@@ -878,11 +1034,11 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         /// </param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
         /// <returns>A pageable asynchronous sequence of <see cref="StorageMessage"/> resources.</returns>
-        public virtual gax::PagedAsyncEnumerable<ListMessagesResponse, StorageMessage> ListMessagesAsync(gagr::LocationName parent, string pageToken = null, int? pageSize = null, gaxgrpc::CallSettings callSettings = null)
+        public virtual gax::PagedAsyncEnumerable<ListMessagesResponse, StorageMessage> ListMessagesAsync(ConversationName parent, string pageToken = null, int? pageSize = null, gaxgrpc::CallSettings callSettings = null)
         {
             ListMessagesRequest request = new ListMessagesRequest
             {
-                ParentAsLocationName = gax::GaxPreconditions.CheckNotNull(parent, nameof(parent)),
+                ParentAsConversationName = gax::GaxPreconditions.CheckNotNull(parent, nameof(parent)),
             };
             if (pageToken != null)
             {
@@ -899,7 +1055,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
     /// <summary>DataChatService client wrapper implementation, for convenient use.</summary>
     /// <remarks>
     /// Service to ask a natural language question on top of BigQuery
-    /// and LookerStudio datasources to get back streamed responses of various kinds
+    /// and Looker Studio datasources to get back streamed responses of various kinds
     /// to help provide a rich conversational answer.
     /// </remarks>
     public sealed partial class DataChatServiceClientImpl : DataChatServiceClient
@@ -907,6 +1063,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         private readonly gaxgrpc::ApiServerStreamingCall<ChatRequest, Message> _callChat;
 
         private readonly gaxgrpc::ApiCall<CreateConversationRequest, Conversation> _callCreateConversation;
+
+        private readonly gaxgrpc::ApiCall<DeleteConversationRequest, wkt::Empty> _callDeleteConversation;
 
         private readonly gaxgrpc::ApiCall<GetConversationRequest, Conversation> _callGetConversation;
 
@@ -936,6 +1094,9 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
             _callCreateConversation = clientHelper.BuildApiCall<CreateConversationRequest, Conversation>("CreateConversation", grpcClient.CreateConversationAsync, grpcClient.CreateConversation, effectiveSettings.CreateConversationSettings).WithGoogleRequestParam("parent", request => request.Parent);
             Modify_ApiCall(ref _callCreateConversation);
             Modify_CreateConversationApiCall(ref _callCreateConversation);
+            _callDeleteConversation = clientHelper.BuildApiCall<DeleteConversationRequest, wkt::Empty>("DeleteConversation", grpcClient.DeleteConversationAsync, grpcClient.DeleteConversation, effectiveSettings.DeleteConversationSettings).WithGoogleRequestParam("name", request => request.Name);
+            Modify_ApiCall(ref _callDeleteConversation);
+            Modify_DeleteConversationApiCall(ref _callDeleteConversation);
             _callGetConversation = clientHelper.BuildApiCall<GetConversationRequest, Conversation>("GetConversation", grpcClient.GetConversationAsync, grpcClient.GetConversation, effectiveSettings.GetConversationSettings).WithGoogleRequestParam("name", request => request.Name);
             Modify_ApiCall(ref _callGetConversation);
             Modify_GetConversationApiCall(ref _callGetConversation);
@@ -956,6 +1117,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
 
         partial void Modify_CreateConversationApiCall(ref gaxgrpc::ApiCall<CreateConversationRequest, Conversation> call);
 
+        partial void Modify_DeleteConversationApiCall(ref gaxgrpc::ApiCall<DeleteConversationRequest, wkt::Empty> call);
+
         partial void Modify_GetConversationApiCall(ref gaxgrpc::ApiCall<GetConversationRequest, Conversation> call);
 
         partial void Modify_ListConversationsApiCall(ref gaxgrpc::ApiCall<ListConversationsRequest, ListConversationsResponse> call);
@@ -974,6 +1137,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
 
         partial void Modify_CreateConversationRequest(ref CreateConversationRequest request, ref gaxgrpc::CallSettings settings);
 
+        partial void Modify_DeleteConversationRequest(ref DeleteConversationRequest request, ref gaxgrpc::CallSettings settings);
+
         partial void Modify_GetConversationRequest(ref GetConversationRequest request, ref gaxgrpc::CallSettings settings);
 
         partial void Modify_ListConversationsRequest(ref ListConversationsRequest request, ref gaxgrpc::CallSettings settings);
@@ -990,7 +1155,8 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         }
 
         /// <summary>
-        /// Answers a data question by generating a stream of [Message]s.
+        /// Answers a data question by generating a stream of
+        /// [Message][google.cloud.geminidataanalytics.v1alpha.Message] objects.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
@@ -1028,7 +1194,31 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         }
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="request">The request object containing all of the parameters for the API call.</param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>The RPC response.</returns>
+        public override void DeleteConversation(DeleteConversationRequest request, gaxgrpc::CallSettings callSettings = null)
+        {
+            Modify_DeleteConversationRequest(ref request, ref callSettings);
+            _callDeleteConversation.Sync(request, callSettings);
+        }
+
+        /// <summary>
+        /// Deletes a conversation.
+        /// </summary>
+        /// <param name="request">The request object containing all of the parameters for the API call.</param>
+        /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
+        /// <returns>A Task containing the RPC response.</returns>
+        public override stt::Task DeleteConversationAsync(DeleteConversationRequest request, gaxgrpc::CallSettings callSettings = null)
+        {
+            Modify_DeleteConversationRequest(ref request, ref callSettings);
+            return _callDeleteConversation.Async(request, callSettings);
+        }
+
+        /// <summary>
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
@@ -1040,7 +1230,7 @@ namespace Google.Cloud.GeminiDataAnalytics.V1Beta
         }
 
         /// <summary>
-        /// Gets details of a single conversation using conversation id and parent.
+        /// Gets details of a single conversation by using conversation id and parent.
         /// </summary>
         /// <param name="request">The request object containing all of the parameters for the API call.</param>
         /// <param name="callSettings">If not null, applies overrides to this RPC call.</param>
