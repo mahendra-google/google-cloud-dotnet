@@ -72,6 +72,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public void UploadWithObject()
         {
+            var client = StorageClient.Create();
             var destination = new Object
             {
                 Bucket = _fixture.MultiVersionBucket,
@@ -81,6 +82,8 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
                 Metadata = new Dictionary<string, string> { { "x", "y" } }
             };
             var source = GenerateData(100);
+            var interceptor = new BreakUploadInterceptor();
+            client.Service.HttpClient.MessageHandler.AddExecuteInterceptor(interceptor);
             var result = _fixture.Client.UploadObject(destination, source);
             Assert.NotSame(destination, result);
             Assert.Equal(destination.Name, result.Name);

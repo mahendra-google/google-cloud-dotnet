@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ namespace Google.Cloud.Storage.V1
     /// <summary>
     /// Upload subclass which allows us to modify headers, for customer-supplied encryption keys.
     /// </summary>
-    internal sealed class CustomMediaUpload : InsertMediaUpload
+    internal class CustomMediaUpload : InsertMediaUpload
     {
         public CustomMediaUpload(IClientService service, Apis.Storage.v1.Data.Object body, string bucket,
             Stream stream, string contentType)
