@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Google.Apis.Storage.v1.Data;
 using Google.Cloud.ClientTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xunit;
+using static Google.Cloud.Storage.V1.IntegrationTests.TestHelpers;
 using Object = Google.Apis.Storage.v1.Data.Object;
 
 namespace Google.Cloud.Storage.V1.IntegrationTests
@@ -49,6 +52,123 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var client = _fixture.Client;
             Assert.Throws<ArgumentException>(() => client.PatchObject(new Object { Bucket = _fixture.SingleVersionBucket }));
             Assert.Throws<ArgumentException>(() => client.PatchObject(new Object { Name = IdGenerator.FromGuid() }));
+        }
+
+        [Fact]
+        public void ClearAllObjectContext()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } },
+                {  IdGenerator.FromGuid(), new ObjectCustomContextPayload { Value = IdGenerator.FromGuid() } }
+            };
+
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            _fixture.Client.UploadObject(destination, source);
+
+            var modifiedCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+            };
+
+            Object obj = new Object { Name = destination.Name, Bucket = destination.Bucket, ContentType = "text/plain", Contexts = new Object.ContextsData { Custom = modifiedCustom } };
+            var updated = client.PatchObject(obj);
+            Assert.Null(updated.Contexts);
+        }
+
+        [Fact]
+        public void RemoveIndividualObjectContext()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            _fixture.Client.UploadObject(destination, source);
+            var modifiedCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                    { "project_id", new ObjectCustomContextPayload { Value = null } }
+            };
+
+            Object obj = new Object { Name = destination.Name, Bucket = destination.Bucket, ContentType = "text/plain", Contexts = new Object.ContextsData { Custom = modifiedCustom } };
+            var updated = client.PatchObject(obj);
+            Assert.Null(updated.Contexts.Custom.Keys);
+        }
+
+        [Fact]
+        public void ModifyIndividualObjectContext()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            _fixture.Client.UploadObject(destination, source);
+            var modifiedCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                    { "project_id", new ObjectCustomContextPayload { Value = "NewValue" } }
+            };
+            Object obj = new Object { Name = destination.Name, Bucket = _fixture.SingleVersionBucket, ContentType = "text/plain", Contexts = new Object.ContextsData { Custom = modifiedCustom } };
+            var updated = client.PatchObject(obj);
+            Assert.Equal("NewValue", updated.Contexts.Custom["project_id"].Value);
+        }
+
+        [Fact]
+        public void AddObjectContext()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            _fixture.Client.UploadObject(destination, source);
+            var modifiedCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { IdGenerator.FromGuid() , new ObjectCustomContextPayload { Value = IdGenerator.FromGuid() } }
+
+            };
+            Object obj = new Object { Name = destination.Name, Bucket = _fixture.SingleVersionBucket, ContentType = "text/plain", Contexts = new Object.ContextsData { Custom = modifiedCustom } };
+            var updated = client.PatchObject(obj);
+            Assert.Equal(2, updated.Contexts.Custom.Keys.Count);
         }
     }
 }
