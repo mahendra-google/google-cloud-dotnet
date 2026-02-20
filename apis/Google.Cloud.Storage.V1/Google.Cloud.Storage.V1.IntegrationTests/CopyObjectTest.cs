@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Google.Apis.Storage.v1.Data;
 using Google.Cloud.ClientTesting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -119,6 +121,66 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
                 new CopyObjectOptions { ExtraMetadata = new Object { ContentType = "text/html" } });
             Object fetched = _fixture.Client.GetObject(_fixture.SingleVersionBucket, destName);
             Assert.Equal("text/html", fetched.ContentType);
+        }
+
+        [Fact]
+        public void CopyObject_WithObjectContext()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            var result = _fixture.Client.UploadObject(destination, source);
+            _fixture.Client.CopyObject(
+                _fixture.SingleVersionBucket, destination.Name,
+                _fixture.MultiVersionBucket, destination.Name);
+            Object fetched = _fixture.Client.GetObject(_fixture.MultiVersionBucket, destination.Name);
+            Assert.Equal(result.Contexts.Custom.Keys, fetched.Contexts.Custom.Keys);
+        }
+
+        [Fact]
+        public void ObjectContextsOverride()
+        {
+            var client = _fixture.Client;
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "OldValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.SingleVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            var result = _fixture.Client.UploadObject(destination, source);
+
+            var newCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id1", new ObjectCustomContextPayload { Value = "NewValue" } }
+            };
+            _fixture.Client.CopyObject(
+                _fixture.SingleVersionBucket, destination.Name,
+                _fixture.MultiVersionBucket, destination.Name,
+                new CopyObjectOptions { ExtraMetadata = new Object { Contexts = new Object.ContextsData { Custom = newCustom } } });
+            Object fetched = _fixture.Client.GetObject(_fixture.MultiVersionBucket, destination.Name);
+            Assert.True(fetched.Contexts.Custom.ContainsKey("project_id1"));
+            Assert.False(fetched.Contexts.Custom.ContainsKey("project_id"));
+
         }
     }
 }

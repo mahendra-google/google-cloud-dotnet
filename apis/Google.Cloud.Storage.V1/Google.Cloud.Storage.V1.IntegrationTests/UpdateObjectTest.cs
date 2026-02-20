@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Google.Apis.Storage.v1.Data;
 using Google.Cloud.ClientTesting;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
+using static Google.Cloud.Storage.V1.IntegrationTests.TestHelpers;
 
 namespace Google.Cloud.Storage.V1.IntegrationTests
 {
@@ -38,6 +40,53 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             obj.Metadata = new Dictionary<string, string> { { "key", "value" } };
             var updated = client.UpdateObject(obj);
             Assert.Equal("value", updated.Metadata["key"]);
+        }
+
+        [Fact]
+        public void UpdateObject_WithObjectContext()
+        {
+            var client = _fixture.Client;
+            var source = GenerateData(100);
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                    { "project_id", new ObjectCustomContextPayload { Value = "apollo-11" } },
+
+                    { "environment", new ObjectCustomContextPayload { Value = "production" } },
+
+                    { "cost_center", new ObjectCustomContextPayload { Value = "engineering-884" } }
+            };
+
+            var destination = new Object
+            {
+                Bucket = _fixture.MultiVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                ContentType = "test/type",
+                ContentDisposition = "attachment",
+                Metadata = new Dictionary<string, string> { { "x", "y" } },
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+
+            _fixture.Client.UploadObject(destination, source);
+
+            var modifiedCustom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                    { "project_id", new ObjectCustomContextPayload { Value = "apollo-121" } },
+
+                    { "environment", new ObjectCustomContextPayload { Value = "production2" } },
+
+                    { "cost_center", new ObjectCustomContextPayload { Value = "engineering-88444" } }
+            };
+
+
+            var modifiedDestination = new Object
+            {
+                Bucket = _fixture.MultiVersionBucket,
+                Name = destination.Name,
+                Contexts = new Object.ContextsData { Custom = modifiedCustom }
+            };
+            var updated = client.UpdateObject(modifiedDestination);
+            Assert.NotNull(updated.Contexts.Custom);
+            Assert.Equal(updated.Contexts.Custom.Count, custom.Count);
         }
     }
 }

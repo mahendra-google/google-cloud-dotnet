@@ -92,6 +92,27 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
+        public void UploadObject_WithObjectContext()
+        {
+            var custom = new Dictionary<string, ObjectCustomContextPayload>
+            {
+                { "project_id", new ObjectCustomContextPayload { Value = "NewValue" } }
+            };
+            var destination = new Object
+            {
+                Bucket = _fixture.MultiVersionBucket,
+                Name = IdGenerator.FromGuid(),
+                Contexts = new Object.ContextsData { Custom = custom }
+            };
+            var source = GenerateData(100);
+            var result = _fixture.Client.UploadObject(destination, source);
+            Assert.Equal(destination.Name, result.Name);
+            Assert.Equal(destination.Bucket, result.Bucket);
+            Assert.Equal(destination.Contexts.Custom.Keys, result.Contexts.Custom.Keys);
+            ValidateData(_fixture.MultiVersionBucket, destination.Name, source);
+        }
+
+        [Fact]
         public async Task UploadAsyncWithProgress()
         {
             var chunks = 2;
