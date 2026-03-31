@@ -30,7 +30,6 @@ namespace Google.Cloud.Storage.V1
     /// </summary>
     internal sealed class CustomMediaUpload : InsertMediaUpload
     {
-        private readonly Stream _stream;
         private readonly Crc32cHashInterceptor _interceptor;
         private readonly IClientService _service;
         private readonly HashingStream _hashingStream;
@@ -39,7 +38,6 @@ namespace Google.Cloud.Storage.V1
             Stream stream, string contentType, UploadObjectOptions options)
             : base(service, body, bucket, new HashingStream(stream), contentType)
         {
-            _stream = stream;
             _service = service;
             var validationMode = options?.UploadValidationMode ?? UploadObjectOptions.DefaultValidationMode;
             _hashingStream = (HashingStream) ContentStream;
@@ -52,21 +50,20 @@ namespace Google.Cloud.Storage.V1
         private sealed class Crc32cHashInterceptor : IHttpExecuteInterceptor
         {
             private const string GoogleHashHeader = "x-goog-hash";
-            private const int ReadBufferSize = 81920;
             private readonly IClientService _service;
-            private readonly CustomMediaUpload _owner;
+            private readonly CustomMediaUpload _mediaUpload;
             private Uri _uploadUri;
             private readonly UploadValidationMode _validationMode;
             private readonly HashingStream _hashingStream;
 
-            public Crc32cHashInterceptor(CustomMediaUpload owner, HashingStream hashingStream, IClientService service, UploadValidationMode validationMode)
+            public Crc32cHashInterceptor(CustomMediaUpload mediaUpload, HashingStream hashingStream, IClientService service, UploadValidationMode validationMode)
             {
                 _hashingStream = hashingStream;
                 _service = service;
-                _owner = owner;
+                _mediaUpload = mediaUpload;
                 _validationMode = validationMode;
-                _owner.UploadSessionData += OnSessionData;
-                _owner.ProgressChanged += OnProgressChanged;
+                _mediaUpload.UploadSessionData += OnSessionData;
+                _mediaUpload.ProgressChanged += OnProgressChanged;
             }
 
             public Task InterceptAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -95,16 +92,16 @@ namespace Google.Cloud.Storage.V1
             private void OnSessionData(IUploadSessionData data)
             {
                 _uploadUri = data.UploadUri;
-                _owner.UploadSessionData -= OnSessionData;
+                _mediaUpload.UploadSessionData -= OnSessionData;
             }
 
             private void OnProgressChanged(IUploadProgress progress)
             {
-                if (progress.Status == UploadStatus.Completed || progress.Status == UploadStatus.Failed)
+                if (progress.Status is UploadStatus.Completed or UploadStatus.Failed)
                 {
                     // Clean up when upload is finished.
                     _service?.HttpClient?.MessageHandler?.RemoveExecuteInterceptor(this);
-                    _owner.ProgressChanged -= OnProgressChanged;
+                    _mediaUpload.ProgressChanged -= OnProgressChanged;
                 }
             }
 
@@ -156,14 +153,14 @@ namespace Google.Cloud.Storage.V1
 
         private sealed class HashingStream : Stream
         {
-            private readonly Stream _inner;
-            private readonly Crc32c _hasher = new Crc32c();
+            private readonly Stream _stream;
+            private readonly Crc32c _hasher = new();
 
-            public HashingStream(Stream inner) => _inner = inner;
+            public HashingStream(Stream stream) => _stream = stream;
 
             public override int Read(byte[] buffer, int offset, int count)
             {
-                int bytesRead = _inner.Read(buffer, offset, count);
+                int bytesRead = _stream.Read(buffer, offset, count);
                 if (bytesRead > 0)
                 {
                     _hasher.UpdateHash(buffer, offset, bytesRead);
@@ -172,15 +169,15 @@ namespace Google.Cloud.Storage.V1
             }
 
             public string GetBase64Hash() => Convert.ToBase64String(_hasher.GetHash());
-            public override bool CanRead => _inner.CanRead;
-            public override bool CanSeek => _inner.CanSeek;
-            public override bool CanWrite => _inner.CanWrite;
-            public override long Length => _inner.Length;
-            public override long Position { get => _inner.Position; set => _inner.Position = value; }
-            public override void Flush() => _inner.Flush();
-            public override long Seek(long offset, SeekOrigin origin) => _inner.Seek(offset, origin);
-            public override void SetLength(long value) => _inner.SetLength(value);
-            public override void Write(byte[] buffer, int offset, int count) => _inner.Write(buffer, offset, count);
+            public override bool CanRead => _stream.CanRead;
+            public override bool CanSeek => _stream.CanSeek;
+            public override bool CanWrite => _stream.CanWrite;
+            public override long Length => _stream.Length;
+            public override long Position { get => _stream.Position; set => _stream.Position = value; }
+            public override void Flush() => _stream.Flush();
+            public override long Seek(long offset, SeekOrigin origin) => _stream.Seek(offset, origin);
+            public override void SetLength(long value) => _stream.SetLength(value);
+            public override void Write(byte[] buffer, int offset, int count) => _stream.Write(buffer, offset, count);
         }
     }
 }
