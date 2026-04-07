@@ -36,13 +36,16 @@ namespace Google.Cloud.Storage.V1
 
         public CustomMediaUpload(IClientService service, Apis.Storage.v1.Data.Object body, string bucket,
             Stream stream, string contentType, UploadObjectOptions options)
-            : base(service, body, bucket, new HashingStream(stream), contentType)
+            : base(service, body, bucket, options?.UploadValidationMode != UploadValidationMode.None ? new HashingStream(stream) : stream, contentType)
         {
             _service = service;
             var validationMode = options?.UploadValidationMode ?? UploadObjectOptions.DefaultValidationMode;
-            _hashingStream = (HashingStream) ContentStream;
-            _interceptor = new Crc32cHashInterceptor(this, _hashingStream, _service, validationMode);
-            _service?.HttpClient?.MessageHandler?.AddExecuteInterceptor(_interceptor);
+            if (validationMode != UploadValidationMode.None)
+            {
+                _hashingStream = ContentStream as HashingStream;
+                _interceptor = new Crc32cHashInterceptor(this, _hashingStream, _service);
+                _service?.HttpClient?.MessageHandler?.AddExecuteInterceptor(_interceptor);
+            }
         }
 
         internal new ResumableUploadOptions Options => base.Options;
@@ -53,15 +56,13 @@ namespace Google.Cloud.Storage.V1
             private readonly IClientService _service;
             private readonly CustomMediaUpload _mediaUpload;
             private Uri _uploadUri;
-            private readonly UploadValidationMode _validationMode;
             private readonly HashingStream _hashingStream;
 
-            public Crc32cHashInterceptor(CustomMediaUpload mediaUpload, HashingStream hashingStream, IClientService service, UploadValidationMode validationMode)
+            public Crc32cHashInterceptor(CustomMediaUpload mediaUpload, HashingStream hashingStream, IClientService service)
             {
                 _hashingStream = hashingStream;
                 _service = service;
                 _mediaUpload = mediaUpload;
-                _validationMode = validationMode;
                 _mediaUpload.UploadSessionData += OnSessionData;
                 _mediaUpload.ProgressChanged += OnProgressChanged;
             }
@@ -79,11 +80,8 @@ namespace Google.Cloud.Storage.V1
 
                     if (IsFinalChunk(rangeHeader))
                     {
-                        if (_validationMode != UploadValidationMode.None)
-                        {
-                            var calculatedHash = _hashingStream.GetBase64Hash();
-                            request.Headers.TryAddWithoutValidation(GoogleHashHeader, $"crc32c={calculatedHash}");
-                        }                      
+                        var calculatedHash = _hashingStream.GetBase64Hash();
+                        request.Headers.TryAddWithoutValidation(GoogleHashHeader, $"crc32c={calculatedHash}");
                     }
                 }
                 return Task.CompletedTask;
@@ -161,6 +159,16 @@ namespace Google.Cloud.Storage.V1
             public override int Read(byte[] buffer, int offset, int count)
             {
                 int bytesRead = _stream.Read(buffer, offset, count);
+                if (bytesRead > 0)
+                {
+                    _hasher.UpdateHash(buffer, offset, bytesRead);
+                }
+                return bytesRead;
+            }
+
+            public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+            {
+                int bytesRead = await _stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
                 if (bytesRead > 0)
                 {
                     _hasher.UpdateHash(buffer, offset, bytesRead);
