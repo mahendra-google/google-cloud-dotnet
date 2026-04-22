@@ -69,7 +69,7 @@ namespace Google.Cloud.Storage.V1
 
             public Task InterceptAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                if (_uploadUri != null && !_uploadUri.Equals(request.RequestUri))
+                if (_uploadUri == null || !_uploadUri.Equals(request.RequestUri))
                 {
                     return Task.CompletedTask;
                 }
@@ -149,7 +149,7 @@ namespace Google.Cloud.Storage.V1
             }
         }
 
-        private sealed class HashingStream : Stream
+        internal sealed class HashingStream : Stream
         {
             private readonly Stream _stream;
             private Crc32c _hasher;
