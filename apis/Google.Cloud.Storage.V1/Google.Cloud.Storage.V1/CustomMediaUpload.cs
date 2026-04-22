@@ -149,7 +149,7 @@ namespace Google.Cloud.Storage.V1
             }
         }
 
-        internal sealed class HashingStream : Stream
+        private sealed class HashingStream : Stream
         {
             private readonly Stream _stream;
             private Crc32c _hasher;
