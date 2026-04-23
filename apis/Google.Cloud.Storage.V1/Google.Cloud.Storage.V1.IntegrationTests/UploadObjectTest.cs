@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -452,6 +453,52 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
                     request.Content.Headers.Add(header.Key, header.Value);
                 }
             }
+        }
+
+        [Fact]
+        public void HashingStream_ShouldHandleRetries_WhenRestartedFromBeginning()
+        {
+            var data = Encoding.UTF8.GetBytes("The quick brown fox jumps over the lazy dog");
+            var baseStream = new MemoryStream(data);
+            var hashingStream = new CustomMediaUpload.HashingStream(baseStream);
+            var buffer = new byte[data.Length];
+
+            hashingStream.Read(buffer, 0, 10);
+            var hashAfterPartial = hashingStream.GetBase64Hash();
+
+            // Simulate the Retry logic: Seek back to the beginning
+            hashingStream.Position = 0;
+
+            hashingStream.Read(buffer, 0, data.Length);
+            var finalHash = hashingStream.GetBase64Hash();
+
+            var expectedHasher = new Crc32c();
+            expectedHasher.UpdateHash(data, 0, data.Length);
+            var expectedHash = Convert.ToBase64String(expectedHasher.GetHash());
+            Assert.Equal(expectedHash, finalHash);
+        }
+
+        [Fact]
+        public void HashingStream_ShouldHandleRetries_WhenSeekingBackwardsToIntermediatePoint()
+        {
+            var data = Encoding.UTF8.GetBytes("The quick brown fox jumps over the lazy dog");
+            var baseStream = new MemoryStream(data);
+            var hashingStream = new CustomMediaUpload.HashingStream(baseStream);
+            var buffer = new byte[data.Length];
+
+            hashingStream.Read(buffer, 0, 10);
+            var hashAfterPartial = hashingStream.GetBase64Hash();
+
+            // Simulate the Retry logic: Seek back to the intermediate point.
+            hashingStream.Position = 5;
+
+            hashingStream.Read(buffer, 0, data.Length);
+            var finalHash = hashingStream.GetBase64Hash();
+
+            var expectedHasher = new Crc32c();
+            expectedHasher.UpdateHash(data, 0, data.Length);
+            var expectedHash = Convert.ToBase64String(expectedHasher.GetHash());
+            Assert.Equal(expectedHash, finalHash);
         }
 
         private Object GetExistingObject()

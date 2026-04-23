@@ -149,10 +149,11 @@ namespace Google.Cloud.Storage.V1
             }
         }
 
-        private sealed class HashingStream : Stream
+        internal sealed class HashingStream : Stream
         {
             private readonly Stream _stream;
-            private Crc32c _hasher;
+            private readonly Crc32c _hasher;
+            private long _maxPositionHashed = 0;
 
             public HashingStream(Stream stream)
             {
@@ -162,55 +163,44 @@ namespace Google.Cloud.Storage.V1
 
             public override int Read(byte[] buffer, int offset, int count)
             {
+                long startingPos = _stream.Position;
                 int bytesRead = _stream.Read(buffer, offset, count);
-                if (bytesRead > 0)
-                {
-                    _hasher.UpdateHash(buffer, offset, bytesRead);
-                }
+                ProcessBytes(buffer, offset, bytesRead, startingPos);
                 return bytesRead;
             }
 
             public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
             {
+                long startingPos = _stream.Position;
                 int bytesRead = await _stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
-                if (bytesRead > 0)
-                {
-                    _hasher.UpdateHash(buffer, offset, bytesRead);
-                }
+                ProcessBytes(buffer, offset, bytesRead, startingPos);
                 return bytesRead;
+            }
+
+            private void ProcessBytes(byte[] buffer, int offset, int bytesRead, long startingPos)
+            {
+                if (bytesRead <= 0) return;
+
+                // Only hash bytes that are beyond the furthest point we've already hashed.
+                // This handles the rewind and re-read scenario during retries.
+                if (startingPos + bytesRead > _maxPositionHashed)
+                {
+                    long newBytesStart = Math.Max(startingPos, _maxPositionHashed);
+                    int actuallyNewCount = (int) ((startingPos + bytesRead) - newBytesStart);
+                    int bufferOffset = offset + (int) (newBytesStart - startingPos);
+
+                    _hasher.UpdateHash(buffer, bufferOffset, actuallyNewCount);
+                    _maxPositionHashed = startingPos + bytesRead;
+                }
             }
 
             public override long Position
             {
                 get => _stream.Position;
-                set
-                {
-                    if (value < _stream.Position)
-                    {
-                        _hasher = new Crc32c();
-                    }
-                    _stream.Position = value;
-                }
+                set => _stream.Position = value;
             }
 
-            public override long Seek(long offset, SeekOrigin origin)
-            {
-                long target;
-                switch (origin)
-                {
-                    case SeekOrigin.Begin: target = offset; break;
-                    case SeekOrigin.Current: target = _stream.Position + offset; break;
-                    case SeekOrigin.End: target = _stream.Length + offset; break;
-                    default: target = _stream.Position; break;
-                }
-
-                if (target < _stream.Position)
-                {
-                    _hasher = new Crc32c();
-                }
-                return _stream.Seek(offset, origin);
-            }
-
+            public override long Seek(long offset, SeekOrigin origin) => _stream.Seek(offset, origin);
             public string GetBase64Hash() => Convert.ToBase64String(_hasher.GetHash());
             public override bool CanRead => _stream.CanRead;
             public override bool CanSeek => _stream.CanSeek;
