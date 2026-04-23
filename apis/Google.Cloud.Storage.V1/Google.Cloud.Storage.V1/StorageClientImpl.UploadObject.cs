@@ -195,7 +195,6 @@ namespace Google.Cloud.Storage.V1
                     {
                         additionalFailures = new AggregateException(e);
                     }
-                    throw new UploadValidationException(hash, result, additionalFailures);
                 }
                 return result;
             }
@@ -220,7 +219,6 @@ namespace Google.Cloud.Storage.V1
                     {
                         additionalFailures = new AggregateException(e);
                     }
-                    throw new UploadValidationException(hash, result, additionalFailures);
                 }
                 return result;
             }
