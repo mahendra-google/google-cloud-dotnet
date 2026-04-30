@@ -128,8 +128,8 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         [Fact]
         public void ListObjectsMatchingContextKeyValuePair()
         {
-            string contextKey = "A\u00F1\u03A9\U0001F680";
-            string contextValue = "Ab\u00F1\u03A9\U0001F680";
+            string contextKey = "A\u00F1\u03A9\U0001F683";
+            string contextValue = "Ab\u00F1\u03A9\U0001F683";
             var custom = new Dictionary<string, ObjectCustomContextPayload>
             {
                 { contextKey, new ObjectCustomContextPayload { Value = contextValue } }
@@ -137,7 +137,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             };
             var destination = new Object
             {
-                Bucket = _fixture.ReadBucket,
+                Bucket = _fixture.SingleVersionBucket,
                 Name = IdGenerator.FromGuid(),
                 Contexts = new Object.ContextsData { Custom = custom }
             };
@@ -146,7 +146,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             _fixture.Client.UploadObject(destination, source);
             string filter = $@"contexts.""{contextKey}""=""{contextValue}""";
             var options = new ListObjectsOptions { Filter = filter };
-            var objects = _fixture.Client.ListObjects(_fixture.ReadBucket, options: options).ToList();
+            var objects = _fixture.Client.ListObjects(_fixture.SingleVersionBucket, options: options).ToList();
             var obj = Assert.Single(objects);
             var fetchedContext = Assert.Single(obj.Contexts.Custom);
             Assert.Equal(contextKey, fetchedContext.Key);
