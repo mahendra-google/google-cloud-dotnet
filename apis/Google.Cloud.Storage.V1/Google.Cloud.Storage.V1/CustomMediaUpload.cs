@@ -28,13 +28,12 @@ namespace Google.Cloud.Storage.V1
     /// <summary>
     /// Upload subclass which allows us to modify headers, for customer-supplied encryption keys.
     /// </summary>
-    internal sealed class CustomMediaUpload : InsertMediaUpload, IDisposable
+    internal sealed class CustomMediaUpload : InsertMediaUpload
     {
-        private readonly Crc32cHashInterceptor _interceptor;
         private readonly IClientService _service;
         private readonly HashingStream _hashingStream;
-        private bool _disposed;
-
+        private const string GoogleHashHeader = "x-goog-hash";
+        private readonly CustomMediaUpload _mediaUpload;
         public CustomMediaUpload(IClientService service, Apis.Storage.v1.Data.Object body, string bucket,
             Stream stream, string contentType, UploadObjectOptions options)
             : base(service, body, bucket, options?.UploadValidationMode != UploadValidationMode.None ? new HashingStream(stream) : stream, contentType)
@@ -44,127 +43,18 @@ namespace Google.Cloud.Storage.V1
             if (validationMode != UploadValidationMode.None)
             {
                 _hashingStream = ContentStream as HashingStream;
-                _interceptor = new Crc32cHashInterceptor(this, _hashingStream, _service);
-                _service?.HttpClient?.MessageHandler?.AddExecuteInterceptor(_interceptor);
+                var calculatedHash = _hashingStream.GetBase64Hash();
+                _mediaUpload.LastRequestExecuting += (HttpRequestMessage request) =>
+                {
+                    if (!request.Headers.Contains("x-goog-hash"))
+                    {
+                        request.Headers.Add("x-goog-hash", $"crc32c={myCrc32cHashBase64}");
+                    }
+                };
             }
         }
 
         internal new ResumableUploadOptions Options => base.Options;
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                _service?.HttpClient?.MessageHandler?.RemoveExecuteInterceptor(_interceptor);
-                _interceptor?.Dispose();
-                _disposed = true;
-            }
-        }
-
-        private sealed class Crc32cHashInterceptor : IHttpExecuteInterceptor, IDisposable
-        {
-            private const string GoogleHashHeader = "x-goog-hash";
-            private readonly IClientService _service;
-            private readonly CustomMediaUpload _mediaUpload;
-            private Uri _uploadUri;
-            private readonly HashingStream _hashingStream;
-
-            public Crc32cHashInterceptor(CustomMediaUpload mediaUpload, HashingStream hashingStream, IClientService service)
-            {
-                _hashingStream = hashingStream;
-                _service = service;
-                _mediaUpload = mediaUpload;
-                _mediaUpload.UploadSessionData += OnSessionData;
-                _mediaUpload.ProgressChanged += OnProgressChanged;
-            }
-
-            public Task InterceptAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                if (_uploadUri == null || (!ReferenceEquals(_uploadUri, request.RequestUri) && !_uploadUri.Equals(request.RequestUri)))
-                {
-                    return Task.CompletedTask;
-                }
-
-                if (request.Method == System.Net.Http.HttpMethod.Put && request.Content?.Headers.Contains("Content-Range") is true)
-                {
-                    var rangeHeader = request.Content.Headers.GetValues("Content-Range").First();
-
-                    if (IsFinalChunk(rangeHeader))
-                    {
-                        var calculatedHash = _hashingStream.GetBase64Hash();
-                        request.Headers.TryAddWithoutValidation(GoogleHashHeader, $"crc32c={calculatedHash}");
-                    }
-                }
-                return Task.CompletedTask;
-            }
-
-            private void OnSessionData(IUploadSessionData data)
-            {
-                _uploadUri = data.UploadUri;
-                _mediaUpload.UploadSessionData -= OnSessionData;
-            }
-
-            private void OnProgressChanged(IUploadProgress progress)
-            {
-                if (progress.Status is UploadStatus.Completed or UploadStatus.Failed)
-                {
-                    // Clean up when upload is finished.
-                    _service?.HttpClient?.MessageHandler?.RemoveExecuteInterceptor(this);
-                    _mediaUpload.ProgressChanged -= OnProgressChanged;
-                }
-            }
-
-            public void Dispose()
-            {
-                _mediaUpload.UploadSessionData -= OnSessionData;
-                _mediaUpload.ProgressChanged -= OnProgressChanged;
-            }
-        }
-
-        private static bool IsFinalChunk(string rangeHeader)
-        {
-            // Expected format: "bytes {start}-{end}/{total}" or "bytes */{total}" for the final request.
-            // We are interested in the final chunk of a known-size upload.
-            const string prefix = "bytes ";
-            if (!rangeHeader.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            ReadOnlySpan<char> span = rangeHeader.AsSpan(prefix.Length);
-            int slashIndex = span.IndexOf('/');
-            if (slashIndex == -1)
-            {
-                return false;
-            }
-
-            var totalSpan = span.Slice(slashIndex + 1);
-            if (totalSpan.IsEmpty || totalSpan[0] == '*')
-            {
-                return false;
-            }
-
-            if (!long.TryParse(totalSpan.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out long totalSize))
-            {
-                return false;
-            }
-
-            var rangeSpan = span.Slice(0, slashIndex);
-            int dashIndex = rangeSpan.IndexOf('-');
-            if (dashIndex == -1)
-            {
-                return false;
-            }
-
-            var endByteSpan = rangeSpan.Slice(dashIndex + 1);
-            if (!long.TryParse(endByteSpan.ToString(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out long endByte))
-            {
-                return false;
-            }
-
-            // If endByte is the last byte of the file, it's the final chunk.
-            return (endByte + 1) == totalSize;
-        }
 
         internal sealed class HashingStream : Stream
         {
