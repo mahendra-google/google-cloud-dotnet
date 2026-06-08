@@ -30,7 +30,6 @@ namespace Google.Cloud.Storage.V1
     /// </summary>
     internal sealed class CustomMediaUpload : InsertMediaUpload
     {
-        private readonly IClientService _service;
         private readonly HashingStream _hashingStream;
         private const string GoogleHashHeader = "x-goog-hash";
         private readonly CustomMediaUpload _mediaUpload;
@@ -38,23 +37,26 @@ namespace Google.Cloud.Storage.V1
             Stream stream, string contentType, UploadObjectOptions options)
             : base(service, body, bucket, options?.UploadValidationMode != UploadValidationMode.None ? new HashingStream(stream) : stream, contentType)
         {
-            _service = service;
             var validationMode = options?.UploadValidationMode ?? UploadObjectOptions.DefaultValidationMode;
             if (validationMode != UploadValidationMode.None)
             {
                 _hashingStream = ContentStream as HashingStream;
                 var calculatedHash = _hashingStream.GetBase64Hash();
-                _mediaUpload.LastRequestExecuting += (HttpRequestMessage request) =>
-                {
-                    if (!request.Headers.Contains("x-goog-hash"))
-                    {
-                        request.Headers.Add("x-goog-hash", $"crc32c={myCrc32cHashBase64}");
-                    }
-                };
+                this.LastRequestExecuting += OnLastRequestExecuting;
+
             }
         }
 
         internal new ResumableUploadOptions Options => base.Options;
+
+        private void OnLastRequestExecuting(HttpRequestMessage request)
+        {
+            var calculatedHash = _hashingStream.GetBase64Hash();
+            if (!request.Headers.Contains("x-goog-hash"))
+            {
+                request.Headers.Add(GoogleHashHeader, $"crc32c={calculatedHash}");
+            }
+        }
 
         internal sealed class HashingStream : Stream
         {
