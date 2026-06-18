@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,11 +13,13 @@
 // limitations under the License.
 
 using Google.Apis.Services;
+using Google.Apis.Upload;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using static Google.Apis.Storage.v1.ObjectsResource;
-using Google.Apis.Upload;
 
 namespace Google.Cloud.Storage.V1
 {
@@ -26,12 +28,91 @@ namespace Google.Cloud.Storage.V1
     /// </summary>
     internal sealed class CustomMediaUpload : InsertMediaUpload
     {
+        private readonly HashingStream _hashingStream;
+        private const string GoogleHashHeader = "x-goog-hash";
+
         public CustomMediaUpload(IClientService service, Apis.Storage.v1.Data.Object body, string bucket,
-            Stream stream, string contentType)
-            : base(service, body, bucket, stream, contentType)
+            Stream stream, string contentType, UploadObjectOptions options)
+            : base(service, body, bucket, options?.UploadValidationMode != UploadValidationMode.None ? new HashingStream(stream) : stream, contentType)
         {
+            var validationMode = options?.UploadValidationMode ?? UploadObjectOptions.DefaultValidationMode;
+            if (validationMode != UploadValidationMode.None)
+            {
+                _hashingStream = ContentStream as HashingStream;
+                var calculatedHash = _hashingStream.GetBase64Hash();
+                LastRequestExecuting += (HttpRequestMessage request) =>
+                {
+                    var calculatedHash = _hashingStream.GetBase64Hash();
+                    if (!request.Headers.Contains(GoogleHashHeader))
+                    {
+                        request.Headers.Add(GoogleHashHeader, $"crc32c={calculatedHash}");
+                    }
+                };
+            }
         }
 
         internal new ResumableUploadOptions Options => base.Options;
+
+        internal sealed class HashingStream : Stream
+        {
+            private readonly Stream _stream;
+            private readonly Crc32c _hasher;
+            private long _maxPositionHashed = 0;
+
+            public HashingStream(Stream stream)
+            {
+                _stream = stream;
+                _hasher = new Crc32c();
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                long startingPos = _stream.Position;
+                int bytesRead = _stream.Read(buffer, offset, count);
+                ProcessBytes(buffer, offset, bytesRead, startingPos);
+                return bytesRead;
+            }
+
+            public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+            {
+                long startingPos = _stream.Position;
+                int bytesRead = await _stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+                ProcessBytes(buffer, offset, bytesRead, startingPos);
+                return bytesRead;
+            }
+
+            private void ProcessBytes(byte[] buffer, int offset, int bytesRead, long startingPos)
+            {
+                if (bytesRead <= 0) return;
+
+                // Only hash bytes that are beyond the furthest point we've already hashed.
+                // This handles the rewind and re-read scenario during retries.
+                if (startingPos + bytesRead > _maxPositionHashed)
+                {
+                    long newBytesStart = Math.Max(startingPos, _maxPositionHashed);
+                    int actuallyNewCount = (int) ((startingPos + bytesRead) - newBytesStart);
+                    int bufferOffset = offset + (int) (newBytesStart - startingPos);
+
+                    _hasher.UpdateHash(buffer, bufferOffset, actuallyNewCount);
+                    _maxPositionHashed = startingPos + bytesRead;
+                }
+            }
+
+            public override long Position
+            {
+                get => _stream.Position;
+                set => _stream.Position = value;
+            }
+
+            public override long Seek(long offset, SeekOrigin origin) => _stream.Seek(offset, origin);
+            public string GetBase64Hash() => Convert.ToBase64String(_hasher.GetHash());
+            public override bool CanRead => _stream.CanRead;
+            public override bool CanSeek => _stream.CanSeek;
+            public override bool CanWrite => _stream.CanWrite;
+            public override long Length => _stream.Length;
+            public override void Flush() => _stream.Flush();
+            public override void SetLength(long value) => _stream.SetLength(value);
+            public override void Write(byte[] buffer, int offset, int count) => _stream.Write(buffer, offset, count);
+        }
     }
 }
