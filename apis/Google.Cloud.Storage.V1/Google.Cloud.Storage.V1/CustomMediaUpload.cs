@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Google.Apis.Http;
 using Google.Apis.Services;
 using Google.Apis.Upload;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +30,7 @@ namespace Google.Cloud.Storage.V1
     {
         private readonly HashingStream _hashingStream;
         private const string GoogleHashHeader = "x-goog-hash";
-        private readonly CustomMediaUpload _mediaUpload;
+
         public CustomMediaUpload(IClientService service, Apis.Storage.v1.Data.Object body, string bucket,
             Stream stream, string contentType, UploadObjectOptions options)
             : base(service, body, bucket, options?.UploadValidationMode != UploadValidationMode.None ? new HashingStream(stream) : stream, contentType)
@@ -42,21 +40,18 @@ namespace Google.Cloud.Storage.V1
             {
                 _hashingStream = ContentStream as HashingStream;
                 var calculatedHash = _hashingStream.GetBase64Hash();
-                this.LastRequestExecuting += OnLastRequestExecuting;
-
+                LastRequestExecuting += (HttpRequestMessage request) =>
+                {
+                    var calculatedHash = _hashingStream.GetBase64Hash();
+                    if (!request.Headers.Contains(GoogleHashHeader))
+                    {
+                        request.Headers.Add(GoogleHashHeader, $"crc32c={calculatedHash}");
+                    }
+                };
             }
         }
 
         internal new ResumableUploadOptions Options => base.Options;
-
-        private void OnLastRequestExecuting(HttpRequestMessage request)
-        {
-            var calculatedHash = _hashingStream.GetBase64Hash();
-            if (!request.Headers.Contains("x-goog-hash"))
-            {
-                request.Headers.Add(GoogleHashHeader, $"crc32c={calculatedHash}");
-            }
-        }
 
         internal sealed class HashingStream : Stream
         {
