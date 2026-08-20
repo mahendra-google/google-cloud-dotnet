@@ -199,5 +199,24 @@ namespace Google.Cloud.Storage.V1
             UploadObjectOptions options = null,
             CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
+
+        /// <summary>
+        /// Uploads a discrete chunk to an active resumable upload session.
+        /// </summary>
+        public virtual Task<IUploadProgress> UploadChunkAsync(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            CancellationToken cancellationToken = default) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Queries the upload for the current committed byte offset of an active upload session.
+        /// </summary>
+        public virtual Task<long> QueryUploadStatusAsync(
+            Uri uploadUri,
+            CancellationToken cancellationToken = default) =>
+            throw new NotImplementedException();
     }
 }

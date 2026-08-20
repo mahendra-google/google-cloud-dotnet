@@ -136,6 +136,50 @@ namespace Google.Cloud.Storage.V1
             return InitiateUploadSessionAsync(obj, contentLength, options, cancellationToken);
         }
 
+        /// <inheritdoc />
+        public override async Task<IUploadProgress> UploadChunkAsync(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, chunkStream, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+
+            return await uploader.UploadChunkAsync(
+                chunkStream,
+                isFinalChunk,
+                totalKnownSize,
+                cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public override async Task<long> QueryUploadStatusAsync(
+            Uri uploadUri,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            return await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// Helper class to provide common context between sync and async operations. Helps avoid quite so much duplicate code...
         /// </summary>
