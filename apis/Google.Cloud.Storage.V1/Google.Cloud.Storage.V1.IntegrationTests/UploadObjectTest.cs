@@ -460,6 +460,88 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(UploadStatus.Failed, progress.Status);
         }
 
+        [Fact]
+        public async Task ManualChunkUpload_MultiChunk_Success()
+        {
+            var client = _fixture.Client;
+            var bucket = _fixture.SingleVersionBucket;
+            var name = IdGenerator.FromGuid();
+
+            int chunk1Size = 256 * 1024; // 256 KiB
+            int chunk2Size = 512 * 1024; // 512 KiB
+            int chunk3Size = 100;        // Final chunk (arbitrary size)
+            int totalSize = chunk1Size + chunk2Size + chunk3Size;
+
+            var fullData = GenerateData(totalSize);
+            byte[] fullBytes = fullData.ToArray();
+
+            var chunk1Stream = new MemoryStream(fullBytes, 0, chunk1Size, writable: false);
+            var chunk2Stream = new MemoryStream(fullBytes, chunk1Size, chunk2Size, writable: false);
+            var chunk3Stream = new MemoryStream(fullBytes, chunk1Size + chunk2Size, chunk3Size, writable: false);
+
+            var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
+
+            // Chunk 1
+            var progress1 = await client.UploadChunkAsync(uploadUri, chunk1Stream, isFinalChunk: false);
+            Assert.Equal(UploadStatus.Uploading, progress1.Status);
+            Assert.Equal(chunk1Size, progress1.BytesSent);
+
+            // Query status
+            var status1 = await client.QueryUploadStatusAsync(uploadUri);
+            Assert.Equal(chunk1Size, status1);
+
+            // Chunk 2 (using explicit rangeStart to avoid extra status query)
+            var progress2 = await client.UploadChunkAsync(uploadUri, chunk2Stream, isFinalChunk: false, rangeStart: chunk1Size);
+            Assert.Equal(UploadStatus.Uploading, progress2.Status);
+            Assert.Equal(chunk1Size + chunk2Size, progress2.BytesSent);
+
+            // Chunk 3 (Final)
+            var progress3 = await client.UploadChunkAsync(uploadUri, chunk3Stream, isFinalChunk: true, rangeStart: chunk1Size + chunk2Size);
+            Assert.Equal(UploadStatus.Completed, progress3.Status);
+            Assert.Equal(totalSize, progress3.BytesSent);
+
+            ValidateData(bucket, name, fullData);
+        }
+
+        [Fact]
+        public async Task ManualChunkUpload_FinalizeUploadAsync_Success()
+        {
+            var client = _fixture.Client;
+            var bucket = _fixture.SingleVersionBucket;
+            var name = IdGenerator.FromGuid();
+
+            int chunk1Size = 256 * 1024; // 256 KiB
+            var chunk1Data = GenerateData(chunk1Size);
+
+            var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
+
+            // Upload 256 KiB as intermediate chunk
+            var progress1 = await client.UploadChunkAsync(uploadUri, chunk1Data, isFinalChunk: false);
+            Assert.Equal(UploadStatus.Uploading, progress1.Status);
+            Assert.Equal(chunk1Size, progress1.BytesSent);
+
+            // Finalize upload with zero-byte finalization
+            var progressFinal = await client.FinalizeUploadAsync(uploadUri, totalSize: chunk1Size);
+            Assert.Equal(UploadStatus.Completed, progressFinal.Status);
+            Assert.Equal(chunk1Size, progressFinal.BytesSent);
+
+            ValidateData(bucket, name, chunk1Data);
+        }
+
+        [Fact]
+        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Throws()
+        {
+            var client = _fixture.Client;
+            var bucket = _fixture.SingleVersionBucket;
+            var name = IdGenerator.FromGuid();
+            var stream = GenerateData(100); // 100 bytes is not a multiple of 256 KiB
+
+            var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
+
+            await Assert.ThrowsAsync<ArgumentException>(() =>
+                client.UploadChunkAsync(uploadUri, stream, isFinalChunk: false));
+        }
+
         private class BreakUploadInterceptor : IHttpExecuteInterceptor
         {
             internal byte[] UploadedBytes { get; set; }

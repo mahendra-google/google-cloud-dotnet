@@ -142,10 +142,13 @@ namespace Google.Cloud.Storage.V1
             Stream chunkStream,
             bool isFinalChunk,
             long? totalKnownSize = null,
+            long? rangeStart = null,
             CancellationToken cancellationToken = default)
         {
             GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
             GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
+            GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
+            GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
 
             var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, chunkStream, new ResumableUploadOptions
             {
@@ -154,13 +157,36 @@ namespace Google.Cloud.Storage.V1
                 Serializer = Service.Serializer
             });
 
-            await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+            if (rangeStart == null)
+            {
+                await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+            }
 
             return await uploader.UploadChunkAsync(
                 chunkStream,
                 isFinalChunk,
                 totalKnownSize,
+                rangeStart,
                 cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public override async Task<IUploadProgress> FinalizeUploadAsync(
+            Uri uploadUri,
+            long totalSize,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            return await uploader.FinalizeUploadAsync(totalSize, cancellationToken).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

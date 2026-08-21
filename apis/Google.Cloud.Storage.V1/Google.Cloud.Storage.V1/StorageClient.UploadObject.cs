@@ -201,19 +201,50 @@ namespace Google.Cloud.Storage.V1
             throw new NotImplementedException();
 
         /// <summary>
-        /// Uploads a discrete chunk to an active resumable upload session.
+        /// Uploads a discrete chunk of data to an active resumable upload session.
         /// </summary>
+        /// <remarks>
+        /// Non-final chunks (<paramref name="isFinalChunk"/> is <c>false</c>) must have a byte length that is an 
+        /// exact multiple of 256 KiB (262,144 bytes). The final chunk may be of arbitrary length.
+        /// When <paramref name="rangeStart"/> is not specified, the current committed byte offset is queried from 
+        /// the server first before sending the chunk.
+        /// </remarks>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <param name="chunkStream">The stream containing data for this chunk. Must not be null.</param>
+        /// <param name="isFinalChunk"><c>true</c> if this chunk concludes the upload; <c>false</c> if more chunks follow.</param>
+        /// <param name="totalKnownSize">The total size of the object if known upfront, or <c>null</c> if unknown.</param>
+        /// <param name="rangeStart">The starting byte offset for this chunk. If <c>null</c>, the current status is queried from the server.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A task representing the asynchronous operation, returning the <see cref="IUploadProgress"/> of the chunk upload.</returns>
         public virtual Task<IUploadProgress> UploadChunkAsync(
             Uri uploadUri,
             Stream chunkStream,
             bool isFinalChunk,
             long? totalKnownSize = null,
+            long? rangeStart = null,
+            CancellationToken cancellationToken = default) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Finalizes an active resumable upload session where all data bytes have already been uploaded
+        /// in intermediate chunks.
+        /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <param name="totalSize">The total size of the uploaded object in bytes. Must be non-negative.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A task representing the asynchronous operation, returning the <see cref="IUploadProgress"/> of the finalized upload.</returns>
+        public virtual Task<IUploadProgress> FinalizeUploadAsync(
+            Uri uploadUri,
+            long totalSize,
             CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
         /// <summary>
         /// Queries the upload for the current committed byte offset of an active upload session.
         /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A task representing the asynchronous operation, returning the number of bytes committed to the server so far.</returns>
         public virtual Task<long> QueryUploadStatusAsync(
             Uri uploadUri,
             CancellationToken cancellationToken = default) =>
