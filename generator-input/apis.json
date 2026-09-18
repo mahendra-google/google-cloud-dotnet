@@ -2,7 +2,7 @@
   "apis": [
     {
       "id": "Google.Ads.AdManager.V1",
-      "version": "1.0.0-beta11",
+      "version": "1.0.0-beta12",
       "type": "grpc",
       "productName": "Google Ad Manager",
       "productUrl": "https://developers.google.com/ad-manager/api/beta",
@@ -422,7 +422,7 @@
     },
     {
       "id": "Google.Cloud.ApiGateway.V1",
-      "version": "2.5.0",
+      "version": "2.6.0",
       "type": "grpc",
       "productName": "API Gateway",
       "productUrl": "https://cloud.google.com/api-gateway/docs",
@@ -2458,7 +2458,7 @@
     },
     {
       "id": "Google.Cloud.DeviceStreaming.V1",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "grpc",
       "productName": "Device Streaming",
       "productUrl": "https://cloud.google.com/device-streaming/docs",
@@ -4803,7 +4803,7 @@
     },
     {
       "id": "Google.Cloud.ParameterManager.V1",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "grpc",
       "productName": "Parameter Manager",
       "productUrl": "https://cloud.google.com/secret-manager/parameter-manager/docs/overview",
@@ -5959,12 +5959,12 @@
       "id": "Google.Cloud.Storage.V1",
       "productName": "Google Cloud Storage",
       "productUrl": "https://cloud.google.com/storage/",
-      "version": "4.15.0",
+      "version": "4.16.0",
       "type": "rest",
       "description": "Recommended Google client library to access the Google Cloud Storage API. It wraps the Google.Apis.Storage.v1 client library, making common operations simpler in client code. Google Cloud Storage stores and retrieves potentially large, immutable data objects.",
       "dependencies": {
         "Google.Api.Gax.Rest": "default",
-        "Google.Apis.Storage.v1": "1.74.0.4115"
+        "Google.Apis.Storage.v1": "1.76.0.4250"
       },
       "testDependencies": {
         "Google.Api.Gax.Testing": "default",
@@ -7540,7 +7540,7 @@
     },
     {
       "id": "Google.Shopping.Merchant.LoyaltyCustomers.V1",
-      "version": "1.0.0-beta00",
+      "version": "1.0.0-beta01",
       "type": "grpc",
       "productName": "Merchant",
       "productUrl": "https://developers.google.com/merchant/api",
