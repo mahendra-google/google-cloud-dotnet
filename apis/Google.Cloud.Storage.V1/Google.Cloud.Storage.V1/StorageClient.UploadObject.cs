@@ -213,7 +213,17 @@ namespace Google.Cloud.Storage.V1
         /// <param name="chunkStream">The stream containing data for this chunk. Must not be null.</param>
         /// <param name="isFinalChunk"><c>true</c> if this chunk concludes the upload; <c>false</c> if more chunks follow.</param>
         /// <param name="totalKnownSize">The total size of the object if known upfront, or <c>null</c> if unknown.</param>
-        /// <param name="rangeStart">The starting byte offset for this chunk. If <c>null</c>, the current status is queried from the server.</param>
+        /// <param name="rangeStart">
+        /// The starting byte offset for this chunk.
+        /// <para>
+        /// Passing an explicit offset avoids an extra <c>QueryUploadStatusAsync</c> call:
+        /// <list type="bullet">
+        /// <item><description>Pass <c>0</c> for the initial chunk.</description></item>
+        /// <item><description>Pass the current offset if it is already tracked by the caller.</description></item>
+        /// </list>
+        /// If <c>null</c>, the method queries the upload status to retrieve the current offset.
+        /// </para>
+        /// </param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A task representing the asynchronous operation, returning the <see cref="IUploadProgress"/> of the chunk upload.</returns>
         public virtual Task<IUploadProgress> UploadChunkAsync(
