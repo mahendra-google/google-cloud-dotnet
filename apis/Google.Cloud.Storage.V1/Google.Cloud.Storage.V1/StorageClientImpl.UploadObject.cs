@@ -137,6 +137,38 @@ namespace Google.Cloud.Storage.V1
         }
 
         /// <inheritdoc />
+        public override IUploadProgress UploadChunk(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            long? rangeStart = null)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
+            GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
+            GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, chunkStream, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            if (rangeStart == null)
+            {
+                 uploader.QueryUploadStatus();
+            }
+
+            return uploader.UploadChunk(
+                chunkStream,
+                isFinalChunk,
+                totalKnownSize,
+                rangeStart);
+        }
+
+        /// <inheritdoc />
         public override async Task<IUploadProgress> UploadChunkAsync(
             Uri uploadUri,
             Stream chunkStream,
@@ -171,6 +203,24 @@ namespace Google.Cloud.Storage.V1
         }
 
         /// <inheritdoc />
+        public override IUploadProgress FinalizeUpload(
+            Uri uploadUri,
+            long totalSize)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            return uploader.FinalizeUpload(totalSize);
+        }
+
+        /// <inheritdoc />
         public override async Task<IUploadProgress> FinalizeUploadAsync(
             Uri uploadUri,
             long totalSize,
@@ -187,6 +237,22 @@ namespace Google.Cloud.Storage.V1
             });
 
             return await uploader.FinalizeUploadAsync(totalSize, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public override long QueryUploadStatus(
+            Uri uploadUri)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+
+            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
+            return  uploader.QueryUploadStatus();
         }
 
         /// <inheritdoc />

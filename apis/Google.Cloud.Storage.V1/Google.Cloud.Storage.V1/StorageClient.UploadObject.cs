@@ -216,6 +216,39 @@ namespace Google.Cloud.Storage.V1
         /// <param name="rangeStart">
         /// The starting byte offset for this chunk.
         /// <para>
+        /// Passing an explicit offset avoids an extra <c>QueryUploadStatus</c> call:
+        /// <list type="bullet">
+        /// <item><description>Pass <c>0</c> for the initial chunk.</description></item>
+        /// <item><description>Pass the current offset if it is already tracked by the caller.</description></item>
+        /// </list>
+        /// If <c>null</c>, the method queries the upload status to retrieve the current offset.
+        /// </para>
+        /// </param>
+        /// <returns>The <see cref="IUploadProgress"/> of the chunk upload.</returns>
+        public virtual IUploadProgress UploadChunk(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            long? rangeStart = null) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Uploads a discrete chunk of data to an active resumable upload session.
+        /// </summary>
+        /// <remarks>
+        /// Non-final chunks (<paramref name="isFinalChunk"/> is <c>false</c>) must have a byte length that is an 
+        /// exact multiple of 256 KiB (262,144 bytes). The final chunk may be of arbitrary length.
+        /// When <paramref name="rangeStart"/> is not specified, the current committed byte offset is queried from 
+        /// the server first before sending the chunk.
+        /// </remarks>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <param name="chunkStream">The stream containing data for this chunk. Must not be null.</param>
+        /// <param name="isFinalChunk"><c>true</c> if this chunk concludes the upload; <c>false</c> if more chunks follow.</param>
+        /// <param name="totalKnownSize">The total size of the object if known upfront, or <c>null</c> if unknown.</param>
+        /// <param name="rangeStart">
+        /// The starting byte offset for this chunk.
+        /// <para>
         /// Passing an explicit offset avoids an extra <c>QueryUploadStatusAsync</c> call:
         /// <list type="bullet">
         /// <item><description>Pass <c>0</c> for the initial chunk.</description></item>
@@ -241,12 +274,33 @@ namespace Google.Cloud.Storage.V1
         /// </summary>
         /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
         /// <param name="totalSize">The total size of the uploaded object in bytes. Must be non-negative.</param>
+        /// <returns>The <see cref="IUploadProgress"/> of the finalized upload.</returns>
+        public virtual IUploadProgress FinalizeUpload(
+            Uri uploadUri,
+            long totalSize) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Finalizes an active resumable upload session where all data bytes have already been uploaded
+        /// in intermediate chunks.
+        /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <param name="totalSize">The total size of the uploaded object in bytes. Must be non-negative.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A task representing the asynchronous operation, returning the <see cref="IUploadProgress"/> of the finalized upload.</returns>
         public virtual Task<IUploadProgress> FinalizeUploadAsync(
             Uri uploadUri,
             long totalSize,
             CancellationToken cancellationToken = default) =>
+            throw new NotImplementedException();
+
+        /// <summary>
+        /// Queries the upload for the current committed byte offset of an active upload session.
+        /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
+        /// <returns>The number of bytes committed to the server so far.</returns>
+        public virtual long QueryUploadStatus(
+            Uri uploadUri) =>
             throw new NotImplementedException();
 
         /// <summary>
