@@ -482,7 +482,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
 
             // Chunk 1
-            var progress1 = client.UploadChunk(uploadUri, chunk1Stream, isFinalChunk: false);
+            var progress1 = client.UploadChunk(uploadUri, chunk1Stream, isFinalChunk: false, rangeStart: 0);
             Assert.Equal(UploadStatus.Uploading, progress1.Status);
             Assert.Equal(chunk1Size, progress1.BytesSent);
 
@@ -525,7 +525,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
 
             // Chunk 1
-            var progress1 = await client.UploadChunkAsync(uploadUri, chunk1Stream, isFinalChunk: false);
+            var progress1 = await client.UploadChunkAsync(uploadUri, chunk1Stream, isFinalChunk: false, rangeStart: 0);
             Assert.Equal(UploadStatus.Uploading, progress1.Status);
             Assert.Equal(chunk1Size, progress1.BytesSent);
 
@@ -606,12 +606,14 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
 
             var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
 
-            Assert.Throws<ArgumentException>(() =>
-            client.UploadChunk(uploadUri, stream, isFinalChunk: false));
+            var progress = client.UploadChunk(uploadUri, stream, isFinalChunk: false);
+
+            Assert.Equal(UploadStatus.Failed, progress.Status);
+            Assert.IsType<ArgumentException>(progress.Exception);
         }
 
         [Fact]
-        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Throws()
+        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Async_Throws()
         {
             var client = _fixture.Client;
             var bucket = _fixture.SingleVersionBucket;
@@ -620,8 +622,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
 
             var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
 
-            await Assert.ThrowsAsync<ArgumentException>(() =>
-                client.UploadChunkAsync(uploadUri, stream, isFinalChunk: false));
+            var progress = await client.UploadChunkAsync(uploadUri, stream, isFinalChunk: false);
+
+            Assert.Equal(UploadStatus.Failed, progress.Status);
+            Assert.IsType<ArgumentException>(progress.Exception);
         }
 
         private class BreakUploadInterceptor : IHttpExecuteInterceptor
