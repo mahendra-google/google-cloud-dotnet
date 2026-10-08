@@ -395,15 +395,15 @@ namespace Google.Cloud.Storage.V1.Snippets
                 Console.WriteLine($"Chunk 1 uploaded. Bytes sent: {progress.BytesSent}, Status: {progress.Status}");
             }
 
-            // 3. Query current committed byte offset on GCS
-            long committedOffset = await client.QueryUploadStatusAsync(uploadUri);
-            Console.WriteLine($"Committed bytes on server: {committedOffset}");
+            // 3. Query current upload status and committed byte offset on the server
+            var status = await client.QueryUploadStatusAsync(uploadUri);
+            Console.WriteLine($"Committed bytes on server: {status.BytesSent}");
 
             // 4. Upload final chunk (can be any byte size)
             byte[] finalChunkData = new byte[100];
             using (var chunkStream = new MemoryStream(finalChunkData))
             {
-                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: true, rangeStart: committedOffset);
+                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: true, rangeStart: status.BytesSent);
                 Console.WriteLine($"Final chunk uploaded. Bytes sent: {progress.BytesSent}, Status: {progress.Status}");
             }
             // End sample
