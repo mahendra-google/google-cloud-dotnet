@@ -486,9 +486,9 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(UploadStatus.Uploading, progress1.Status);
             Assert.Equal(chunk1Size, progress1.BytesSent);
 
-            // Query status
+            // Query upload status and committed byte offset on the server
             var status1 = client.QueryUploadStatus(uploadUri);
-            Assert.Equal(chunk1Size, status1);
+            Assert.Equal(chunk1Size, status1.BytesSent);
 
             // Chunk 2 (using explicit rangeStart to avoid extra status query)
             var progress2 = client.UploadChunk(uploadUri, chunk2Stream, isFinalChunk: false, rangeStart: chunk1Size);
@@ -529,12 +529,13 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(UploadStatus.Uploading, progress1.Status);
             Assert.Equal(chunk1Size, progress1.BytesSent);
 
-            // Query status
+            // Query upload status and committed byte offset on the server (in-progress)
             var status1 = await client.QueryUploadStatusAsync(uploadUri);
-            Assert.Equal(chunk1Size, status1);
+            Assert.Equal(UploadStatus.Uploading, status1.Status);
+            Assert.Equal(chunk1Size, status1.BytesSent);
 
-            // Chunk 2 (using explicit rangeStart to avoid extra status query)
-            var progress2 = await client.UploadChunkAsync(uploadUri, chunk2Stream, isFinalChunk: false, rangeStart: chunk1Size);
+            // Chunk 2 (using explicit rangeStart from status1.BytesSent to avoid extra status query)
+            var progress2 = await client.UploadChunkAsync(uploadUri, chunk2Stream, isFinalChunk: false, rangeStart: status1.BytesSent);
             Assert.Equal(UploadStatus.Uploading, progress2.Status);
             Assert.Equal(chunk1Size + chunk2Size, progress2.BytesSent);
 
@@ -542,6 +543,10 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var progress3 = await client.UploadChunkAsync(uploadUri, chunk3Stream, isFinalChunk: true, rangeStart: chunk1Size + chunk2Size);
             Assert.Equal(UploadStatus.Completed, progress3.Status);
             Assert.Equal(totalSize, progress3.BytesSent);
+
+            // Query status after completion
+            var finalStatus = await client.QueryUploadStatusAsync(uploadUri);
+            Assert.Equal(UploadStatus.Completed, finalStatus.Status);
 
             ValidateData(bucket, name, fullData);
         }

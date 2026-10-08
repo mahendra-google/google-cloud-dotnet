@@ -158,7 +158,11 @@ namespace Google.Cloud.Storage.V1
 
             if (rangeStart == null)
             {
-                 uploader.QueryUploadStatus();
+                var statusProgress = uploader.QueryUploadStatus();
+                if (statusProgress.Status != UploadStatus.Uploading)
+                {
+                    return statusProgress;
+                }
             }
 
             return uploader.UploadChunk(
@@ -191,7 +195,11 @@ namespace Google.Cloud.Storage.V1
 
             if (rangeStart == null)
             {
-                await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+                var statusProgress = await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+                if (statusProgress.Status != UploadStatus.Uploading)
+                {
+                    return statusProgress;
+                }
             }
 
             return await uploader.UploadChunkAsync(
@@ -240,7 +248,7 @@ namespace Google.Cloud.Storage.V1
         }
 
         /// <inheritdoc />
-        public override long QueryUploadStatus(
+        public override IUploadProgress QueryUploadStatus(
             Uri uploadUri)
         {
             GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
@@ -256,7 +264,7 @@ namespace Google.Cloud.Storage.V1
         }
 
         /// <inheritdoc />
-        public override async Task<long> QueryUploadStatusAsync(
+        public override async Task<IUploadProgress> QueryUploadStatusAsync(
             Uri uploadUri,
             CancellationToken cancellationToken = default)
         {

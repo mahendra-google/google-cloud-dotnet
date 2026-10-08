@@ -299,7 +299,7 @@ namespace Google.Cloud.Storage.V1
         /// </summary>
         /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
         /// <returns>The number of bytes committed to the server so far.</returns>
-        public virtual long QueryUploadStatus(
+        public virtual IUploadProgress QueryUploadStatus(
             Uri uploadUri) =>
             throw new NotImplementedException();
 
@@ -309,7 +309,7 @@ namespace Google.Cloud.Storage.V1
         /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A task representing the asynchronous operation, returning the number of bytes committed to the server so far.</returns>
-        public virtual Task<long> QueryUploadStatusAsync(
+        public virtual Task<IUploadProgress> QueryUploadStatusAsync(
             Uri uploadUri,
             CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
