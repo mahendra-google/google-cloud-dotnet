@@ -374,6 +374,42 @@ namespace Google.Cloud.Storage.V1.Snippets
         }
 
         [Fact]
+        public async Task ManualChunkUpload()
+        {
+            var bucketName = _fixture.BucketName;
+
+            // Sample: ManualChunkUpload
+            var client = StorageClient.Create();
+            var destination = "places/chunked_data.bin";
+            var contentType = "application/octet-stream";
+
+            // 1. Initiate the upload session
+            var uploadUri = await client.InitiateUploadSessionAsync(bucketName, destination, contentType, contentLength: null);
+
+            // 2. Upload discrete 256 KiB intermediate chunks
+            int chunkSize = 256 * 1024; // Multiples of 256 KiB required for intermediate chunks
+            byte[] chunk1Data = new byte[chunkSize];
+            using (var chunkStream = new MemoryStream(chunk1Data))
+            {
+                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: false, rangeStart: 0);
+                Console.WriteLine($"Chunk 1 uploaded. Bytes sent: {progress.BytesSent}, Status: {progress.Status}");
+            }
+
+            // 3. Query current upload status and committed byte offset on the server
+            var status = await client.QueryUploadStatusAsync(uploadUri);
+            Console.WriteLine($"Committed bytes on server: {status.BytesSent}");
+
+            // 4. Upload final chunk (can be any byte size)
+            byte[] finalChunkData = new byte[100];
+            using (var chunkStream = new MemoryStream(finalChunkData))
+            {
+                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: true, rangeStart: status.BytesSent);
+                Console.WriteLine($"Final chunk uploaded. Bytes sent: {progress.BytesSent}, Status: {progress.Status}");
+            }
+            // End sample
+        }
+
+        [Fact]
         public void GetObject()
         {
             var bucketName = _fixture.BucketName;

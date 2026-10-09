@@ -136,6 +136,125 @@ namespace Google.Cloud.Storage.V1
             return InitiateUploadSessionAsync(obj, contentLength, options, cancellationToken);
         }
 
+        /// <inheritdoc />
+        public override IUploadProgress UploadChunk(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            long? rangeStart = null)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
+            GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
+            GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
+            var uploader = CreateResumableUploader(uploadUri, chunkStream);
+
+            if (rangeStart == null)
+            {
+                var statusProgress = uploader.QueryUploadStatus();
+                if (statusProgress.Status != UploadStatus.Uploading)
+                {
+                    return statusProgress;
+                }
+            }
+
+            return uploader.UploadChunk(
+                chunkStream,
+                isFinalChunk,
+                totalKnownSize,
+                rangeStart);
+        }
+
+        /// <inheritdoc />
+        public override async Task<IUploadProgress> UploadChunkAsync(
+            Uri uploadUri,
+            Stream chunkStream,
+            bool isFinalChunk,
+            long? totalKnownSize = null,
+            long? rangeStart = null,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
+            GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
+            GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
+            var uploader = CreateResumableUploader(uploadUri, chunkStream);
+
+            if (rangeStart == null)
+            {
+                var statusProgress = await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+                if (statusProgress.Status != UploadStatus.Uploading)
+                {
+                    return statusProgress;
+                }
+            }
+
+            return await uploader.UploadChunkAsync(
+                chunkStream,
+                isFinalChunk,
+                totalKnownSize,
+                rangeStart,
+                cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public override IUploadProgress FinalizeUpload(
+            Uri uploadUri,
+            long totalSize)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return uploader.FinalizeUpload(totalSize);
+        }
+
+        /// <inheritdoc />
+        public override async Task<IUploadProgress> FinalizeUploadAsync(
+            Uri uploadUri,
+            long totalSize,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return await uploader.FinalizeUploadAsync(totalSize, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public override IUploadProgress QueryUploadStatus(
+            Uri uploadUri)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return uploader.QueryUploadStatus();
+        }
+
+        /// <inheritdoc />
+        public override async Task<IUploadProgress> QueryUploadStatusAsync(
+            Uri uploadUri,
+            CancellationToken cancellationToken = default)
+        {
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ResumableUpload"/> instance for an existing upload session URI,
+        /// configured with this client's HTTP client, service name, and serializer.
+        /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI.</param>
+        /// <param name="stream">The stream containing data to upload, or <see cref="Stream.Null"/> for status/finalization requests.</param>
+        /// <returns>A configured <see cref="ResumableUpload"/> instance.</returns>
+        private ResumableUpload CreateResumableUploader(Uri uploadUri, Stream stream) =>
+            ResumableUpload.CreateFromUploadUri(uploadUri, stream, new ResumableUploadOptions
+            {
+                HttpClient = Service.HttpClient,
+                ServiceName = Service.Name,
+                Serializer = Service.Serializer
+            });
+
         /// <summary>
         /// Helper class to provide common context between sync and async operations. Helps avoid quite so much duplicate code...
         /// </summary>
