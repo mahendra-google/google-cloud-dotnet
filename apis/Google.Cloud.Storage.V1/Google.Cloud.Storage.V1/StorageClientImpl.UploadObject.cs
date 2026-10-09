@@ -225,9 +225,9 @@ namespace Google.Cloud.Storage.V1
         public override IUploadProgress QueryUploadStatus(
             Uri uploadUri)
         {
-           GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
-           var uploader = CreateResumableUploader(uploadUri, Stream.Null);
-           return uploader.QueryUploadStatus();
+            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return uploader.QueryUploadStatus();
         }
 
         /// <inheritdoc />
