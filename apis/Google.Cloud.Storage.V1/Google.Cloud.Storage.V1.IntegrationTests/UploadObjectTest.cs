@@ -496,7 +496,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             Assert.Equal(chunk1Size + chunk2Size, progress2.BytesSent);
 
             // Chunk 3 (Final)
-            var progress3 =  client.UploadChunk(uploadUri, chunk3Stream, isFinalChunk: true, rangeStart: chunk1Size + chunk2Size);
+            var progress3 = client.UploadChunk(uploadUri, chunk3Stream, isFinalChunk: true, rangeStart: chunk1Size + chunk2Size);
             Assert.Equal(UploadStatus.Completed, progress3.Status);
             Assert.Equal(totalSize, progress3.BytesSent);
 
@@ -589,7 +589,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
             var uploadUri = await client.InitiateUploadSessionAsync(bucket, name, "application/octet-stream", contentLength: null);
 
             // Upload 256 KiB as intermediate chunk
-            var progress1 =  client.UploadChunk(uploadUri, chunk1Data, isFinalChunk: false, rangeStart: 0);
+            var progress1 = client.UploadChunk(uploadUri, chunk1Data, isFinalChunk: false, rangeStart: 0);
             Assert.Equal(UploadStatus.Uploading, progress1.Status);
             Assert.Equal(chunk1Size, progress1.BytesSent);
 
@@ -602,7 +602,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
-        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Sync_Throws()
+        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Sync_Fails()
         {
             var client = _fixture.Client;
             var bucket = _fixture.SingleVersionBucket;
@@ -618,7 +618,7 @@ namespace Google.Cloud.Storage.V1.IntegrationTests
         }
 
         [Fact]
-        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Async_Throws()
+        public async Task ManualChunkUpload_InvalidIntermediateChunkSize_Async_Fails()
         {
             var client = _fixture.Client;
             var bucket = _fixture.SingleVersionBucket;

@@ -148,13 +148,7 @@ namespace Google.Cloud.Storage.V1
             GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
             GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
             GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
-
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, chunkStream, new ResumableUploadOptions
-            {
-                HttpClient = Service.HttpClient,
-                ServiceName = Service.Name,
-                Serializer = Service.Serializer
-            });
+            var uploader = CreateResumableUploader(uploadUri, chunkStream);
 
             if (rangeStart == null)
             {
@@ -185,13 +179,7 @@ namespace Google.Cloud.Storage.V1
             GaxPreconditions.CheckNotNull(chunkStream, nameof(chunkStream));
             GaxPreconditions.CheckNonNegative(totalKnownSize, nameof(totalKnownSize));
             GaxPreconditions.CheckNonNegative(rangeStart, nameof(rangeStart));
-
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, chunkStream, new ResumableUploadOptions
-            {
-                HttpClient = Service.HttpClient,
-                ServiceName = Service.Name,
-                Serializer = Service.Serializer
-            });
+            var uploader = CreateResumableUploader(uploadUri, chunkStream);
 
             if (rangeStart == null)
             {
@@ -217,14 +205,7 @@ namespace Google.Cloud.Storage.V1
         {
             GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
             GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
-
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
-            {
-                HttpClient = Service.HttpClient,
-                ServiceName = Service.Name,
-                Serializer = Service.Serializer
-            });
-
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
             return uploader.FinalizeUpload(totalSize);
         }
 
@@ -236,14 +217,7 @@ namespace Google.Cloud.Storage.V1
         {
             GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
             GaxPreconditions.CheckNonNegative(totalSize, nameof(totalSize));
-
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
-            {
-                HttpClient = Service.HttpClient,
-                ServiceName = Service.Name,
-                Serializer = Service.Serializer
-            });
-
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
             return await uploader.FinalizeUploadAsync(totalSize, cancellationToken).ConfigureAwait(false);
         }
 
@@ -251,16 +225,9 @@ namespace Google.Cloud.Storage.V1
         public override IUploadProgress QueryUploadStatus(
             Uri uploadUri)
         {
-            GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
-
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
-            {
-                HttpClient = Service.HttpClient,
-                ServiceName = Service.Name,
-                Serializer = Service.Serializer
-            });
-
-            return  uploader.QueryUploadStatus();
+           GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+           var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+           return uploader.QueryUploadStatus();
         }
 
         /// <inheritdoc />
@@ -269,16 +236,24 @@ namespace Google.Cloud.Storage.V1
             CancellationToken cancellationToken = default)
         {
             GaxPreconditions.CheckNotNull(uploadUri, nameof(uploadUri));
+            var uploader = CreateResumableUploader(uploadUri, Stream.Null);
+            return await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
+        }
 
-            var uploader = ResumableUpload.CreateFromUploadUri(uploadUri, Stream.Null, new ResumableUploadOptions
+        /// <summary>
+        /// Creates a <see cref="ResumableUpload"/> instance for an existing upload session URI,
+        /// configured with this client's HTTP client, service name, and serializer.
+        /// </summary>
+        /// <param name="uploadUri">The resumable upload session URI.</param>
+        /// <param name="stream">The stream containing data to upload, or <see cref="Stream.Null"/> for status/finalization requests.</param>
+        /// <returns>A configured <see cref="ResumableUpload"/> instance.</returns>
+        private ResumableUpload CreateResumableUploader(Uri uploadUri, Stream stream) =>
+            ResumableUpload.CreateFromUploadUri(uploadUri, stream, new ResumableUploadOptions
             {
                 HttpClient = Service.HttpClient,
                 ServiceName = Service.Name,
                 Serializer = Service.Serializer
             });
-
-            return await uploader.QueryUploadStatusAsync(cancellationToken).ConfigureAwait(false);
-        }
 
         /// <summary>
         /// Helper class to provide common context between sync and async operations. Helps avoid quite so much duplicate code...

@@ -295,20 +295,39 @@ namespace Google.Cloud.Storage.V1
             throw new NotImplementedException();
 
         /// <summary>
-        /// Queries the upload for the current committed byte offset of an active upload session.
+        /// Queries the current upload status and committed byte offset of an active resumable upload session.
         /// </summary>
+        /// <remarks>
+        /// The returned <see cref="IUploadProgress"/> indicates the state of the upload session:
+        /// <list type="bullet">
+        /// <item><description><see cref="UploadStatus.Uploading"/> if the session is still in progress, with <see cref="IUploadProgress.BytesSent"/> set to the number of bytes committed to the server so far.</description></item>
+        /// <item><description><see cref="UploadStatus.Completed"/> if the upload session has already been finalized on the server.</description></item>
+        /// <item><description><see cref="UploadStatus.Failed"/> if an error occurred while querying the session, with <see cref="IUploadProgress.Exception"/> containing the cause of the failure.</description></item>
+        /// </list>
+        /// </remarks>
         /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
-        /// <returns>The number of bytes committed to the server so far.</returns>
+        /// <returns>The <see cref="IUploadProgress"/> representing the current state of the upload session.</returns>
         public virtual IUploadProgress QueryUploadStatus(
             Uri uploadUri) =>
             throw new NotImplementedException();
 
         /// <summary>
-        /// Queries the upload for the current committed byte offset of an active upload session.
+        /// Queries the current upload status and committed byte offset of an active resumable upload session asynchronously.
         /// </summary>
+        /// <remarks>
+        /// The returned <see cref="IUploadProgress"/> indicates the state of the upload session:
+        /// <list type="bullet">
+        /// <item><description><see cref="UploadStatus.Uploading"/> if the session is still in progress, with <see cref="IUploadProgress.BytesSent"/> set to the number of bytes committed to the server so far.</description></item>
+        /// <item><description><see cref="UploadStatus.Completed"/> if the upload session has already been finalized on the server.</description></item>
+        /// <item><description><see cref="UploadStatus.Failed"/> if an error occurred while querying the session, with <see cref="IUploadProgress.Exception"/> containing the cause of the failure.</description></item>
+        /// </list>
+        /// </remarks>
         /// <param name="uploadUri">The resumable upload session URI. Must not be null.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>A task representing the asynchronous operation, returning the number of bytes committed to the server so far.</returns>
+        /// <returns>
+        /// A task representing the asynchronous operation, returning the <see cref="IUploadProgress"/>
+        /// representing the current state of the upload session.
+        /// </returns>
         public virtual Task<IUploadProgress> QueryUploadStatusAsync(
             Uri uploadUri,
             CancellationToken cancellationToken = default) =>

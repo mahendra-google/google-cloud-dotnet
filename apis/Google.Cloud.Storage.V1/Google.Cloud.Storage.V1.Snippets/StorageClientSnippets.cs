@@ -391,7 +391,7 @@ namespace Google.Cloud.Storage.V1.Snippets
             byte[] chunk1Data = new byte[chunkSize];
             using (var chunkStream = new MemoryStream(chunk1Data))
             {
-                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: false);
+                var progress = await client.UploadChunkAsync(uploadUri, chunkStream, isFinalChunk: false, rangeStart: 0);
                 Console.WriteLine($"Chunk 1 uploaded. Bytes sent: {progress.BytesSent}, Status: {progress.Status}");
             }
 
